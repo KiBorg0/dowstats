@@ -84,7 +84,7 @@ function getRace($num){
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/player.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
+        <script type="text/javascript" src="js/scrollup.js"></script>
 
 
 
@@ -161,7 +161,7 @@ function getRace($num){
 
                         echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
                         $timehelpint = $row['time'] / 60;
-    					$timehours = floor($timehelpint / 60);
+    					$timehours = intval($timehelpint / 60);
                     	echo 'игровое время: ' . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['time'] % 60 . ' сек.<br>';
                     	//---------любимая раса -----------------
                     	$favRace = 0;
@@ -736,6 +736,7 @@ function getRace($num){
 
                     ?>
                 </div>
+                <div id="scrollup"><img alt="Прокрутить вверх" src="images/arrows7.png"><br/>Вверх</div>
     		</div> <!-- /.col-md-12 col-sm-12 -->
     	</div> 
     </div> 
