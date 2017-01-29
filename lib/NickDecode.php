@@ -14,8 +14,20 @@ class NickDecode{
 	}
 
 
+	function StrToHex($string){
+	    $hex='';
+    for ($i=0; $i < strlen($string); $i++){
+        $hex .= dechex(ord($string[$i]));
+    }
+    return $hex;
+	}
+
 	function decodeNick($name){
 		return NickDecode::hexToStr($name);
+	}
+
+	function codeNick($name){
+		return NickDecode::StrToHex($name);
 	}
 
 }

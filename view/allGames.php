@@ -8,37 +8,7 @@ setlocale(LC_TIME, "ru_RU.utf8");
 date_default_timezone_set('Europe/Moscow');
 
 require_once("../lib/NickDecode.php");
-function getRace($num){
-    switch($num){
-        case 1:
-            return "Космодесант";
-            break;
-        case 2:
-            return "Хаос";
-            break;
-        case 3:
-            return "Орки";
-            break;
-        case 4:
-            return "Эльдары";
-            break;
-        case 5:
-            return "Имперская гвардия";
-            break;
-        case 6:
-            return "Некроны";
-            break;
-        case 7:
-            return "Империя Тау";
-            break;
-        case 8:
-            return "Сёстры битвы";
-            break;
-        case 9:
-            return "Темные эльдары";
-            break;
-    }
-}
+require_once("../lib/RaceSwitcher.php");
 
 
 /*
@@ -55,14 +25,33 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 $searchname = NickDecode::codeNick($_GET["playername"]);
-echo "ищем игрока: " . $searchname;
-$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC limit 10");
+$raceOption = RaceSwitcher::getRaceNum($_GET["selected_race"]);
+$selected_type = explode(";",$_GET["type_checkboxes"]);//массив[0,1,2,3], в котором true/false; 0-1x1 1-2x2 2-3x3 3-4x4
+$game_page_limit = 10;
+$where_condition = "";
+for($i = 1; $i <= 8; $i++){
+	$where_condition .= "(";
+	$where_condition .= "p".$i." LIKE '%" . $searchname . "%' ";//поиск по имени игрока
+	if($raceOption != 0) $where_condition .= " and r".$i." =" . $raceOption;//поиск по расе игрока
+	if($selected_type[0] == "false") $where_condition .= " and (type = 2 or type = 3 or type = 4)";
+	if($selected_type[1] == "false") $where_condition .= " and (type = 1 or type = 3 or type = 4)";
+	if($selected_type[2] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 4)";
+	if($selected_type[3] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 3)";
+	$where_condition .= ")";
+	if($i != 8) $where_condition .= "or ";
+}
+
+//$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC limit $game_page_limit");
+
+$mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit $game_page_limit");
+
 $res = $mysqli->use_result();
+
 
 
 while ($row = $res->fetch_assoc()) {
 	$timehelpint = $row['gTime'] / 60;
-	$timehours = intval($timehelpint / 60);
+	$timehours = round($timehelpint / 60);
 	echo "<b>" . $row['cTime'] . "</b><br>";
 	echo "Время игры: " . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['gTime'] % 60 . " сек. ";
 	if($row['map'][1] == "P"){
@@ -95,7 +84,7 @@ while ($row = $res->fetch_assoc()) {
 		echo "<TR>";
 			$href = ($player_apm != 0) ? "<a href = 'http://dowstats.h1n.ru/player.php?name=". $player_name_coded ."'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
 		    echo "<td>". $href . "</td>";
-		    echo "<td>" . getRace($player_race_coded) . "</td>";
+		    echo "<td>" . RaceSwitcher::getRace($player_race_coded) . "</td>";
 		    $apm = ($player_apm == 0) ? "нет данных" :  $player_apm;
 		    echo "<td>" . $apm . "</td>";
 		    $is_victory = false;
@@ -110,11 +99,17 @@ while ($row = $res->fetch_assoc()) {
 			}
 	    echo "</TR>";
 	}
+
+	
 	?>
 	</table>
 	<hr style="border-bottom: 1px solid #555;"/>
 
 <?php
 }
+
+if($res->num_rows == 0){
+		echo "не найдено игр с такими параметрами";
+	}
 ?>
 									

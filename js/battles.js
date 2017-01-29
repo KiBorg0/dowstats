@@ -1,12 +1,7 @@
 $(document).ready(function() {
-search_player_battles();
-});
-
-
-$("#search_player_battles").click(function(){
-	alert(1);
 	search_player_battles();
 });
+
 
 function player_name_input_keypress_battles(e){
 	if(e.keyCode == 13){
@@ -36,13 +31,19 @@ function player_name_input_keypress_battles(e){
 }
 
 function search_player_battles(){
+	$('#fight_result').html("идет поиск...");
 	var player = $("#player_name_input").val();
 	var request_type_info = $("#request_type_info").html();
+	//формируем строку, в которой указываем какие чекбоксы типа игры были выбраны
+	var checkboxes = $("#1x1_checkbox").prop("checked") + ";" + $("#2x2_checkbox").prop("checked") + ";" + $("#3x3_checkbox").prop("checked") + ";" + $("#4x4_checkbox").prop("checked");
+	var selected_race = $("#race_option").val();
+
 	$.ajax({
 		type:'get',
 		url:'view/allGames.php',
 		data:{'playername': player,
-		'request_type': request_type_info},//request_type пока не используется!
+		'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
+		'selected_race': selected_race},
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
 			//$("#fight_result").html("");
