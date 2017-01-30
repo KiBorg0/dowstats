@@ -5,7 +5,7 @@ setlocale(LC_TIME, "ru_RU.utf8");
 date_default_timezone_set('Europe/Moscow');
 require_once("lib/steam.php");
 require_once("lib/NickDecode.php");
-
+require_once("lib/RaceSwitcher.php");
 /*
 
 Directory Listing Script - Version 2
@@ -24,37 +24,6 @@ if ($mysqli->connect_error) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
-function getRace($num){
-	switch($num){
-		case 1:
-			return "Космодесант";
-			break;
-		case 2:
-			return "Хаос";
-			break;
-		case 3:
-			return "Орки";
-			break;
-		case 4:
-			return "Эльдары";
-			break;
-		case 5:
-			return "Имперская гвардия";
-			break;
-		case 6:
-			return "Некроны";
-			break;
-		case 7:
-			return "Империя Тау";
-			break;
-		case 8:
-			return "Сёстры битвы";
-			break;
-		case 9:
-			return "Темные эльдары";
-			break;
-	}
-}
 ?>
 
 
@@ -78,15 +47,38 @@ function getRace($num){
         http://www.templatemo.com/preview/templatemo_410_circle 
         -->
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+<!--         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/player.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/scrollup.js"></script> -->
+
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" href="css/battles.css"/>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css"/>
+
+        <script type="text/javascript">
+            var userName = '<?php echo $name;?>';
+        </script>
+
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/player.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/battlesPlayer.js"></script>
         <script type="text/javascript" src="js/scrollup.js"></script>
 
-
+        <script type="text/javascript">
+            $(document).ready(function () {
+            $('#battles').addClass('active');
+        });
+        </script>
 
     </head>
 
@@ -202,7 +194,7 @@ function getRace($num){
 							$favRace = 9;
 							$countWinRace = $row['1x1_9'] +  $row['2x2_9'] +  $row['3x3_9'] + $row['4x4_9'];
 						}
-						echo "Любимая раса: " . getRace($favRace) . "</br>";
+						echo "Любимая раса: " . RaceSwitcher::getRace($favRace) . "</br>";
 
 
 						$favRace = 0;
@@ -243,7 +235,7 @@ function getRace($num){
 							$favRace = 9;
 							$countWinRace = $row['1x1_9'];
 						}
-						echo "Любимая раса 1x1: " . getRace($favRace) . "<br/>" ;
+						echo "Любимая раса 1x1: " . RaceSwitcher::getRace($favRace) . "<br/>" ;
                         echo 'апм: ' . $row['apm'] . "</h5>";
 
                         echo '<TABLE   class="table table-striped table-hover text-center">
@@ -341,8 +333,6 @@ function getRace($num){
                 </div>
 
                 <div class="toggle-content text-center tabs" id="tab2">
-                   
-
                     <?
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i> Поделиться статистикой в ВК</a>';
                     echo '<h3>статистика 1x1 - ' . NickDecode::decodeNick($name) . '</h3>';
@@ -371,7 +361,6 @@ function getRace($num){
                         echo "<h1>Игрок не найден в базе</h1>";
                         echo "<img src = 'images/notFound.png'>";
                     }
-                    
                     $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");        
                     $res = $mysqli->use_result();
                     while ($row = $res->fetch_assoc()) {
@@ -381,92 +370,25 @@ function getRace($num){
                             </tr>
                             </thead>
                             ';
-                            $perc = 0;
-                            if($row['1x1_1'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_1w']/$row['1x1_1'] );
-                                echo "<td>космодесант</td><td>". $row['1x1_1']  .  "</td><td>" . $row['1x1_1w']  . "</td><td>" . ($row['1x1_1'] - $row['1x1_1w']) . "</td> <td>" .$perc.  '%</td>';
-                            	echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['1x1_2'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_2w']/$row['1x1_2'] );
-                                echo "<td>хаос</td><td>". $row['1x1_2']  .  "</td><td>" . $row['1x1_2w']  . "</td><td>" . ($row['1x1_2'] - $row['1x1_2w']) . "</td> <td>" .$perc.  '%</td>';
-                            	echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['1x1_3'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_3w']/$row['1x1_3'] );
-                                echo "<td>орки</td><td>". $row['1x1_3']  .  "</td><td>" . $row['1x1_3w']  . "</td><td>" . ($row['1x1_3'] - $row['1x1_3w']) . "</td> <td>" .$perc.  '%</td>';
-                            	echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['1x1_4'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_4w']/$row['1x1_4'] );
-                                echo "<td>эльдары</td><td>". $row['1x1_4']  .  "</td><td>" . $row['1x1_4w']  . "</td><td>" . ($row['1x1_4'] - $row['1x1_4w']) . "</td> <td>" .$perc.  '%</td>';
+                            for($i=1; $i<=9; $i++)
+                            {
+                                $perc = 0;
+                                if($row['1x1_'.$i] != 0){
+                                echo "<tr>";
+                                $perc = round (100* $row['1x1_'.$i.'w']/$row['1x1_'.$i] );
+                                echo "<td>".RaceSwitcher::getRace($i)."</td><td>". $row['1x1_'.$i]  .  "</td><td>" . $row['1x1_'.$i.'w']  . "</td><td>" . ($row['1x1_'.$i] - $row['1x1_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
                                 echo "</tr>";
+                                }
                             }
-                                
-                            $perc = 0;
-                            if($row['1x1_5'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_5w']/$row['1x1_5'] );
-                                echo "<td>имперская гвардия</td><td>". $row['1x1_5']  .  "</td><td>" . $row['1x1_5w']  . "</td><td>" . ($row['1x1_5'] - $row['1x1_5w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                                
-                            $perc = 0;
-                            if($row['1x1_6'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_6w']/$row['1x1_6'] );
-                                echo "<td>некроны</td><td>". $row['1x1_6']  .  "</td><td>" . $row['1x1_6w']  . "</td><td>" . ($row['1x1_6'] - $row['1x1_6w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                                
-                            $perc = 0;
-                            if($row['1x1_7'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_7w']/$row['1x1_7'] );
-                                echo "<td>империя тау</td><td>". $row['1x1_7']  .  "</td><td>" . $row['1x1_7w']  . "</td><td>" . ($row['1x1_7'] - $row['1x1_7w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                                
-                            $perc = 0;
-                            if($row['1x1_8'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* $row['1x1_8w']/$row['1x1_8'] );
-                                echo "<td>сёстры битвы</td><td>". $row['1x1_8']  .  "</td><td>" . $row['1x1_8w']  . "</td><td>" . ($row['1x1_8'] - $row['1x1_8w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                                
-                            $perc = 0;
-                            if($row['1x1_9'] != 0){
-                           		echo "<tr>";
-                                $perc = round (100* $row['1x1_9w']/$row['1x1_9'] );
-                                 echo "<td>тёмные эльдары</td><td>". $row['1x1_9']  .  "</td><td>" . $row['1x1_9w']  . "</td><td>" . ($row['1x1_9'] - $row['1x1_9w']) . "</td> <td>" .$perc.  '%</td>';
-                            	echo "</tr>";
-                            }
-                           
-                             echo "<tr>";
+                            echo "<tr>";
                             echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
                             echo "</tr>";
                             echo "</TABLE>";
                             }
-                            
-                        
-
                     ?>
                 </div>
 
                 <div class="toggle-content text-center tabs" id="tab3">
-
-
                     <?
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i> Поделиться статистикой в ВК</a>';
                     echo '<h3>статистика 2x2 - ' . NickDecode::decodeNick($name) . '</h3>';
@@ -503,93 +425,21 @@ function getRace($num){
                             </tr>
                             </thead>
                             ';
-                            
-                            $perc = 0;
-                            if($row['2x2_1'] != 0){
+                            for($i=1; $i<=9; $i++)
+                            {
+                                $perc = 0;
+                                if($row['2x2_'.$i] != 0){
                                 echo "<tr>";
-                                $perc = round (100* $row['2x2_1w']/$row['2x2_1'] );
-                                echo "<td>космодесант</td><td>". $row['2x2_1']  .  "</td><td>" . $row['2x2_1w']  . "</td><td>" . ($row['2x2_1'] - $row['2x2_1w']) . "</td> <td>" .$perc.  '%</td>';
+                                $perc = round (100* $row['2x2_'.$i.'w']/$row['2x2_'.$i] );
+                                echo "<td>".RaceSwitcher::getRace($i)."</td><td>". $row['2x2_'.$i]  .  "</td><td>" . $row['2x2_'.$i.'w']  . "</td><td>" . ($row['2x2_'.$i] - $row['2x2_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
                                 echo "</tr>";
-                                
+                                }
                             }
-                            
-                            $perc = 0;
-                            if($row['2x2_2'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_2w']/$row['2x2_2'] );
-                                echo "<td>хаос</td><td>". $row['2x2_2']  .  "</td><td>" . $row['2x2_2w']  . "</td><td>" . ($row['2x2_2'] - $row['2x2_2w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['2x2_3'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_3w']/$row['2x2_3'] );
-                                echo "<td>орки</td><td>". $row['2x2_3']  .  "</td><td>" . $row['2x2_3w']  . "</td><td>" . ($row['2x2_3'] - $row['2x2_3w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['2x2_4'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_4w']/$row['2x2_4'] );
-                                echo "<td>эльдары</td><td>". $row['2x2_4']  .  "</td><td>" . $row['2x2_4w']  . "</td><td>" . ($row['2x2_4'] - $row['2x2_4w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['2x2_5'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_5w']/$row['2x2_5'] );
-                                echo "<td>имперская гвардия</td><td>". $row['2x2_5']  .  "</td><td>" . $row['2x2_5w']  . "</td><td>" . ($row['2x2_5'] - $row['2x2_5w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                           
-                            
-                            $perc = 0;
-                            if($row['2x2_6'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_6w']/$row['2x2_6'] );
-                                echo "<td>некроны</td><td>". $row['2x2_6']  .  "</td><td>" . $row['2x2_6w']  . "</td><td>" . ($row['2x2_6'] - $row['2x2_6w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['2x2_7'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_7w']/$row['2x2_7'] );
-                                echo "<td>империя тау</td><td>". $row['2x2_7']  .  "</td><td>" . $row['2x2_7w']  . "</td><td>" . ($row['2x2_7'] - $row['2x2_7w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['2x2_8'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_8w']/$row['2x2_8'] );
-                                echo "<td>сёстры битвы</td><td>". $row['2x2_8']  .  "</td><td>" . $row['2x2_8w']  . "</td><td>" . ($row['2x2_8'] - $row['2x2_8w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['2x2_9'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['2x2_9w']/$row['2x2_9'] );
-                                echo "<td>тёмные эльдары</td><td>". $row['2x2_9']  .  "</td><td>" . $row['2x2_9w']  . "</td><td>" . ($row['2x2_9'] - $row['2x2_9w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                             echo "<tr>";
+                            echo "<tr>";
                             echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
                             echo "</tr>";
                             echo "</TABLE>";
                             }
-                            
-                        
-
                     ?>
                 </div>
 
@@ -633,108 +483,49 @@ function getRace($num){
                             </tr>
                             </thead>
                             ';
-                            
-                            $perc = 0;
-                            if($row['3x3_1'] != 0 or $row['4x4_1'] != 0){
+                            for($i=1; $i<=9; $i++)
+                            {
+                                $perc = 0;
+                                if($row['3x3_'.$i] != 0 or $row['4x4_'.$i] != 0){
                                 echo "<tr>";
-                                $perc = round (100* ($row['3x3_1w'] + $row['4x4_1w'])/( $row['3x3_1']+ $row['4x4_1']) );
-                                echo "<td>космодесант</td><td>". ($row['3x3_1'] + $row['4x4_1'])  .  "</td><td>" . ($row['3x3_1w'] + $row['4x4_1w'] ) . "</td><td>" . ($row['3x3_1'] - $row['3x3_1w'] + $row['4x4_1'] - $row['4x4_1w']) . "</td> <td>" .$perc.  '%</td>';
+                                $perc = round (100* ($row['3x3_'.$i.'w'] + $row['4x4_'.$i.'w'])/( $row['3x3_'.$i]+ $row['4x4_'.$i]) );
+                                echo "<td>".RaceSwitcher::getRace($i)."</td><td>". ($row['3x3_'.$i] + $row['4x4_'.$i])  .  "</td><td>" . ($row['3x3_'.$i.'w'] + $row['4x4_'.$i.'w'] ) . "</td><td>" . ($row['3x3_'.$i] - $row['3x3_'.$i.'w'] + $row['4x4_'.$i] - $row['4x4_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
                                 echo "</tr>";
+                                }
                             }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_2'] != 0 or $row['4x4_2'] != 0 ){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_2w'] + $row['4x4_2w'])/($row['3x3_2']+$row['4x4_2']) );
-                                echo "<td>хаос</td><td>". ($row['3x3_2'] + $row['4x4_2'])  .  "</td><td>" . ($row['3x3_2w'] + $row['4x4_2w'] ) . "</td><td>" . ($row['3x3_2'] - $row['3x3_2w'] + $row['4x4_2'] - $row['4x4_2w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_3'] != 0 or $row['4x4_3'] != 0){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_3w'] + $row['4x4_3w'])/($row['3x3_3']+$row['4x4_3']) );
-                                echo "<td>орки</td><td>". ($row['3x3_3'] + $row['4x4_3'])  .  "</td><td>" . ($row['3x3_3w'] + $row['4x4_3w'] ) . "</td><td>" . ($row['3x3_3'] - $row['3x3_3w'] + $row['4x4_3'] - $row['4x4_3w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_4'] != 0 or $row['4x4_4'] != 0){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_4w'] + $row['4x4_4w'])/($row['3x3_4']+$row['4x4_4']) );
-                                echo "<td>эльдары</td><td>". ($row['3x3_4'] + $row['4x4_4'])  .  "</td><td>" . ($row['3x3_4w'] + $row['4x4_4w'] ) . "</td><td>" . ($row['3x3_4'] - $row['3x3_4w'] + $row['4x4_4'] - $row['4x4_4w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_5'] != 0 or $row['4x4_5'] != 0){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_5w'] + $row['4x4_5w'])/($row['3x3_5']+$row['4x4_5']) );
-                                echo "<td>имперская гвардия</td><td>". ($row['3x3_5'] + $row['4x4_5'])  .  "</td><td>" . ($row['3x3_5w'] + $row['4x4_5w'] ) . "</td><td>" . ($row['3x3_5'] - $row['3x3_5w'] + $row['4x4_5'] - $row['4x4_5w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_6'] != 0 or $row['4x4_6'] != 0){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_6w'] + $row['4x4_6w'])/($row['3x3_6']+$row['4x4_6']) );
-                                echo "<td>некроны</td><td>". ($row['3x3_6'] + $row['4x4_6'])  .  "</td><td>" . ($row['3x3_6w'] + $row['4x4_6w'] ) . "</td><td>" . ($row['3x3_6'] - $row['3x3_6w'] + $row['4x4_6'] - $row['4x4_6w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_7'] != 0 or $row['4x4_7'] != 0){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_7w'] + $row['4x4_7w'])/($row['3x3_7']+$row['4x4_7']) );
-                                echo "<td>империя тау</td><td>". ($row['3x3_7'] + $row['4x4_7'])  .  "</td><td>" . ($row['3x3_7w'] + $row['4x4_7w'] ) . "</td><td>" . ($row['3x3_7'] - $row['3x3_7w'] + $row['4x4_7'] - $row['4x4_7w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_8'] != 0 or $row['4x4_8'] != 0){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_8w'] + $row['4x4_8w'])/($row['3x3_8']+$row['4x4_8']) );
-                                echo "<td>сёстры битвы</td><td>". ($row['3x3_8'] + $row['4x4_8'])  .  "</td><td>" . ($row['3x3_8w'] + $row['4x4_8w'] ) . "</td><td>" . ($row['3x3_8'] - $row['3x3_8w'] + $row['4x4_8'] - $row['4x4_8w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            
-                            $perc = 0;
-                            if($row['3x3_9'] != 0 or $row['4x4_9'] != 0){
-                                echo "<tr>";
-                                $perc = round (100*( $row['3x3_9w'] + $row['4x4_9w'])/($row['3x3_9']+$row['4x4_9']) );
-                                echo "<td>тёмные эльдары</td><td>". ($row['3x3_9'] + $row['4x4_9'])  .  "</td><td>" . ($row['3x3_9w'] + $row['4x4_9w'] ) . "</td><td>" . ($row['3x3_9'] - $row['3x3_9w'] + $row['4x4_9'] - $row['4x4_9w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
                              echo "<tr>";
                             echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
                             echo "</tr>";
                             echo "</TABLE>";
                             }
-                            
-                        
-
                     ?>
                 </div>
 
                 <!-- Суммирование  -->
 
                 <div class="toggle-content text-center tabs container" id = "tab5">
+
+
+                    <br/>
+                    <div class="navbar-form navbar-left" style="width:400px;">
+                        <div class="form-group ">
+                            <input id="player_name_input" onkeydown=" player_name_input_keypress_battles(event)" style="width:300px;" class="form-control autocomplete" placeholder="Поиск по имени игрока/клана" >
+                        </div>
+                        <a class="btn btn-default" onclick = "search_player_battles()"><span class="glyphicon glyphicon-search"></span></a>
+                    </div>
+                    <span id = "search_advice_wrapper"></span>
+
+                    <div style = "clear:both"/>
                     
                     <?
 
                     echo '<h3>Последние игры - ' . NickDecode::decodeNick($name) . '</h3>';
-                    include 'view/allGamesPlayer.php';   
+
+                    // include 'view/allGamesPlayer.php';   
 
                     ?>
+                    <div id = "fight_result">
+                    </div>
                 </div>
                 <div id="scrollup"><img alt="Прокрутить вверх" src="images/arrows7.png"><br/>Вверх</div>
     		</div> <!-- /.col-md-12 col-sm-12 -->

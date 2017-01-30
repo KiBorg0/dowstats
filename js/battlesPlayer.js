@@ -36,17 +36,31 @@ function player_name_input_keypress_battles(e){
 }
 
 function search_player_battles(){
-	var player = '[SWS]Elijah';//$("#player_name_input").val();
+	var player = $("#player_name_input").val();
 	var request_type_info = $("#request_type_info").html();
-	$.ajax({
-		type:'get',
-		url:'view/allGamesPlayer.php',
-		data:{'playername': player,
-		'request_type': request_type_info},//request_type пока не используется!
-		response:'text',//тип возвращаемого ответа text либо xml
-		success:function (data) {//возвращаемый результат от сервера
-			//$("#fight_result").html("");
-			$('#fight_result').html(data);
-		}
-	});
+	if(player=="")
+		$.ajax({
+			type:'get',
+			url:'view/allGamesPlayer.php',
+			data:{'name': userName,
+			'request_type': request_type_info},//request_type пока не используется!
+			response:'text',//тип возвращаемого ответа text либо xml
+			success:function (data) {//возвращаемый результат от сервера
+				//$("#fight_result").html("");
+				$('#fight_result').html(data);
+			}
+		});
+	else
+		$.ajax({
+			type:'get',
+			url:'view/allGamesPlayer.php',
+			data:{'name': userName,
+			'searchname': player,
+			'request_type': request_type_info},//request_type пока не используется!
+			response:'text',//тип возвращаемого ответа text либо xml
+			success:function (data) {//возвращаемый результат от сервера
+				//$("#fight_result").html("");
+				$('#fight_result').html(data);
+			}
+		});
 }
