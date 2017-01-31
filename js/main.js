@@ -29,7 +29,8 @@ function SendAllStat() {
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
-				SortAllStatByName();
+				SortAllStatByPercent();
+				// SortAllStatByName();
 			}
 		});
 	}
