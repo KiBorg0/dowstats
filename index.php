@@ -41,6 +41,7 @@ if ($mysqli->connect_error) {
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/scrollup.js"></script>
         <script type="text/javascript">
         	$(document).ready(function () {
             $('#overall_stat').addClass('active');
@@ -101,7 +102,7 @@ if ($mysqli->connect_error) {
 
 
                 </div> <!-- /#menu-container -->
-
+                <div id="scrollup"><img alt="Прокрутить вверх" src="images/arrows7.png"><br/>Вверх</div>
             </div> <!-- /.col-md-8 -->
 
         </div> <!-- /.row -->
