@@ -1,37 +1,7 @@
 <?
 	require_once("../lib/steam.php");
 	require_once("../lib/NickDecode.php");
-	function getRace($num){
-	switch($num){
-		case 1:
-			return "Космодесант";
-			break;
-		case 2:
-			return "Хаос";
-			break;
-		case 3:
-			return "Орки";
-			break;
-		case 4:
-			return "Эльдары";
-			break;
-		case 5:
-			return "Имперская гвардия";
-			break;
-		case 6:
-			return "Некроны";
-			break;
-		case 7:
-			return "Империя Тау";
-			break;
-		case 8:
-			return "Сёстры битвы";
-			break;
-		case 9:
-			return "Темные эльдары";
-			break;
-		}
-	}
+    require_once("../lib/RaceSwitcher.php");
 
 	$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 	if(isset($_GET['allSort'])) {
@@ -128,7 +98,7 @@
 					$favRace = 9;
 					$countWinRace = $row['1x1_9'] +  $row['2x2_9'] +  $row['3x3_9'] + $row['4x4_9'];
 				}
-				echo "<td>" . getRace($favRace) . "</td>";
+				echo "<td>" . RaceSwitcher::getRace($favRace) . "</td>";
 				$timehelpint = $row['time'] / 60;
 				$timehours = floor($timehelpint / 60);
 				$all1x1 =  $row['1x1_1'] + $row['1x1_2'] +  $row['1x1_3'] +  $row['1x1_4'] +  $row['1x1_5'] +  $row['1x1_6'] + $row['1x1_7'] +  $row['1x1_8'] +  $row['1x1_9']; 
@@ -275,12 +245,11 @@
                  echo "<td>". $array[$j]['win'] . "</td>";
                  echo "<td>". $array[$j]['percent'] . "%</td>";
                  echo "<td>". $array[$j]['apm'] . "</td>";
-                 echo "<td>" . getRace($array[$j]['favRace']) . "</td>";
+                 echo "<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>";
                 $timehelpint = floor($array[$j]['allGamesTime'] / 60);
 				echo "<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>";
 				echo "</tr>";
                     echo "</tr>";
-                $place = $place + 1;
                 $i++;
             }
 
@@ -415,12 +384,11 @@
                  echo "<td>". $array[$j]['win'] . "</td>";
                  echo "<td>". $array[$j]['percent'] . "%</td>";
                  echo "<td>". $array[$j]['apm'] . "</td>";
-                 echo "<td>" . getRace($array[$j]['favRace']) . "</td>";
+                 echo "<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>";
                 $timehelpint = floor($array[$j]['allGamesTime'] / 60);
 				echo "<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>";
 				echo "</tr>";
                     echo "</tr>";
-                $place = $place + 1;
                 $i++;
             }
 
@@ -555,12 +523,11 @@
                  echo "<td>". $array[$j]['win'] . "</td>";
                  echo "<td>". $array[$j]['percent'] . "%</td>";
                  echo "<td>". $array[$j]['apm'] . "</td>";
-                 echo "<td>" . getRace($array[$j]['favRace']) . "</td>";
+                 echo "<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>";
                 $timehelpint = floor($array[$j]['allGamesTime'] / 60);
 				echo "<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>";
 				echo "</tr>";
                     echo "</tr>";
-                $place = $place + 1;
                 $i++;
             }
 
@@ -690,12 +657,11 @@
                  echo "<td>". $array[$j]['win'] . "</td>";
                  echo "<td>". $array[$j]['percent'] . "%</td>";
                  echo "<td>". $array[$j]['apm'] . "</td>";
-                 echo "<td>" . getRace($array[$j]['favRace']) . "</td>";
+                 echo "<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>";
                 $timehelpint = floor($array[$j]['allGamesTime'] / 60);
 				echo "<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>";
 				echo "</tr>";
                     echo "</tr>";
-                $place = $place + 1;
                 $i++;
             }
 
@@ -829,12 +795,11 @@
                  echo "<td>". $array[$j]['win'] . "</td>";
                  echo "<td>". $array[$j]['percent'] . "%</td>";
                  echo "<td>". $array[$j]['apm'] . "</td>";
-                 echo "<td>" . getRace($array[$j]['favRace']) . "</td>";
+                 echo "<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>";
                 $timehelpint = floor($array[$j]['allGamesTime'] / 60);
 				echo "<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>";
 				echo "</tr>";
                     echo "</tr>";
-                $place = $place + 1;
                 $i++;
             }
 
@@ -968,12 +933,11 @@
                  echo "<td>". $array[$j]['win'] . "</td>";
                  echo "<td>". $array[$j]['percent'] . "%</td>";
                  echo "<td>". $array[$j]['apm'] . "</td>";
-                 echo "<td>" . getRace($array[$j]['favRace']) . "</td>";
+                 echo "<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>";
                 $timehelpint = floor($array[$j]['allGamesTime'] / 60);
 				echo "<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>";
 				echo "</tr>";
                     echo "</tr>";
-                $place = $place + 1;
                 $i++;
             }
 

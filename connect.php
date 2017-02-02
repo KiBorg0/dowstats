@@ -78,25 +78,6 @@ $w2 = $_GET["w2"];
 $w3 = $_GET["w3"];
 $w4 = $_GET["w4"];
 
-$races = array();
-for($i=1; $i<=9; $i++)
-{
-	$races[] = $_GET["r".$i];
-}
-$players = array();
-for($i=1; $i<9; $i++)
-{
-	$players[] = $_GET["p".$i];
-}
-// показывает имена игроков в массиве по индексам, если игрока нет, то NULL
-// var_dump($players);
-
-$winners = array();
-for($i=1; $i<5; $i++)
-{
-	$winners[] = $_GET["w".$i];
-}
-
 $apm1r = isset($_GET["apm1r"]) ? $_GET["apm1r"] : 0;
 $apm2r = isset($_GET["apm2r"]) ? $_GET["apm2r"] : 0;
 $apm3r = isset($_GET["apm3r"]) ? $_GET["apm3r"] : 0;
@@ -106,11 +87,27 @@ $apm6r = isset($_GET["apm6r"]) ? $_GET["apm6r"] : 0;
 $apm7r = isset($_GET["apm7r"]) ? $_GET["apm7r"] : 0;
 $apm8r = isset($_GET["apm8r"]) ? $_GET["apm8r"] : 0;
 
+
+// показывает имена игроков в массиве по индексам, если игрока нет, то NULL
+// var_dump($players);
+
+$players = array();
+$races = array();
 $apmrs = array();
-for($i=1; $i<9; $i++)
+for($i=1; $i<=9; $i++)
 {
-	$apmrs[] = isset($_GET["apm".$i."r"]) ? $_GET["apm".$i."r"] : 0;
+	$races[] =   isset($_GET["r".$i]) ? $_GET["r".$i] : 0;
+    $players[] = isset($_GET["p".$i]) ? $_GET["p".$i] : 0;
+    $apmrs[] =   isset($_GET["apm".$i."r"]) ? $_GET["apm".$i."r"] : 0;
 }
+$winners = array();
+for($i=1; $i<5; $i++)
+{
+	$winners[] = $_GET["w".$i];
+}
+
+
+
 
 $sid = $_GET["sid"];
 $map = $_GET["map"];
@@ -120,17 +117,7 @@ $mod = $_GET["mod"];
 $key = $_GET["key"];
 $cTimeMAX = date('Y-m-d H:i:s', time()-120);
 
-
-/*песочница*/
-/*apm1*/
-
-
-
-
 //--------------
-
-
-
 
 if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 	return;
@@ -140,7 +127,6 @@ if(strtolower($winby) == strtolower("Disconnect")){
 	echo " - статистика не была записана, причина: Disconnect\n";
 	return;
 }
-
 
 
 //-----------обновляем аватарку в стиме ----------------
@@ -186,8 +172,8 @@ while ($row = $res->fetch_assoc()) {
 		$varname = "apm" . $i . "r";
 		if ($row[$varname] != 0) $$varname = 0;
 	}
-	
-	$mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");	
+
+	$mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 	if($mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '$w1',apm1r = apm1r + '$apm1r',apm2r = apm2r + '$apm2r',apm3r = apm3r + '$apm3r',apm4r = apm4r + '$apm4r',apm5r = apm5r + '$apm5r',apm6r = apm6r + '$apm6r',apm7r = apm7r + '$apm7r',apm8r = apm8r + '$apm8r'  WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)")){
 
 	}else{
@@ -204,7 +190,7 @@ if(!$isFound){
 	$date = date('Y-m-d H:i:s', time());
 
 	$ipreal = $_SERVER['REMOTE_ADDR'];
-	
+
 	$insert_str = "type,";
 	$values_str = "'$type', ";
 	for($i=1; $i<($type*2+1); $i++)

@@ -156,85 +156,25 @@ if ($mysqli->connect_error) {
     					$timehours = intval($timehelpint / 60);
                     	echo 'игровое время: ' . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['time'] % 60 . ' сек.<br>';
                     	//---------любимая раса -----------------
-                    	$favRace = 0;
-						$countWinRace = 0;
-						if($countWinRace <  $row['1x1_1'] +  $row['2x2_1'] +  $row['3x3_1'] + $row['4x4_1']){
-							$favRace = 1;
-							$countWinRace = $row['1x1_1'] +  $row['2x2_1'] +  $row['3x3_1'] + $row['4x4_1'];
-						}
-						if($countWinRace <  $row['1x1_2'] +  $row['2x2_2'] +  $row['3x3_2'] + $row['4x4_2']){
-							$favRace = 2;
-							$countWinRace = $row['1x1_2'] +  $row['2x2_2'] +  $row['3x3_2'] + $row['4x4_2'];
-						}
-						if($countWinRace <  $row['1x1_3'] +  $row['2x2_3'] +  $row['3x3_3'] + $row['4x4_3']){
-							$favRace = 3;
-							$countWinRace = $row['1x1_3'] +  $row['2x2_3'] +  $row['3x3_3'] + $row['4x4_3'];
-						}
-						if($countWinRace <  $row['1x1_4'] +  $row['2x2_4'] +  $row['3x3_4'] + $row['4x4_4']){
-							$favRace = 4;
-							$countWinRace = $row['1x1_4'] +  $row['2x2_4'] +  $row['3x3_4'] + $row['4x4_4'];
-						}
-						if($countWinRace <  $row['1x1_5'] +  $row['2x2_5'] +  $row['3x3_5'] + $row['4x4_5']){
-							$favRace = 5;
-							$countWinRace = $row['1x1_5'] +  $row['2x2_5'] +  $row['3x3_5'] + $row['4x4_5'];
-						}
-						if($countWinRace <  $row['1x1_6'] +  $row['2x2_6'] +  $row['3x3_6'] + $row['4x4_6']){
-							$favRace = 6;
-							$countWinRace = $row['1x1_6'] +  $row['2x2_6'] +  $row['3x3_6'] + $row['4x4_6'];
-						}
-						if($countWinRace <  $row['1x1_7'] +  $row['2x2_7'] +  $row['3x3_7'] + $row['4x4_7']){
-							$favRace = 7;
-							$countWinRace = $row['1x1_7'] +  $row['2x2_7'] +  $row['3x3_7'] + $row['4x4_7'];
-						}
-						if($countWinRace <  $row['1x1_8'] +  $row['2x2_8'] +  $row['3x3_8'] + $row['4x4_8']){
-							$favRace = 8;
-							$countWinRace = $row['1x1_8'] +  $row['2x2_8'] +  $row['3x3_8'] + $row['4x4_8'];
-						}
-						if($countWinRace <  $row['1x1_9'] +  $row['2x2_9'] +  $row['3x3_9'] + $row['4x4_9']){
-							$favRace = 9;
-							$countWinRace = $row['1x1_9'] +  $row['2x2_9'] +  $row['3x3_9'] + $row['4x4_9'];
-						}
-						echo "Любимая раса: " . RaceSwitcher::getRace($favRace) . "</br>";
-
-
 						$favRace = 0;
+                        $favRaceAll = 0;
 						$countWinRace = 0;
-						if($countWinRace <  $row['1x1_1']){
-							$favRace = 1;
-							$countWinRace = $row['1x1_1'] ;
-						}
-						if($countWinRace <  $row['1x1_2'] ){
-							$favRace = 2;
-							$countWinRace = $row['1x1_2'] ;
-						}
-						if($countWinRace <  $row['1x1_3'] ){
-							$favRace = 3;
-							$countWinRace = $row['1x1_3'] ;
-						}
-						if($countWinRace <  $row['1x1_4'] ){
-							$favRace = 4;
-							$countWinRace = $row['1x1_4'] ;
-						}
-						if($countWinRace <  $row['1x1_5']){
-							$favRace = 5;
-							$countWinRace = $row['1x1_5'];
-						}
-						if($countWinRace <  $row['1x1_6'] ){
-							$favRace = 6;
-							$countWinRace = $row['1x1_6'] ;
-						}
-						if($countWinRace <  $row['1x1_7'] ){
-							$favRace = 7;
-							$countWinRace = $row['1x1_7'] ;
-						}
-						if($countWinRace <  $row['1x1_8']){
-							$favRace = 8;
-							$countWinRace = $row['1x1_8'] ;
-						}
-						if($countWinRace <  $row['1x1_9'] ){
-							$favRace = 9;
-							$countWinRace = $row['1x1_9'];
-						}
+                        $countWinRaceAll = 0;
+                        for($i=1; $i<=9; $i++)
+                        {
+                            if($countWinRace<$row['1x1_'.$i])
+                            {
+                                $favRace = $i;
+                                $countWinRace = $row['1x1_'.$i];
+                            }
+                            $sum = $row['1x1_'.$i]+$row['2x2_'.$i]+$row['3x3_'.$i]+$row['4x4_'.$i];
+                            if($countWinRaceAll<$sum)
+                            {
+                                $favRaceAll = $i;
+                                $countWinRaceAll = $sum;
+                            }
+                        }
+                        echo "Любимая раса: " . RaceSwitcher::getRace($favRaceAll) . "</br>";
 						echo "Любимая раса 1x1: " . RaceSwitcher::getRace($favRace) . "<br/>" ;
                         echo 'апм: ' . $row['apm'] . "</h5>";
 
@@ -245,122 +185,46 @@ if ($mysqli->connect_error) {
                             </thead>
                             ';
                             
+                        for($i=1; $i<=9; $i++)
+                        {
                             $perc = 0;
-                            if($row['3x3_1'] != 0 or $row['4x4_1'] != 0 or $row['2x2_1'] != 0 or $row['1x1_1'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* ($row['1x1_1w'] +  $row['2x2_1w'] +  $row['3x3_1w'] + $row['4x4_1w'])/( $row['1x1_1']+ $row['2x2_1']+ $row['3x3_1']+ $row['4x4_1']) );
-                            	echo "<td>космодесант</td><td>". ($row['1x1_1'] + $row['2x2_1'] + $row['3x3_1'] + $row['4x4_1'])  .  "</td><td>" . ($row['1x1_1w'] + $row['2x2_1w'] + $row['3x3_1w'] + $row['4x4_1w'] ) . "</td><td>" . ($row['1x1_1'] - $row['1x1_1w'] + $row['2x2_1'] - $row['2x2_1w'] + $row['3x3_1'] - $row['3x3_1w'] + $row['4x4_1'] - $row['4x4_1w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                                
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_2'] != 0 or $row['4x4_2'] != 0 or $row['2x2_2'] != 0 or $row['1x1_2'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* ($row['1x1_2w'] +  $row['2x2_2w'] +  $row['3x3_2w'] + $row['4x4_2w'])/( $row['1x1_2']+ $row['2x2_2']+ $row['3x3_2']+ $row['4x4_2']) );
-                            	echo "<td>хаос</td><td>". ($row['1x1_2'] + $row['2x2_2'] + $row['3x3_2'] + $row['4x4_2'])  .  "</td><td>" . ($row['1x1_2w'] + $row['2x2_2w'] + $row['3x3_2w'] + $row['4x4_2w'] ) . "</td><td>" . ($row['1x1_2'] - $row['1x1_2w'] + $row['2x2_2'] - $row['2x2_2w'] + $row['3x3_2'] - $row['3x3_2w'] + $row['4x4_2'] - $row['4x4_2w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_3'] != 0 or $row['4x4_3'] != 0 or $row['2x2_3'] != 0 or $row['1x1_3'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* ($row['1x1_3w'] +  $row['2x2_3w'] +  $row['3x3_3w'] + $row['4x4_3w'])/( $row['1x1_3']+ $row['2x2_3']+ $row['3x3_3']+ $row['4x4_3']) );
-                            	echo "<td>орки</td><td>". ($row['1x1_3'] + $row['2x2_3'] + $row['3x3_3'] + $row['4x4_3'])  .  "</td><td>" . ($row['1x1_3w'] + $row['2x2_3w'] + $row['3x3_3w'] + $row['4x4_3w'] ) . "</td><td>" . ($row['1x1_3'] - $row['1x1_3w'] + $row['2x2_3'] - $row['2x2_3w'] + $row['3x3_3'] - $row['3x3_3w'] + $row['4x4_3'] - $row['4x4_3w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_4'] != 0 or $row['4x4_4'] != 0 or $row['2x2_4'] != 0 or $row['1x1_4'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* ($row['1x1_4w'] +  $row['2x2_4w'] +  $row['3x3_4w'] + $row['4x4_4w'])/( $row['1x1_4']+ $row['2x2_4']+ $row['3x3_4']+ $row['4x4_4']) );
-                            	echo "<td>эльдары</td><td>". ($row['1x1_4'] + $row['2x2_4'] + $row['3x3_4'] + $row['4x4_4'])  .  "</td><td>" . ($row['1x1_4w'] + $row['2x2_4w'] + $row['3x3_4w'] + $row['4x4_4w'] ) . "</td><td>" . ($row['1x1_4'] - $row['1x1_4w'] + $row['2x2_4'] - $row['2x2_4w'] + $row['3x3_4'] - $row['3x3_4w'] + $row['4x4_4'] - $row['4x4_4w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_5'] != 0 or $row['4x4_5'] != 0 or $row['2x2_5'] != 0 or $row['1x1_5'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* ($row['1x1_5w'] +  $row['2x2_5w'] +  $row['3x3_5w'] + $row['4x4_5w'])/( $row['1x1_5']+ $row['2x2_5']+ $row['3x3_5']+ $row['4x4_5']) );
-                                echo "<td>имперская гвардия</td><td>". ($row['1x1_5'] + $row['2x2_5'] + $row['3x3_5'] + $row['4x4_5'])  .  "</td><td>" . ($row['1x1_5w'] + $row['2x2_5w'] + $row['3x3_5w'] + $row['4x4_5w'] ) . "</td><td>" . ($row['1x1_5'] - $row['1x1_5w'] + $row['2x2_5'] - $row['2x2_5w'] + $row['3x3_5'] - $row['3x3_5w'] + $row['4x4_5'] - $row['4x4_5w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_6'] != 0 or $row['4x4_6'] != 0 or $row['2x2_6'] != 0 or $row['1x1_6'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* ($row['1x1_6w'] +  $row['2x2_6w'] +  $row['3x3_6w'] + $row['4x4_6w'])/( $row['1x1_6']+ $row['2x2_6']+ $row['3x3_6']+ $row['4x4_6']) );
-                                echo "<td>некроны</td><td>". ($row['1x1_6'] + $row['2x2_6'] + $row['3x3_6'] + $row['4x4_6'])  .  "</td><td>" . ($row['1x1_6w'] + $row['2x2_6w'] + $row['3x3_6w'] + $row['4x4_6w'] ) . "</td><td>" . ($row['1x1_6'] - $row['1x1_6w'] + $row['2x2_6'] - $row['2x2_6w'] + $row['3x3_6'] - $row['3x3_6w'] + $row['4x4_6'] - $row['4x4_6w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_7'] != 0 or $row['4x4_7'] != 0 or $row['2x2_7'] != 0 or $row['1x1_7'] != 0){
-                                echo "<tr>";
-                                $perc = round (100* ($row['1x1_7w'] +  $row['2x2_7w'] +  $row['3x3_7w'] + $row['4x4_7w'])/( $row['1x1_7']+ $row['2x2_7']+ $row['3x3_7']+ $row['4x4_7']) );
-                                echo "<td>империя тау</td><td>". ($row['1x1_7'] + $row['2x2_7'] + $row['3x3_7'] + $row['4x4_7'])  .  "</td><td>" . ($row['1x1_7w'] + $row['2x2_7w'] + $row['3x3_7w'] + $row['4x4_7w'] ) . "</td><td>" . ($row['1x1_7'] - $row['1x1_7w'] + $row['2x2_7'] - $row['2x2_7w'] + $row['3x3_7'] - $row['3x3_7w'] + $row['4x4_7'] - $row['4x4_7w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_8'] != 0 or $row['4x4_8'] != 0 or $row['2x2_8'] != 0 or $row['1x1_8'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* ($row['1x1_8w'] +  $row['2x2_8w'] +  $row['3x3_8w'] + $row['4x4_8w'])/( $row['1x1_8']+ $row['2x2_8']+ $row['3x3_8']+ $row['4x4_8']) );
-                            	echo "<td>сёстры битвы</td><td>". ($row['1x1_8'] + $row['2x2_8'] + $row['3x3_8'] + $row['4x4_8'])  .  "</td><td>" . ($row['1x1_8w'] + $row['2x2_8w'] + $row['3x3_8w'] + $row['4x4_8w'] ) . "</td><td>" . ($row['1x1_8'] - $row['1x1_8w'] + $row['2x2_8'] - $row['2x2_8w'] + $row['3x3_8'] - $row['3x3_8w'] + $row['4x4_8'] - $row['4x4_8w']) . "</td> <td>" .$perc.  '%</td>';
-                            	echo "</tr>";
-                            }
-                            
-                            $perc = 0;
-                            if($row['3x3_9'] != 0 or $row['4x4_9'] != 0 or $row['2x2_9'] != 0 or $row['1x1_9'] != 0){
-                            	echo "<tr>";
-                                $perc = round (100* ($row['1x1_9w'] +  $row['2x2_9w'] +  $row['3x3_9w'] + $row['4x4_9w'])/( $row['1x1_9']+ $row['2x2_9']+ $row['3x3_9']+ $row['4x4_9']) );
-                                echo "<td>тёмные эльдары</td><td>". ($row['1x1_9'] + $row['2x2_9'] + $row['3x3_9'] + $row['4x4_9'])  .  "</td><td>" . ($row['1x1_9w'] + $row['2x2_9w'] + $row['3x3_9w'] + $row['4x4_9w'] ) . "</td><td>" . ($row['1x1_9'] - $row['1x1_9w'] + $row['2x2_9'] - $row['2x2_9w'] + $row['3x3_9'] - $row['3x3_9w'] + $row['4x4_9'] - $row['4x4_9w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
-
-                            
-                            echo "<tr>";
-                            echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
-                            echo "</tr>";
-                            echo "</TABLE>";
-                            
-                        
-
+                            $all_sum = 0; 
+                            $win_sum = 0;
+                            $lose_sum = 0;
+                            for($j=1; $j<=4; $j++)
+                                if($row[$j.'x'.$j.'_'.$i]!=0)
+                                {
+                                    $all_sum += $row[$j.'x'.$j.'_'.$i]; 
+                                    $win_sum += $row[$j.'x'.$j.'_'.$i.'w'];
+                                }
+                            $lose_sum = $all_sum-$win_sum;
+                            $perc = round (100* $win_sum/$all_sum);    
+                            if($all_sum!=0)
+                                echo "<tr><td>".RaceSwitcher::getRace($i)."</td><td>".$all_sum."</td><td>".$win_sum."</td><td>".$lose_sum."</td> <td>".$perc.'%</td></tr>';
+                        }
+                        echo "<tr>";
+                        echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
+                        echo "</tr>";
+                        echo "</TABLE>";
                     ?>
-
-
-
                 </div>
 
                 <div class="toggle-content text-center tabs" id="tab2">
                     <?
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i> Поделиться статистикой в ВК</a>';
                     echo '<h3>статистика 1x1 - ' . NickDecode::decodeNick($name) . '</h3>';
-                    $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");
-                    $res = $mysqli->use_result();
-
-                    $isPlExist = false;
-
+                    // $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");
+                    // $res = $mysqli->use_result();
+                    // $isPlExist = false;
+                    // while ($row = $res->fetch_assoc()) {
+                    //     $isPlExist = true;
+                    // }
+                    // if(!$isPlExist){
+                    //     echo "<h1>Игрок не найден в базе</h1>";
+                    //     echo "<img src = 'images/notFound.png'>";
+                    // }
                     $all = 0;
                     $win = 0;
-
-                    while ($row = $res->fetch_assoc()) {
-                        $all1x1 =  $row['1x1_1'] + $row['1x1_2'] +  $row['1x1_3'] +  $row['1x1_4'] +  $row['1x1_5'] +  $row['1x1_6'] + $row['1x1_7'] +  $row['1x1_8'] +  $row['1x1_9']; 
-                        $all = $all1x1;
-
-                        $win1x1 =  $row['1x1_1w'] + $row['1x1_2w'] +  $row['1x1_3w'] +  $row['1x1_4w'] +  $row['1x1_5w'] +  $row['1x1_6w'] + $row['1x1_7w'] +  $row['1x1_8w'] +  $row['1x1_9w']; 
-                        $win = $win1x1;
-                        $isPlExist = true;
-                    }
-                    $Wnr8 =  50;
-                    if($all != 0){
-                        $Wnr8 =  round (100 * $win/$all);
-                    }
-
-                    if(!$isPlExist){
-                        echo "<h1>Игрок не найден в базе</h1>";
-                        echo "<img src = 'images/notFound.png'>";
-                    }
                     $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");        
                     $res = $mysqli->use_result();
                     while ($row = $res->fetch_assoc()) {
@@ -374,12 +238,17 @@ if ($mysqli->connect_error) {
                             {
                                 $perc = 0;
                                 if($row['1x1_'.$i] != 0){
-                                echo "<tr>";
-                                $perc = round (100* $row['1x1_'.$i.'w']/$row['1x1_'.$i] );
-                                echo "<td>".RaceSwitcher::getRace($i)."</td><td>". $row['1x1_'.$i]  .  "</td><td>" . $row['1x1_'.$i.'w']  . "</td><td>" . ($row['1x1_'.$i] - $row['1x1_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
+                                    $all += $row['1x1_'.$i];
+                                    $win += $row['1x1_'.$i.'w'];
+                                    echo "<tr>";
+                                    $perc = round (100* $row['1x1_'.$i.'w']/$row['1x1_'.$i] );
+                                    echo "<td>".RaceSwitcher::getRace($i)."</td><td>". $row['1x1_'.$i]  .  "</td><td>" . $row['1x1_'.$i.'w']  . "</td><td>" . ($row['1x1_'.$i] - $row['1x1_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
+                                    echo "</tr>";
                                 }
                             }
+                            $Wnr8 =  50;
+                            if($all != 0)
+                                $Wnr8 =  round (100 * $win/$all);
                             echo "<tr>";
                             echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
                             echo "</tr>";
@@ -392,88 +261,47 @@ if ($mysqli->connect_error) {
                     <?
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i> Поделиться статистикой в ВК</a>';
                     echo '<h3>статистика 2x2 - ' . NickDecode::decodeNick($name) . '</h3>';
-                    $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");
-                    $res = $mysqli->use_result();
-
                     $all = 0;
                     $win = 0;
-                    $isPlExist = false;
-                    while ($row = $res->fetch_assoc()) {
-                        $all2x2 =  $row['2x2_1'] + $row['2x2_2'] +  $row['2x2_3'] +  $row['2x2_4'] +  $row['2x2_5'] +  $row['2x2_6'] + $row['2x2_7'] +  $row['2x2_8'] +  $row['2x2_9']; 
-                        $all = $all + $all2x2;
-
-                        $win2x2 =  $row['2x2_1w'] + $row['2x2_2w'] +  $row['2x2_3w'] +  $row['2x2_4w'] +  $row['2x2_5w'] +  $row['2x2_6w'] + $row['2x2_7w'] +  $row['2x2_8w'] +  $row['2x2_9w']; 
-                        $win = $win + $win2x2;
-                        $isPlExist = true;
-                    }
-                    $Wnr8 =  50;
-                    if($all != 0){
-                        $Wnr8 =  round (100 * $win/$all);
-                    }
-
-                    if(!$isPlExist){
-                        echo "<h1>Игрок не найден в базе</h1>";
-                        echo "<img src = 'images/notFound.png'>";
-                    }
-                    
                     $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");        
                     $res = $mysqli->use_result();
                     while ($row = $res->fetch_assoc()) {
+
                         echo '<TABLE   class="table table-striped table-hover text-center">
                             <thead><tr>
                             <td>раса</td><td>всего игр</td><td>побед</td><td>поражений</td><td>% побед</td>
                             </tr>
                             </thead>
                             ';
-                            for($i=1; $i<=9; $i++)
-                            {
-                                $perc = 0;
-                                if($row['2x2_'.$i] != 0){
+                        for($i=1; $i<=9; $i++)
+                        {
+                            $perc = 0;
+                            if($row['2x2_'.$i] != 0){
+                                $all += $row['2x2_'.$i];
+                                $win += $row['2x2_'.$i.'w'];
                                 echo "<tr>";
                                 $perc = round (100* $row['2x2_'.$i.'w']/$row['2x2_'.$i] );
                                 echo "<td>".RaceSwitcher::getRace($i)."</td><td>". $row['2x2_'.$i]  .  "</td><td>" . $row['2x2_'.$i.'w']  . "</td><td>" . ($row['2x2_'.$i] - $row['2x2_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
                                 echo "</tr>";
-                                }
                             }
-                            echo "<tr>";
-                            echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
-                            echo "</tr>";
-                            echo "</TABLE>";
-                            }
+                        }
+                        $Wnr8 =  50;
+                        if($all != 0)
+                            $Wnr8 =  round (100 * $win/$all);
+                        echo "<tr>";
+                        echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
+                        echo "</tr>";
+                        echo "</TABLE>";
+                    }
                     ?>
                 </div>
 
                 <div class="toggle-content text-center tabs" id="tab4">
-
                     <?
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i> Поделиться статистикой в ВК</a>';
                     echo '<h3>статистика 3x3 & 4x4 - ' . NickDecode::decodeNick($name) . '</h3>';
-                    $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");
-                    $res = $mysqli->use_result();
-
                     $all = 0;
                     $win = 0;
-                    $isPlExist = false;
-                    while ($row = $res->fetch_assoc()) {
-                        $all3x3 =  $row['3x3_1'] +  $row['3x3_2'] +  $row['3x3_3'] +  $row['3x3_4'] +  $row['3x3_5'] +  $row['3x3_6'] + $row['3x3_7'] +  $row['3x3_8'] +  $row['3x3_9']; 
-                        $all4x4 =  $row['4x4_1'] +  $row['4x4_2'] + $row['4x4_3']  +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9']; 
-                        $all = $all3x3 + $all4x4;
-
-                        $win3x3 =  $row['3x3_1w'] + $row['3x3_2w'] +  $row['3x3_3w'] +  $row['3x3_4w'] +  $row['3x3_5w'] +  $row['3x3_6w'] + $row['3x3_7w'] +  $row['3x3_8w'] +  $row['3x3_9w']; 
-                        $win4x4 =  $row['4x4_1w'] + $row['4x4_2w'] +  $row['4x4_3w'] +  $row['4x4_4w'] +  $row['4x4_5w'] +  $row['4x4_6w'] + $row['4x4_7w'] +  $row['4x4_8w'] +  $row['4x4_9w']; 
-                        $win = $win3x3 + $win4x4;
-                        $isPlExist = true;
-                    }
-                    $Wnr8 =  50;
-                    if($all != 0){
-                        $Wnr8 =  round (100 * $win/$all);
-                    }
-
-                    if(!$isPlExist){
-                        echo "<h1>Игрок не найден в базе</h1>";
-                        echo "<img src = 'images/notFound.png'>";
-                    }
-                    
                     $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");        
                     $res = $mysqli->use_result();
                     while ($row = $res->fetch_assoc()) {
@@ -483,29 +311,31 @@ if ($mysqli->connect_error) {
                             </tr>
                             </thead>
                             ';
-                            for($i=1; $i<=9; $i++)
-                            {
-                                $perc = 0;
-                                if($row['3x3_'.$i] != 0 or $row['4x4_'.$i] != 0){
+                        for($i=1; $i<=9; $i++)
+                        {
+                            $perc = 0;
+                            if($row['3x3_'.$i] != 0 or $row['4x4_'.$i] != 0){
+                                $all += $row['3x3_'.$i]+$row['4x4_'.$i];
+                                $win += $row['3x3_'.$i.'w']+$row['4x4_'.$i.'w'];
                                 echo "<tr>";
                                 $perc = round (100* ($row['3x3_'.$i.'w'] + $row['4x4_'.$i.'w'])/( $row['3x3_'.$i]+ $row['4x4_'.$i]) );
                                 echo "<td>".RaceSwitcher::getRace($i)."</td><td>". ($row['3x3_'.$i] + $row['4x4_'.$i])  .  "</td><td>" . ($row['3x3_'.$i.'w'] + $row['4x4_'.$i.'w'] ) . "</td><td>" . ($row['3x3_'.$i] - $row['3x3_'.$i.'w'] + $row['4x4_'.$i] - $row['4x4_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
                                 echo "</tr>";
-                                }
                             }
-                             echo "<tr>";
-                            echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
-                            echo "</tr>";
-                            echo "</TABLE>";
-                            }
+                        }
+                        $Wnr8 =  50;
+                        if($all != 0)
+                            $Wnr8 =  round (100 * $win/$all);
+                        echo "<tr>";
+                        echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
+                        echo "</tr>";
+                        echo "</TABLE>";
+                    }
                     ?>
                 </div>
 
                 <!-- Суммирование  -->
-
                 <div class="toggle-content text-center tabs container" id = "tab5">
-
-
                     <br/>
                     <div class="navbar-form navbar-left" style="width:400px;">
                         <div class="form-group ">
@@ -518,11 +348,7 @@ if ($mysqli->connect_error) {
                     <div style = "clear:both"/>
                     
                     <?
-
-                    echo '<h3>Последние игры - ' . NickDecode::decodeNick($name) . '</h3>';
-
-                    // include 'view/allGamesPlayer.php';   
-
+                        echo '<h3>Последние игры - ' . NickDecode::decodeNick($name) . '</h3>';
                     ?>
                     <div id = "fight_result">
                     </div>
