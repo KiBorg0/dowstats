@@ -12,31 +12,19 @@ $(document).ready(function() {
         /* Если высота окна + высота прокрутки больше или равны высоте всего документа и ajax-запрос в настоящий момент не выполняется, то запускаем ajax-запрос */
         if($(window).scrollTop() + $(window).height() >= $(document).height() - 200 && !inProgress) {
 	        $.ajax({
-	            /* адрес файла-обработчика запроса */
+                type:'get',
 	            url: 'view/allGamesPlayer.php',
-	            /* метод отправки данных */
-	            method: 'GET',
-	            /* данные, которые мы передаем в файл-обработчик */
-	            data: {'name': userName, 'request_type': request_type_info, "startFrom" : startFrom},
-	            //тип возвращаемого ответа text либо xml
-            	response:'text',
+	            data: {'name': userName, "startFrom" : startFrom},
+            	response:'html',
 	            /* что нужно сделать до отправки запрса */
 	            beforeSend: function() {
-		            /* меняем значение флага на true, т.е. запрос сейчас в процессе выполнения */
+		            /* меняем значение флага на true, т.е. запрос сейчас в процессе выполнения */ 	
 		            inProgress = true;
-	            }
-            /* что нужно сделать по факту выполнения запроса */
-            }).done(function(data){
-
-                /* Преобразуем результат, пришедший от обработчика - преобразуем json-строку обратно в массив */
-                data = jQuery.html(data);
-
-                /* Если массив не пуст (т.е. статьи там есть) */
-                if (data.length > 0) {
-                    $("#fight_result").append(data);
-                    /* По факту окончания запроса снова меняем значение флага на false */
+	            },
+	            /* возвращаемый результат от сервера */
+                success:function (data) {
+                    $('#fight_result').append(data);
                     inProgress = false;
-                    // Увеличиваем на 10 порядковый номер статьи, с которой надо начинать выборку из базы
                     startFrom += 10;
                 }
             });

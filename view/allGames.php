@@ -43,7 +43,10 @@ for($i = 1; $i <= 8; $i++){
 
 //$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC limit $game_page_limit");
 
-$mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit $game_page_limit");
+// C какой статьи будет осуществляться вывод
+$startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
+
+$mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit {$startFrom}, 10");
 
 $res = $mysqli->use_result();
 

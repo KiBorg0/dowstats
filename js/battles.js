@@ -1,5 +1,35 @@
 $(document).ready(function() {
 	search_player_battles();
+
+	/* Переменная-флаг для отслеживания того, происходит ли в данный момент ajax-запрос. В самом начале даем ей значение false, т.е. запрос не в процессе выполнения */
+	var inProgress = false;
+	/* С какой статьи надо делать выборку из базы при ajax-запросе */
+	var startFrom = 10;
+
+    /* Используйте вариант $('#more').click(function() для того, чтобы дать пользователю возможность управлять процессом, кликая по кнопке "Дальше" под блоком статей (см. файл index.php) */
+    $(window).scroll(function() {
+
+        /* Если высота окна + высота прокрутки больше или равны высоте всего документа и ajax-запрос в настоящий момент не выполняется, то запускаем ajax-запрос */
+        if($(window).scrollTop() + $(window).height() >= $(document).height() - 200 && !inProgress) {
+	        $.ajax({
+                type:'get',
+	            url: 'view/allGames.php',
+	            data: {"startFrom" : startFrom},
+            	response:'html',
+	            /* что нужно сделать до отправки запрса */
+	            beforeSend: function() {
+		            /* меняем значение флага на true, т.е. запрос сейчас в процессе выполнения */ 	
+		            inProgress = true;
+	            },
+	            /* возвращаемый результат от сервера */
+                success:function (data) {
+                    $('#fight_result').append(data);
+                    inProgress = false;
+                    startFrom += 10;
+                }
+            });
+        }
+    });
 });
 
 
@@ -46,7 +76,6 @@ function search_player_battles(){
 		'selected_race': selected_race},
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			//$("#fight_result").html("");
 			$('#fight_result').html(data);
 		}
 	});

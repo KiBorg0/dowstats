@@ -8,14 +8,10 @@ date_default_timezone_set('Europe/Moscow');
 require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
 
-
-
-
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 if ($mysqli->connect_errno) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
-
 
 // C какой статьи будет осуществляться вывод
 $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
@@ -23,16 +19,16 @@ $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 if(isset($_GET["name"]))
 {
 	$name = $_GET["name"];
-	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC {$startFrom}, limit 10");
+	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC limit {$startFrom}, 10");
 }
 if(isset($_GET["searchname"]))
 {
 	$searchname = NickDecode::codeNick($_GET["searchname"]);
 
-	$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC {$startFrom}, limit 10");
+	$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC limit {$startFrom}, 10");
 }
 else
-	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC {$startFrom}, limit 10");
+	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC limit {$startFrom}, 10");
 
 $res = $mysqli->use_result();
 
@@ -42,19 +38,18 @@ while ($row = $res->fetch_assoc()) {
 	$timehours = intval($timehelpint / 60);
 	echo "<b>" . $row['cTime'] . "</b><br>";
 	echo "Время игры: " . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['gTime'] % 60 . " сек. ";
-	if($row['map'][1] == "P"){
+	if($row['map'][1] == "P")
 		$newMap = substr($row['map'], 3); 
-	}else{
+	else
 		$newMap = $row['map'];
-	}
+	
 	echo "Карта: "  . $newMap . "<br>";
 	echo "Steam id отправителей: "  . $row['statsendsid'];
 	
-	if(file_exists("../replays/".$row['id'].".rec")){
+	if(file_exists("../replays/".$row['id'].".rec"))
 		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>загрузить повтор</a>";
-	}else
+	else
 		echo "<br/>повтор отсутствует";
-
 
 	$type = $row['type'];
 
