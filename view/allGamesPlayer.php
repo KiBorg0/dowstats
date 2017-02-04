@@ -17,23 +17,22 @@ if ($mysqli->connect_errno) {
 }
 
 
-?>
-
-<?
+// C какой статьи будет осуществляться вывод
+$startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 
 if(isset($_GET["name"]))
 {
 	$name = $_GET["name"];
-	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC  limit 20");
+	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC {$startFrom}, limit 10");
 }
 if(isset($_GET["searchname"]))
 {
 	$searchname = NickDecode::codeNick($_GET["searchname"]);
 
-	$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC limit 20");
+	$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC {$startFrom}, limit 10");
 }
 else
-	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC  limit 20");
+	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC {$startFrom}, limit 10");
 
 $res = $mysqli->use_result();
 
@@ -51,46 +50,23 @@ while ($row = $res->fetch_assoc()) {
 	echo "Карта: "  . $newMap . "<br>";
 	echo "Steam id отправителей: "  . $row['statsendsid'];
 	
-
 	if(file_exists("../replays/".$row['id'].".rec")){
 		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>загрузить повтор</a>";
-	}else{
+	}else
 		echo "<br/>повтор отсутствует";
-	}
-	// echo "<br/>&#x231a;<a href = 'replays/".$row['id'].".rec'>загрузить повтор</a>&#x231a;";
 
 
 	$type = $row['type'];
 
-	// $races = array();
-	// for($i=1; $i<=$type*2; $i++)
-	// {
-	// 	$races[] = $row["r".$i];
-	// }
-	// $players = array();
-	// for($i=1; $i<=$type*2; $i++)
-	// {
-	// 	$players[] = $row["p".$i];
-	// }
 	$winners = array();
 	for($i=1; $i<=$type; $i++)
-	{
 		$winners[] = $row["w".$i];
-	}
-	// $apmrs = array();
-	// for($i=1; $i<=$type*2; $i++)
-	// {
-	// 	$apmrs[] = $row["apm".$i."r"];
-	// }
 
 	echo " <TABLE  class=\"table table-striped table-hover text-center table-games\">";
 	echo "<thead><tr>
 		<td>игрок</td><td>раса</td><td>апм<br/></td><td>итог</td>
 			</tr>
 		</thead>";
-	
-	
-	
 	for($i=1; $i<=$type*2; $i++)
 	{
 		echo "<TR>\n";
@@ -107,13 +83,8 @@ while ($row = $res->fetch_assoc()) {
 			echo " <td>поражение</td>\n";
 	    echo "</TR>\n";
 	}
-
-
 	 echo "</TABLE>\n";
-	 
-
 	 echo "<br><br>";
-	 
 }
 
 ?>
