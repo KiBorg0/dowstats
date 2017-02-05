@@ -12,12 +12,18 @@ $(document).ready(function() {
 
         /* Если высота окна + высота прокрутки больше или равны высоте всего документа и ajax-запрос в настоящий момент не выполняется, то запускаем ajax-запрос */
         if($(window).scrollTop() + $(window).height() >= $(document).height() - 200 && !inProgress) {
-    		var player = $("#player_name_input").val();
-			var request_type_info = $("#request_type_info").html();
+			var player = $("#player_name_input").val();
+			//формируем строку, в которой указываем какие чекбоксы типа игры были выбраны
+			var checkboxes = $("#1x1_checkbox").prop("checked") + ";" + $("#2x2_checkbox").prop("checked") + ";" + $("#3x3_checkbox").prop("checked") + ";" + $("#4x4_checkbox").prop("checked");
+			var selected_race = $("#race_option").val();
 	        $.ajax({
                 type:'get',
 	            url: 'view/allGamesPlayer.php',
-	            data: {'name': userName, 'searchname': player, "startFrom" : startFrom},
+	            data: {name:userName,//сам игрок
+					'enemyOrAllyName': player,//его соперник/союзник
+					'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
+					'selected_race': selected_race,
+					"startFrom" : startFrom},
             	response:'html',
 	            /* что нужно сделать до отправки запрса */
 	            beforeSend: function() {
@@ -70,16 +76,21 @@ function player_name_input_keypress_battles(e){
 
 function search_player_battles(){
 	startFrom = 10;
+	$('#fight_result').html("идет поиск...");
 	var player = $("#player_name_input").val();
-	var request_type_info = $("#request_type_info").html();
+	//формируем строку, в которой указываем какие чекбоксы типа игры были выбраны
+	var checkboxes = $("#1x1_checkbox").prop("checked") + ";" + $("#2x2_checkbox").prop("checked") + ";" + $("#3x3_checkbox").prop("checked") + ";" + $("#4x4_checkbox").prop("checked");
+	var selected_race = $("#race_option").val();
+
 	$.ajax({
 		type:'get',
 		url:'view/allGamesPlayer.php',
-		data:{'name': userName,
-		'searchname': player},
+		data:{name:userName,//сам игрок
+			'enemyOrAllyName': player,//его соперник/союзник
+			'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
+			'selected_race': selected_race},
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			//$("#fight_result").html("");
 			$('#fight_result').html(data);
 		}
 	});

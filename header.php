@@ -11,11 +11,12 @@
       <a class="navbar-brand" href="#">Онлайн статистика турнирного патча</a>
     </div> -->
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" id="navbar_list">
         <li id = "overall_stat" ><a href="index.php">Общая статистика</a></li>
         <li id = "1x1_stat"><a  href="1x1.php">Рейтинг 1х1</a></li>
         <!--<li><a href="#">1x1</a></li>-->
         <li id = "battles"><a  href="battles.php">Cражения</a></li>
+        <!-- <li id = "player_profile"><a  href="player.php">Профиль игрока</a></li> -->
         <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
