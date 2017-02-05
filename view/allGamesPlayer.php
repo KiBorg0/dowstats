@@ -16,16 +16,41 @@ if ($mysqli->connect_errno) {
 // C какой статьи будет осуществляться вывод
 $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 
-if(isset($_GET["name"]))
-{
-	$name = $_GET["name"];
-	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC limit {$startFrom}, 10");
-}
 if(isset($_GET["searchname"]))
 {
 	$searchname = NickDecode::codeNick($_GET["searchname"]);
-
-	$mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC limit {$startFrom}, 10");
+	// echo "debug0";
+	if($_GET["searchname"]!="")
+	{
+		// echo "debug1";
+		$name = $_GET["name"];
+		$where_condition = "";
+		for($i = 1; $i <= 8; $i++){
+			$where_condition .= "(";
+			$where_condition .= "p".$i."= '$name' and (";//поиск по имени игрока
+			for($j = 1; $j <=8; $j++)
+			{
+				if($j!=$i)
+				{
+					$where_condition .= "p".$j." LIKE '%".$searchname . "%'";
+					if(!($i==8&&$j==7))
+						if($j != 8) $where_condition .= " or ";
+				}
+			}
+			$where_condition .= "))";
+			if($i != 8) $where_condition .= " or ";
+		}
+		// echo $where_condition;
+		$mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit {$startFrom}, 10");
+		// $mysqli->real_query(" SELECT * FROM games WHERE p1 LIKE '%$searchname%' or p2 LIKE '%$searchname%' or p3 LIKE '%$searchname%' or p4 LIKE '%$searchname%' or p5 LIKE '%$searchname%' or p6 LIKE '%$searchname%' or p7 LIKE '%$searchname%' or p8 LIKE '%$searchname%' ORDER BY cTime DESC limit {$startFrom}, 10");
+	}
+	else
+		if(isset($_GET["name"]))
+		{
+			// echo "debug2";
+			$name = $_GET["name"];
+			$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC limit {$startFrom}, 10");
+		}
 }
 else
 	$mysqli->real_query("SELECT * FROM games WHERE (p1 = '$name' or p2 = '$name' or p3 = '$name' or p4 = '$name' or p5 = '$name' or p6 = '$name' or p7 = '$name' or p8 = '$name' ) ORDER BY cTime DESC limit {$startFrom}, 10");
