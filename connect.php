@@ -48,7 +48,7 @@ Script Author: Ash Young <ash@evoluted.net>. www.evoluted.net
 Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 $win = $_GET["win"];
 $loose = $_GET["loose"];
-$percentwin = round($win/($win + $loose));
+$percentwin = intval($win/($win + $loose));
 */
 
 $mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
