@@ -13,7 +13,7 @@ require_once("lib/NickDecode.php");
 
 $apm_info = "";
 
-function calculate_and_change_apm($mysqligame, $player,$apm){
+function calculate_and_change_apm($mysqligame, $player, $apm){
 	global $apm_info; 
 	$mysqligame->real_query("SELECT apm, apm_game_counter FROM players WHERE name = '$player'");
 	$res = $mysqligame->store_result();
@@ -22,7 +22,7 @@ function calculate_and_change_apm($mysqligame, $player,$apm){
 	$apm_info.= $row['apm'] . "- был<br>";
 	$apm_info.= "апм новой игры: " . $apm . " всего игр с апм: " . $row['apm_game_counter'] . "<br/>";
 	$apm1new = ($row['apm'] * $row['apm_game_counter'] + $apm) / ($row['apm_game_counter'] + 1);
-	$apm_info.= "апм игрока ". $player . " стал: " . $apm1new;
+	$apm_info.= "апм игрока ". NickDecode::decodeNick($player) . " стал: " . $apm1new;
 	$apm_info.= "<br/>";
 	$apm_info.= "<br/>";
 	$mysqligame->real_query("UPDATE players SET apm = '$apm1new', apm_game_counter = apm_game_counter + 1 WHERE  (name = '$player') ");
@@ -94,14 +94,14 @@ $apm8r = isset($_GET["apm8r"]) ? $_GET["apm8r"] : 0;
 $players = array();
 $races = array();
 $apmrs = array();
-for($i=1; $i<=9; $i++)
+for($i=1; $i<=8; $i++)
 {
 	$races[] =   isset($_GET["r".$i]) ? $_GET["r".$i] : 0;
     $players[] = isset($_GET["p".$i]) ? $_GET["p".$i] : 0;
     $apmrs[] =   isset($_GET["apm".$i."r"]) ? $_GET["apm".$i."r"] : 0;
 }
 $winners = array();
-for($i=1; $i<5; $i++)
+for($i=1; $i<=4; $i++)
 {
 	$winners[] = $_GET["w".$i];
 }
@@ -138,12 +138,12 @@ $ipCurrent = $_SERVER['REMOTE_ADDR'];
 
 $mysqligame->real_query("SELECT * FROM ipBans WHERE ipBansstr = '$ipCurrent' LIMIT 1");
 $res = $mysqligame->store_result();
-$isFound = false;
-while ($row = $res->fetch_assoc()) {
-	//если ip игрока есть в бан листе, то скрипт останавливается
-	exit();
-	return;
-}
+// $isFound = false;
+// while ($row = $res->fetch_assoc()) {
+// 	//если ip игрока есть в бан листе, то скрипт останавливается
+// 	exit();
+// 	return;
+// }
 
 //-----------проверяем на наличие такой же игры с этого IP минуту назад, если есть то баним
 // $ipreal = $_SERVER['REMOTE_ADDR'];
@@ -163,6 +163,7 @@ while ($row = $res->fetch_assoc()) {
 $mysqligame->real_query("SELECT * FROM games WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)");
 $res = $mysqligame->store_result();
 
+// проверим, нет ли такой игры в базе
 $isFound = false;
 while ($row = $res->fetch_assoc()) {
 
@@ -174,16 +175,18 @@ while ($row = $res->fetch_assoc()) {
 	}
 
 	$mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-	if($mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '$w1',apm1r = apm1r + '$apm1r',apm2r = apm2r + '$apm2r',apm3r = apm3r + '$apm3r',apm4r = apm4r + '$apm4r',apm5r = apm5r + '$apm5r',apm6r = apm6r + '$apm6r',apm7r = apm7r + '$apm7r',apm8r = apm8r + '$apm8r'  WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)")){
-
-	}else{
-
-	}
+	$mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '$w1',apm1r = apm1r + '$apm1r',apm2r = apm2r + '$apm2r',apm3r = apm3r + '$apm3r',apm4r = apm4r + '$apm4r',apm5r = apm5r + '$apm5r',apm6r = apm6r + '$apm6r',apm7r = apm7r + '$apm7r',apm8r = apm8r + '$apm8r'  WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)")
 	$isFound = true;
 }
 
-if(!$isFound){
+// обновим апм у игроков
+for($i=1; $i<=$type*2; $i++)
+	if($apmrs[$i-1]!=0)
+		calculate_and_change_apm($mysqligame, $players[$i-1], $apmrs[$i-1]);
 
+// если такая игра не найдена, то запишем ее в базу
+if(!$isFound)
+{
 	// echo "тип - ".$type."\n";
 	//----------записываем игру в базу-------------
 	date_default_timezone_set( 'Europe/Moscow' );
@@ -193,22 +196,22 @@ if(!$isFound){
 
 	$insert_str = "type,";
 	$values_str = "'$type', ";
-	for($i=1; $i<($type*2+1); $i++)
+	for($i=1; $i<=$type*2; $i++)
 	{
 		$values_str .= "'" . $players[$i-1]. "', ";
 		$insert_str .= "p".$i.",";
 	}
-	for($i=1; $i<($type+1); $i++)
+	for($i=1; $i<=$type; $i++)
 	{
 		$values_str .= "'" . $winners[$i-1] . "', ";
 		$insert_str .= "w".$i.",";
 	}
-	for($i=1; $i<($type*2+1); $i++)
+	for($i=1; $i<=$type*2; $i++)
 	{
 		$values_str .= "'" . $races[$i-1] . "', ";
 		$insert_str .= "r".$i.",";
 	}
-	for($i=1; $i<($type*2+1); $i++)
+	for($i=1; $i<=$type*2; $i++)
 	{
 		$values_str .= "'" . $apmrs[$i-1] . "', ";
 		$insert_str .= "apm".$i."r,";
@@ -225,8 +228,8 @@ if(!$isFound){
 	//-------записываем апм, победу и поражение в базу---------
 	for($i=1; $i<=$type*2; $i++){
 
-		if($apmrs[$i-1]!=0)
-			calculate_and_change_apm($mysqligame, $players[$i-1], $apmrs[$i-1]);
+		// if($apmrs[$i-1]!=0)
+		// 	calculate_and_change_apm($mysqligame, $players[$i-1], $apmrs[$i-1]);
 
 		$mysqligame->real_query("UPDATE players SET ".$type."x".$type."_".$races[$i-1]." = ".$type."x".$type."_".$races[$i-1]." + 1, time = time + $gTime  WHERE (name = '".$players[$i-1]."' )");
 		if(in_array($players[$i-1], $winners)){
