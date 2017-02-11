@@ -54,7 +54,7 @@ $res = $mysqli->use_result();
 
 while ($row = $res->fetch_assoc()) {
 	$timehelpint = $row['gTime'] / 60;
-	$timehours = round($timehelpint / 60);
+	$timehours = intval($timehelpint / 60);
 	echo "<b>" . $row['cTime'] . "</b><br>";
 	echo "Время игры: " . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['gTime'] % 60 . " сек. ";
 	if($row['map'][1] == "P"){

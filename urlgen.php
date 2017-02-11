@@ -22,7 +22,7 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 
 $win = $_GET["win"];
 $loose = $_GET["loose"];
-$percentwin = round($win/($win + $loose));
+$percentwin = intval($win/($win + $loose));
 
 */
 

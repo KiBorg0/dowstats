@@ -107,7 +107,7 @@
 				$all4x4 =  $row['4x4_1'] + $row['4x4_2'] +  $row['4x4_3'] +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9'];
 				$all = $all1x1 + $all2x2 + $all3x3 + $all4x4;
 				if($all != 0){
-					$allGamesTime =  round($row['time'] / $all);
+					$allGamesTime =  intval($row['time'] / $all);
 				}else{
 					$allGamesTime = 0;
 				}
@@ -207,7 +207,7 @@
 				$all4x4 =  $row['4x4_1'] + $row['4x4_2'] +  $row['4x4_3'] +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9'];
 				$all = $all1x1 + $all2x2 + $all3x3 + $all4x4;
 				if($all != 0){
-					$allGamesTime =  round($row['time'] / $all);
+					$allGamesTime =  intval($row['time'] / $all);
 				}else{
 					$allGamesTime = 0;
 				}
@@ -347,7 +347,7 @@
 				$all4x4 =  $row['4x4_1'] + $row['4x4_2'] +  $row['4x4_3'] +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9'];
 				$all = $all1x1 + $all2x2 + $all3x3 + $all4x4;
 				if($all != 0){
-					$allGamesTime =  round($row['time'] / $all);
+					$allGamesTime =  intval($row['time'] / $all);
 				}else{
 					$allGamesTime = 0;
 				}
@@ -486,7 +486,7 @@
 				$all4x4 =  $row['4x4_1'] + $row['4x4_2'] +  $row['4x4_3'] +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9'];
 				$all = $all1x1 + $all2x2 + $all3x3 + $all4x4;
 				if($all != 0){
-					$allGamesTime =  round($row['time'] / $all);
+					$allGamesTime =  intval($row['time'] / $all);
 				}else{
 					$allGamesTime = 0;
 				}
@@ -620,7 +620,7 @@
 				$all4x4 =  $row['4x4_1'] + $row['4x4_2'] +  $row['4x4_3'] +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9'];
 				$all = $all1x1 + $all2x2 + $all3x3 + $all4x4;
 				if($all != 0){
-					$allGamesTime =  round($row['time'] / $all);
+					$allGamesTime =  intval($row['time'] / $all);
 				}else{
 					$allGamesTime = 0;
 				}
@@ -758,7 +758,7 @@
 				$all4x4 =  $row['4x4_1'] + $row['4x4_2'] +  $row['4x4_3'] +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9'];
 				$all = $all1x1 + $all2x2 + $all3x3 + $all4x4;
 				if($all != 0){
-					$allGamesTime =  round($row['time'] / $all);
+					$allGamesTime =  intval($row['time'] / $all);
 				}else{
 					$allGamesTime = 0;
 				}
@@ -896,7 +896,7 @@
 				$all4x4 =  $row['4x4_1'] + $row['4x4_2'] +  $row['4x4_3'] +  $row['4x4_4'] +  $row['4x4_5'] +  $row['4x4_6'] + $row['4x4_7'] +  $row['4x4_8'] +  $row['4x4_9'];
 				$all = $all1x1 + $all2x2 + $all3x3 + $all4x4;
 				if($all != 0){
-					$allGamesTime =  round($row['time'] / $all);
+					$allGamesTime =  intval($row['time'] / $all);
 				}else{
 					$allGamesTime = 0;
 				}
