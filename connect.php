@@ -175,7 +175,7 @@ while ($row = $res->fetch_assoc()) {
 	}
 
 	$mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-	$mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '$w1',apm1r = apm1r + '$apm1r',apm2r = apm2r + '$apm2r',apm3r = apm3r + '$apm3r',apm4r = apm4r + '$apm4r',apm5r = apm5r + '$apm5r',apm6r = apm6r + '$apm6r',apm7r = apm7r + '$apm7r',apm8r = apm8r + '$apm8r'  WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)")
+	$mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '$w1',apm1r = apm1r + '$apm1r',apm2r = apm2r + '$apm2r',apm3r = apm3r + '$apm3r',apm4r = apm4r + '$apm4r',apm5r = apm5r + '$apm5r',apm6r = apm6r + '$apm6r',apm7r = apm7r + '$apm7r',apm8r = apm8r + '$apm8r'  WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)");
 	$isFound = true;
 }
 
