@@ -88,7 +88,7 @@ while ($row = $res->fetch_assoc()) {
 	for($i=1; $i<=$type*2; $i++)
 	{
 		echo "<TR>\n";
-	    echo " <td><a href = 'player.php?name=". $row["p".$i] ."'>" . NickDecode::decodeNick($row["p".$i]) . "</a></td>\n";
+	    echo " <td><a href = 'player.php?name=". $row["p".$i] ."#tab0'>" . NickDecode::decodeNick($row["p".$i]) . "</a></td>\n";
 	    echo " <td>" . RaceSwitcher::getRace($row["r".$i]) . "</td>\n";
 	    if($i==1)
 	    	" <td>" . $row["p".$i] . "</td>\n";

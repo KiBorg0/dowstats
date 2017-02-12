@@ -162,16 +162,9 @@ if ($mysqli->connect_error) {
                     $countWinRaceAll = $sum;
                 }
             }
-
-
-
-
             ?>
 
             <div class="col-md-12 col-sm-12">
-
-
-
                 <div class="toggle-content text-center tabs" id="tab0" >
 
                     <?php
@@ -180,58 +173,64 @@ if ($mysqli->connect_error) {
                     
                     echo '<h3>'._('total stats').' - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
 
+                    echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
 
+                    echo _('game time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
+                    //---------любимая раса -----------------
 
-                        echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
+                    echo _('favorite race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
+                    echo _('favorite race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
+                    echo _('apm').': '. $row['apm'] . '</h5>';
 
-                        echo _('game time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
-                        //---------любимая раса -----------------
-
-                        echo _('favorite race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
-                        echo _('favorite race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
-                        echo _('apm').': '. $row['apm'] . '</h5>';
-
-                        echo '<TABLE   class="table table-striped table-hover text-center">
-                            <thead><tr>
-                            <td>'._('race').'</td><td>'._('count of games').'</td><td>'._('wins').'</td><td>'._('losses').'</td><td>'._('wins ratio').'</td>
-                            </tr>
-                            </thead>
-                            ';
-                        $all_sum = 0; 
-                        $win_sum = 0;    
-                        for($i=1; $i<=9; $i++)
-                        {
-                            $perc = 0;
-                            $all_sum_r = 0; 
-                            $win_sum_r = 0;
-                            $lose_sum_r = 0;
-                            for($j=1; $j<=4; $j++)
-                                if($row[$j.'x'.$j.'_'.$i]!=0)
-                                {
-                                    $all_sum_r += $row[$j.'x'.$j.'_'.$i]; 
-                                    $win_sum_r += $row[$j.'x'.$j.'_'.$i.'w'];
-                                }
-                            $all_sum += $all_sum_r;
-                            $win_sum += $win_sum_r;
-                            $lose_sum_r = $all_sum_r-$win_sum_r;
-                            $perc = ($all_sum_r == 0) ? 0 : round (100* $win_sum_r/$all_sum_r);
-                            if($all_sum_r!=0)
-                                echo "<tr><td>".RaceSwitcher::getRace($i)."</td><td>".$all_sum_r."</td><td>".$win_sum_r."</td><td>".$lose_sum_r."</td> <td>".$perc.'%</td></tr>';
-                        }
-                        echo "<tr>";
-                        if($all_sum != 0)
-                            $Wnr8 =  round (100 * $win_sum/$all_sum);
-                        echo "<td>всего</td><td>". $all_sum .  "</td><td>" . $win_sum  . "</td><td>" . ($all_sum - $win_sum) . "</td> <td>" .$Wnr8.  '%</td>';
-                        echo "</tr>";
-                        echo "</TABLE>";
+                    echo '<TABLE   class="table table-striped table-hover text-center">
+                        <thead><tr>
+                        <td>'._('race').'</td><td>'._('count of games').'</td><td>'._('wins').'</td><td>'._('losses').'</td><td>'._('wins ratio').'</td>
+                        </tr>
+                        </thead>';
+                    $all_sum = 0; 
+                    $win_sum = 0;    
+                    for($i=1; $i<=9; $i++)
+                    {
+                        $perc = 0;
+                        $all_sum_r = 0; 
+                        $win_sum_r = 0;
+                        $lose_sum_r = 0;
+                        for($j=1; $j<=4; $j++)
+                            if($row[$j.'x'.$j.'_'.$i]!=0)
+                            {
+                                $all_sum_r += $row[$j.'x'.$j.'_'.$i]; 
+                                $win_sum_r += $row[$j.'x'.$j.'_'.$i.'w'];
+                            }
+                        $all_sum += $all_sum_r;
+                        $win_sum += $win_sum_r;
+                        $lose_sum_r = $all_sum_r-$win_sum_r;
+                        $perc = ($all_sum_r == 0) ? 0 : round (100* $win_sum_r/$all_sum_r);
+                        if($all_sum_r!=0)
+                            echo "<tr><td>".RaceSwitcher::getRace($i)."</td>
+                                <td>".$all_sum_r."</td>
+                                <td>".$win_sum_r."</td>
+                                <td>".$lose_sum_r."</td>
+                                <td>".$perc.'%</td></tr>';
+                    }
+                    echo "<tr>";
+                    if($all_sum != 0)
+                        $Wnr8 =  round (100 * $win_sum/$all_sum);
+                    echo "<td>всего</td>
+                        <td>".$all_sum."</td>
+                        <td>".$win_sum."</td>
+                        <td>".($all_sum-$win_sum)."</td>
+                        <td>".$Wnr8.'%</td>
+                        </tr>
+                        </TABLE>';
                     ?>
                 </div>
 
                 <?php
-                for($game_type = 0;$game_type <= 4;$game_type++){
-                    echo '<div class="toggle-content text-center tabs" id="tab'.$game_type.'">';
+                for($type = 0;$type <= 4;$type++){
+                    echo '<div class="toggle-content text-center tabs" id="tab'.$type.'">';
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
-                    echo '<h3>'._('stats').' '.$game_type.'x'.$game_type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
+
+                    echo '<h3>'._('stats').' '.$type.'x'.$type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
                     echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
                     echo _('game time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
                     echo _("favorite race").": ". RaceSwitcher::getRace($favRaceAll) . "</br>";
@@ -239,34 +238,41 @@ if ($mysqli->connect_error) {
                     echo _('apm').": ". $row['apm'] . "</h5>";
 
                     $all = 0;
-                        $win = 0;
+                    $win = 0;
 
-                        echo '<TABLE   class="table table-striped table-hover text-center">
-                            <thead><tr>
-                            <td>'._('race').'</td><td>'._('count of games').'</td><td>'._('wins').'</td><td>'._('losses').'</td><td>'._('wins ratio').'</td>
-                            </tr>
-                            </thead>
-                            ';
-                        for($i=1; $i<=9; $i++)
-                        {
-                            $perc = 0;
-                            if($row[$game_type.'x'.$game_type.'_'.$i] != 0){
-                                $all += $row[$game_type.'x'.$game_type.'_'.$i];
-                                $win += $row[$game_type.'x'.$game_type.'_'.$i.'w'];
-                                echo "<tr>";
-                                $perc = round (100* $row[$game_type.'x'.$game_type.'_'.$i.'w']/$row[$game_type.'x'.$game_type.'_'.$i] );
-                                echo "<td>".RaceSwitcher::getRace($i)."</td><td>". $row[$game_type.'x'.$game_type.'_'.$i]  .  "</td><td>" . $row[$game_type.'x'.$game_type.'_'.$i.'w']  . "</td><td>" . ($row[$game_type.'x'.$game_type.'_'.$i] - $row[$game_type.'x'.$game_type.'_'.$i.'w']) . "</td> <td>" .$perc.  '%</td>';
-                                echo "</tr>";
-                            }
+                    echo '<TABLE   class="table table-striped table-hover text-center">
+                        <thead><tr>
+                        <td>'._('race').'</td>
+                        <td>'._('count of games').'</td>
+                        <td>'._('wins').'</td>
+                        <td>'._('losses').'</td>
+                        <td>'._('wins ratio').'</td>
+                        </tr>
+                        </thead>';
+                    for($i=1; $i<=9; $i++)
+                        if($row[$type.'x'.$type.'_'.$i] != 0){
+                            $all += $row[$type.'x'.$type.'_'.$i];
+                            $win += $row[$type.'x'.$type.'_'.$i.'w'];
+                            echo "<tr>";
+                            $perc = round (100* $row[$type.'x'.$type.'_'.$i.'w']/$row[$type.'x'.$type.'_'.$i] );
+                            echo "<td>".RaceSwitcher::getRace($i)."</td>
+                            <td>".$row[$type.'x'.$type.'_'.$i]."</td>
+                            <td>".$row[$type.'x'.$type.'_'.$i.'w']."</td>
+                            <td>".($row[$type.'x'.$type.'_'.$i] - $row[$type.'x'.$type.'_'.$i.'w'])."</td>
+                            <td>".$perc.'%</td>';
+                            echo "</tr>";
                         }
-                        $Wnr8 =  50;
-                        if($all != 0)
-                            $Wnr8 =  round (100 * $win/$all);
-                        echo "<tr>";
-                        echo "<td>"._('Total')."</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
-                        echo "</tr>";
-                        echo "</TABLE>";
-                    echo '</div>';
+
+                    $Wnr8 = ($all != 0)?round (100 * $win/$all):0;
+                    echo "<tr>
+                        <td>"._('Total')."</td>
+                        <td>".$all."</td>
+                        <td>".$win."</td>
+                        <td>".($all-$win)."</td>
+                        <td>".$Wnr8.'%</td>
+                        </tr>
+                        </TABLE>
+                        </div>';
                 }
                 ?>
 

@@ -227,79 +227,43 @@ if(!$isFound)
 
 	//-------записываем апм, победу и поражение в базу---------
 	for($i=1; $i<=$type*2; $i++){
-
-		// if($apmrs[$i-1]!=0)
-		// 	calculate_and_change_apm($mysqligame, $players[$i-1], $apmrs[$i-1]);
-
 		$mysqligame->real_query("UPDATE players SET ".$type."x".$type."_".$races[$i-1]." = ".$type."x".$type."_".$races[$i-1]." + 1, time = time + $gTime  WHERE (name = '".$players[$i-1]."' )");
-		if(in_array($players[$i-1], $winners)){
+		if(in_array($players[$i-1], $winners))
         	$mysqligame->real_query("UPDATE players SET ".$type."x".$type."_".$races[$i-1]."w = ".$type."x".$type."_".$races[$i-1]."w + 1  WHERE (name = '".$players[$i-1]."')");
-		}
 	}
 
 	//-----------------запись рейтинга---------------------------------------
 	if($type == 1){
-		$pp1 = $players[0];
-		$pp2 = $players[1];
-
-	    $mysqligame->real_query("SELECT * FROM players WHERE name = '$pp1'");
-		$res = $mysqligame->store_result();
-		$isFound1 = false;
-		while ($row = $res->fetch_assoc()) {
-
-			$isFound1 = true;
-		}
-
-		$isFound2 = false;
-		$mysqligame->real_query("SELECT * FROM players WHERE name = '$pp2'");
-		$res = $mysqligame->store_result();
-		while ($row = $res->fetch_assoc()) {
-
-			$isFound2 = true;
-		}
-
-		if($isFound1 and $isFound2){
-
-			$mmr1 = 1500;
-			$mmr2 = 1500;
-
-
-			$mysqligame->real_query("SELECT * FROM players WHERE name = '$pp1'");
+		$isFoundPlayers = true;
+		$mmrs = array();
+		for($i=0;$i<2;$i++)
+		{
+		    $mysqligame->real_query("SELECT * FROM players WHERE name = '".$players[$i]."'");
 			$res = $mysqligame->store_result();
-			$isFound = false;
-			while ($row = $res->fetch_assoc()) {
-				$mmr1 = $row['mmr'] ;
+			if(!$row = $res->fetch_assoc())
+				$isFoundPlayers = false;
+			else
+			{
+				$mmrs[] = 1500;
+				$mmrs[$i] = $row['mmr'] ;
+				$apm_info .= "<br/> расчет рейтинга:<br/> рейтинг до: ".$players[$i]." - " . $mmrs[$i];
 			}
+		}
+		if($isFoundPlayers){
 
-			$mysqligame->real_query("SELECT * FROM players WHERE name = '$pp2'");
-			$res = $mysqligame->store_result();
-			$isFound = false;
-			while ($row = $res->fetch_assoc()) {
-				$mmr2 = $row['mmr'] ;
-			}
-			$apm_info .= "<br/> расчет рейтинга:<br/> рейтинг до: ".$pp1." - " . $mmr1 . " " . $pp2." - " . $mmr2;
-			$amb = $mmr2 - $mmr1;
+			$amb = abs($mmrs[1] - $mmrs[0]);
 			$ea = 1/(1 + pow( 10 , $amb/400 ));
 			$f1 = round(50*(1 - $ea));
 			$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . $ea . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
 
-			if(in_array($pp1, $winners)){
-				$mysqligame->real_query("UPDATE players SET mmr = '$mmr1' + '$f1'  WHERE name = '$pp1'");
-				$res = $mysqligame->store_result();
-				$mysqligame->real_query("UPDATE players SET mmr = '$mmr2' - '$f1'  WHERE name = '$pp2'");
-			}
-
-			$amb = $mmr1 - $mmr2;
-			$eb = 1/(1 + pow( 10 , $amb/400 ));
-			$f1 = round(50*(1 - $eb));
-
-			if(in_array($pp2, $winners)){
-				$mysqligame->real_query("UPDATE players SET mmr = '$mmr1' - '$f1'  WHERE name = '$pp1'");
-				$res = $mysqligame->store_result();
-				$mysqligame->real_query("UPDATE players SET mmr = '$mmr2' + '$f1'  WHERE name = '$pp2'");
-			}
+			for($i=0;$i<2;$i++)
+				if(in_array($players[$i], $winners))
+					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[$i]."' + '$f1'  WHERE name = '".$players[$i]."'");
+				else
+					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[$i]."' - '$f1'  WHERE name = '".$players[$i]."'");
 		}
 	}
+}
 };
 
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

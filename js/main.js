@@ -127,7 +127,7 @@ function SendAllStat() {
 		});
 	}
 
-	function SendSistersOfBattleStat() {
+	function SendSOBStat() {
 		//отправляю GET запрос и получаю ответ
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
@@ -328,7 +328,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'games'},//параметры запроса
+			data:{'allSort':'all'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);

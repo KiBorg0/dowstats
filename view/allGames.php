@@ -88,7 +88,7 @@ while ($row = $res->fetch_assoc()) {
 		$player_race_coded = $row["r" . $i];
 		$player_apm = $row["apm" . $i . "r"];
 		echo "<TR>";
-			$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded ."'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
+			$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded ."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
 		    echo "<td>". $href . "</td>";
 		    echo "<td>" . RaceSwitcher::getRace($player_race_coded) . "</td>";
 		    $apm = ($player_apm == 0) ? _("no data") :  $player_apm;

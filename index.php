@@ -72,16 +72,16 @@ if ($mysqli->connect_error) {
                                 <div class="toggle-content text-center">
                                 <div   role="group" >
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-primary"  onclick="SendAllStat();"  role="group">Общая</button>
-                                      	<button class="btn btn-primary" onclick="SendSmStat();" role="group">Космодесант</button>
-                                      	<button class="btn btn-primary" onclick="SendChaosStat();" role="group">Хаос</button>
-                                      	<button class="btn btn-primary"  onclick="SendOrkStat();"  role="group">Орки</button>
-                                     	<button class="btn btn-primary" onclick="SendEldStat();" role="group">Эльдары</button>
-                                     	<button class="btn btn-primary" onclick="SendIGStat();"  role="group">ИГ</button>
-                                     	<button class="btn btn-primary" onclick="SendNecronStat();" role="group">Некроны</button>
-                                     	<button class="btn btn-primary" onclick="SendTauStat();" role="group">Тау</button>
-                                     	<button class="btn btn-primary" onclick="SendSistersOfBattleStat();" role="group">Сёстры</button>
-                                     	<button class="btn btn-primary" onclick="SendDEStat();" role="group">ТЭ</button>
+        <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General')?></button>
+        <button class="btn btn-primary" onclick="SendSmStat();" role="group"><?php echo _('SM')?></button>
+        <button class="btn btn-primary" onclick="SendChaosStat();" role="group"><?php echo _('CSM')?></button>
+        <button class="btn btn-primary" onclick="SendOrkStat();" role="group"><?php echo _('Orks')?></button>
+        <button class="btn btn-primary" onclick="SendEldStat();" role="group"><?php echo _('Eldar')?></button>
+        <button class="btn btn-primary" onclick="SendIGStat();" role="group"><?php echo _('IG')?></button>
+        <button class="btn btn-primary" onclick="SendNecronStat();" role="group"><?php echo _('Necrons')?></button>
+        <button class="btn btn-primary" onclick="SendTauStat();" role="group"><?php echo _('Tau')?></button>
+        <button class="btn btn-primary" onclick="SendSOBStat();" role="group"><?php echo _('SoB')?></button>
+        <button class="btn btn-primary" onclick="SendDEStat();" role="group"><?php echo _('DE')?></button>
                                     </div>
                                 </div>
 
@@ -102,7 +102,7 @@ if ($mysqli->connect_error) {
 
 
                 </div> <!-- /#menu-container -->
-                <div id="scrollup"><img alt="Прокрутить вверх" src="images/arrows7.png"><br/>Вверх</div>
+                <div id="scrollup"><img alt=<?php echo "'"._('Scroll up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
             </div> <!-- /.col-md-8 -->
 
         </div> <!-- /.row -->
@@ -112,7 +112,7 @@ if ($mysqli->connect_error) {
         <div class="row">
             <div class="col-md-12 footer">
                 <h4 id="footer-text">
-                разработчик - <a href="https://vk.com/id59975761">Anibus</a> & <a href="https://vk.com/lebedkooa">New .</a><br>
+                <?php echo _('developers')?>: <a href="https://vk.com/id59975761">Anibus</a> <?php echo _('and')?> <a href="https://vk.com/lebedkooa">New</a><br>
                 </h4>
             </div><!-- /.footer --> 
         </div>
