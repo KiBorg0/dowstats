@@ -4,9 +4,32 @@ header('Content-Type: text/html; charset=utf-8');
 
 $host = $_SERVER['HTTP_HOST'];
 
-setlocale(LC_TIME, "ru_RU.utf8");
+$locale = 'en_US';
+$lang = isset($_GET['lang'])?$_GET['lang']:'en';
+switch ($lang) {
+case 'ru':
+    $locale = 'ru_RU';
+    break;
+case 'en':
+    $locale = 'en_US';
+    break;
+case 'ko':
+    $locale = 'ko_KR';
+    break;
+default:
+    $locale = 'en_US';
+    break;
+}
 
-date_default_timezone_set('Europe/Moscow');
+
+define('BASE_PATH', realpath(dirname(__FILE__)));
+define('LANGUAGES_PATH', BASE_PATH . '/locale');
+
+putenv('LC_ALL=' . $locale);
+setlocale(LC_ALL, $locale, $locale . '.utf8');
+bind_textdomain_codeset($locale, 'UTF-8');
+bindtextdomain($locale, LANGUAGES_PATH);
+textdomain($locale);
 
 
 
@@ -27,38 +50,6 @@ if ($mysqli->connect_errno) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
-function getRace($num){
-    switch($num){
-        case 1:
-            return "Космодесант";
-            break;
-        case 2:
-            return "Хаос";
-            break;
-        case 3:
-            return "Орки";
-            break;
-        case 4:
-            return "Эльдары";
-            break;
-        case 5:
-            return "Имперская гвардия";
-            break;
-        case 6:
-            return "Некроны";
-            break;
-        case 7:
-            return "Империя Тау";
-            break;
-        case 8:
-            return "Сёстры битвы";
-            break;
-        case 9:
-            return "Темные эльдары";
-            break;
-    }
-}
-
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -67,7 +58,7 @@ function getRace($num){
 
     <head>
 
-        <title>Soulstorm - статистика</title>
+        <title><?php echo _('Soulstorm - stats')?></title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -117,16 +108,16 @@ function getRace($num){
                                 <div class="toggle-content text-center">
                                 <div   role="group" >
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-primary"  onclick="SendAllStat1x1();"  role="group">Общая</button>
-                                      	<button class="btn btn-primary" onclick="SendSmStat1x1();" role="group">Космодесант</button>
-                                      	<button class="btn btn-primary" onclick="SendChaosStat1x1();" role="group">Хаос</button>
-                                      	<button class="btn btn-primary"  onclick="SendOrkStat1x1();"  role="group">Орки</button>
-                                     	<button class="btn btn-primary" onclick="SendEldStat1x1();" role="group">Эльдары</button>
-                                     	<button class="btn btn-primary" onclick="SendIGStat1x1();"  role="group">ИГ</button>
-                                     	<button class="btn btn-primary" onclick="SendNecronStat1x1();" role="group">Некроны</button>
-                                     	<button class="btn btn-primary" onclick="SendTauStat1x1();" role="group">Тау</button>
-                                     	<button class="btn btn-primary" onclick="SendSistersOfBattleStat1x1();" role="group">Сёстры</button>
-                                     	<button class="btn btn-primary" onclick="SendDEStat1x1();" role="group">ТЭ</button>
+        <button class="btn btn-primary" onclick="SendAllStat1x1();" role="group"><?php echo _('General')?></button>
+      	<button class="btn btn-primary" onclick="SendSmStat1x1();" role="group"><?php echo _('SM')?></button>
+      	<button class="btn btn-primary" onclick="SendChaosStat1x1();" role="group"><?php echo _('CSM')?></button>
+      	<button class="btn btn-primary" onclick="SendOrkStat1x1();" role="group"><?php echo _('Orks')?></button>
+     	<button class="btn btn-primary" onclick="SendEldStat1x1();" role="group"><?php echo _('Eldar')?></button>
+     	<button class="btn btn-primary" onclick="SendIGStat1x1();" role="group"><?php echo _('IG')?></button>
+     	<button class="btn btn-primary" onclick="SendNecronStat1x1();" role="group"><?php echo _('Necrons')?></button>
+     	<button class="btn btn-primary" onclick="SendTauStat1x1();" role="group"><?php echo _('Tau')?></button>
+     	<button class="btn btn-primary" onclick="SendSOBStat1x1();" role="group"><?php echo _('SoB')?></button>
+     	<button class="btn btn-primary" onclick="SendDEStat1x1();" role="group"><?php echo _('DE')?></button>
                                     </div>
                                 </div>
 
@@ -151,20 +142,6 @@ function getRace($num){
 
         </div> <!-- /.row -->
     </div> <!-- /.container-fluid -->
-    
-    <div class="container-fluid">   
-        <div class="row">
-            <div class="col-md-12 footer">
-                <h4 id="footer-text">
-                разработчик - <a href="https://vk.com/id59975761">Anibus</a> & <a href="https://vk.com/lebedkooa">New .</a><br>
-                </h4>
-            </div><!-- /.footer --> 
-        </div>
-    </div> <!-- /.container-fluid -->
-
-
-       
-
     </body>
 
 </html>

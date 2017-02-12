@@ -56,25 +56,28 @@ while ($row = $res->fetch_assoc()) {
 	$timehelpint = $row['gTime'] / 60;
 	$timehours = intval($timehelpint / 60);
 	echo "<b>" . $row['cTime'] . "</b><br>";
-	echo "Время игры: " . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['gTime'] % 60 . " сек. ";
+	echo _("Game time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
 	if($row['map'][1] == "P"){
 		$newMap = substr($row['map'], 3); 
 	}else{
 		$newMap = $row['map'];
 	}
-	echo "Карта: "  . $newMap . "<br>";
-	echo "Steam id отправителей: "  . $row['statsendsid'];
+	echo _("Map").": "  . $newMap . "<br>";
+	echo _("Senders steam ids").": "  . $row['statsendsid'];
 	if(file_exists("../replays/".$row['id'].".rec")){
-		echo "<br/><a class = 'btn btn-primary' href = '../replays/".$row['id'].".rec'>загрузить повтор</a>";
+		echo "<br/><a class = 'btn btn-primary' href = '../replays/".$row['id'].".rec'>"._('download replay')."</a>";
 	}else{
-		echo "<br/>повтор отсутствует";
+		echo "<br/>"._("replay is absent");
 	}
 	?>
 
 	<table class="table table-striped table-hover text-center table-games">
 		<thead>
 			<tr>
-				<td>игрок</td><td>раса</td><td>апм<br/></td><td>итог</td>
+				<td><?php echo _('players')?></td>
+				<td><?php echo _('races')?></td>
+				<td><?php echo _('apm')?><br/></td>
+				<td><?php echo _('result')?></td>
 			</tr>
 		</thead>
 
@@ -85,10 +88,10 @@ while ($row = $res->fetch_assoc()) {
 		$player_race_coded = $row["r" . $i];
 		$player_apm = $row["apm" . $i . "r"];
 		echo "<TR>";
-			$href = ($player_apm != 0) ? "<a href = 'http://dowstats.h1n.ru/player.php?name=". $player_name_coded ."'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
+			$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded ."'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
 		    echo "<td>". $href . "</td>";
 		    echo "<td>" . RaceSwitcher::getRace($player_race_coded) . "</td>";
-		    $apm = ($player_apm == 0) ? "нет данных" :  $player_apm;
+		    $apm = ($player_apm == 0) ? _("no data") :  $player_apm;
 		    echo "<td>" . $apm . "</td>";
 		    $is_victory = false;
 		    for($j=1; $j<=$type;$j++){
@@ -96,9 +99,9 @@ while ($row = $res->fetch_assoc()) {
 		    	if ($win_name_coded == $player_name_coded) $is_victory = true;
 		    }
 		    if($is_victory){
-				echo " <td>победа</td>";
+				echo " <td>"._('win')."</td>";
 			}else{
-				echo " <td>поражение</td>";
+				echo " <td>"._('lose')."</td>";
 			}
 	    echo "</TR>";
 	}
@@ -112,7 +115,7 @@ while ($row = $res->fetch_assoc()) {
 }
 
 if($res->num_rows == 0){
-		echo "не найдено игр с такими параметрами";
+		echo _("games with such parameters not found");
 	}
 ?>
 									

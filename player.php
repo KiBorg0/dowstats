@@ -1,8 +1,37 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 $host = $_SERVER['HTTP_HOST'];
-setlocale(LC_TIME, "ru_RU.utf8");
+
+
+define('BASE_PATH', realpath(dirname(__FILE__)));
+define('LANGUAGES_PATH', BASE_PATH . '/locale');
+
+$locale = 'en_US';
+$lang = isset($_GET['lang'])?$_GET['lang']:'en';
+
+switch ($lang) {
+    case 'ru':
+        $locale = 'ru_RU';
+        break;
+    case 'en':
+        $locale = 'en_US';
+        break;
+    case 'ko':
+        $locale = 'ko_KR';
+        break;
+    default:
+        $locale = 'en_US';
+        break;
+}
+
+putenv('LC_ALL=' . $locale);
+setlocale(LC_ALL, $locale, $locale . '.utf8');
 date_default_timezone_set('Europe/Moscow');
+bind_textdomain_codeset($locale, 'UTF-8');
+bindtextdomain($locale, LANGUAGES_PATH);
+textdomain($locale);
+
+
 require_once("lib/steam.php");
 require_once("lib/NickDecode.php");
 require_once("lib/RaceSwitcher.php");
@@ -65,9 +94,7 @@ if ($mysqli->connect_error) {
             var userName = '<?php echo $name;?>';
         </script>
 
-        <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/player.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
@@ -89,29 +116,29 @@ if ($mysqli->connect_error) {
         <div class="row">
             <?php include "header.php"; ?>
             <center>
-            	<?php
-            	$mysqli->real_query("SELECT * FROM players WHERE name = '$name'");//----------здесь делается запрос на игрока------------(1)
+                <?php
+                $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");//----------здесь делается запрос на игрока------------(1)
                 $res = $mysqli->use_result();
                 $row = $res->fetch_assoc();
                 $steamid = $row['sid'];
                 $big_avatar_url = Steam::get_big_avatar_url_by_id($row['sid']);
-                echo '<a href="https://steamcommunity.com/profiles/'. $steamid . '">'."<img class = 'avatar_big' src='" . $big_avatar_url . "'>".'</a>';	
+                echo '<a href="https://steamcommunity.com/profiles/'. $steamid . '">'."<img class = 'avatar_big' src='" . $big_avatar_url . "'>".'</a>';    
                 ?>
-            	<h1><?php echo NickDecode::decodeNick($name); ?></h1>
+                <h1><?php echo NickDecode::decodeNick($name); ?></h1>
 
             </center>
-			<div class="toggle-content text-center">
-	            <div   role="group" >
-	                <div class="btn-group" role="group">
-	                	<button class="btn btn-primary"  onclick="show_tab('tab0');"  role="group">Общая статистика</button>
-	                    <button class="btn btn-primary"  onclick="show_tab('tab1');"  role="group">1x1</button>
-	                  	<button class="btn btn-primary" onclick="show_tab('tab2');" role="group">2x2</button>
-	                  	<button class="btn btn-primary" onclick="show_tab('tab3');" role="group">3x3</button>
+            <div class="toggle-content text-center">
+                <div   role="group" >
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary"  onclick="show_tab('tab0');"  role="group"><?php echo _('General stats')?></button>
+                        <button class="btn btn-primary"  onclick="show_tab('tab1');"  role="group">1x1</button>
+                        <button class="btn btn-primary" onclick="show_tab('tab2');" role="group">2x2</button>
+                        <button class="btn btn-primary" onclick="show_tab('tab3');" role="group">3x3</button>
                         <button class="btn btn-primary" onclick="show_tab('tab4');" role="group">4x4</button>
-	                  	<button class="btn btn-primary"  onclick="show_tab('tab5');"  role="group">Последние игры</button>
-	                </div>
-	            </div>
-	        </div>
+                        <button class="btn btn-primary"  onclick="show_tab('tab5');"  role="group"><?php echo _('Last games')?></button>
+                    </div>
+                </div>
+            </div>
 
             <?php
             //общие расчеты
@@ -148,25 +175,25 @@ if ($mysqli->connect_error) {
                 <div class="toggle-content text-center tabs" id="tab0" >
 
                     <?php
-                    echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i> Поделиться статистикой в ВК</a>';
+                    echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
                     $cTimeMAX = date('Y-m-d H:i:s', time());
                     
-                    echo '<h3>общая статистика - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
+                    echo '<h3>'._('total stats').' - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
 
 
 
                         echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
 
-                    	echo 'игровое время: ' . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['time'] % 60 . ' сек.<br>';
-                    	//---------любимая раса -----------------
+                        echo _('game time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
+                        //---------любимая раса -----------------
 
-                        echo "Любимая раса: " . RaceSwitcher::getRace($favRaceAll) . "</br>";
-						echo "Любимая раса 1x1: " . RaceSwitcher::getRace($favRace) . "<br/>" ;
-                        echo 'апм: ' . $row['apm'] . "</h5>";
+                        echo _('favorite race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
+                        echo _('favorite race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
+                        echo _('apm').': '. $row['apm'] . '</h5>';
 
                         echo '<TABLE   class="table table-striped table-hover text-center">
                             <thead><tr>
-                            <td>раса</td><td>всего игр</td><td>побед</td><td>поражений</td><td>% побед</td>
+                            <td>'._('race').'</td><td>'._('count of games').'</td><td>'._('wins').'</td><td>'._('losses').'</td><td>'._('wins ratio').'</td>
                             </tr>
                             </thead>
                             ';
@@ -203,20 +230,20 @@ if ($mysqli->connect_error) {
                 <?php
                 for($game_type = 0;$game_type <= 4;$game_type++){
                     echo '<div class="toggle-content text-center tabs" id="tab'.$game_type.'">';
-                    echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i> Поделиться статистикой в ВК</a>';
-                    echo '<h3>статистика '.$game_type.'x'.$game_type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
+                    echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
+                    echo '<h3>'._('stats').' '.$game_type.'x'.$game_type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
                     echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
-                    echo 'игровое время: ' . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['time'] % 60 . ' сек.<br>';
-                    echo "Любимая раса: " . RaceSwitcher::getRace($favRaceAll) . "</br>";
-                    echo "Любимая раса 1x1: " . RaceSwitcher::getRace($favRace) . "<br/>" ;
-                    echo 'апм: ' . $row['apm'] . "</h5>";
+                    echo _('game time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
+                    echo _("favorite race").": ". RaceSwitcher::getRace($favRaceAll) . "</br>";
+                    echo _("favorite race 1x1").": ". RaceSwitcher::getRace($favRace) . "<br/>" ;
+                    echo _('apm').": ". $row['apm'] . "</h5>";
 
                     $all = 0;
                         $win = 0;
 
                         echo '<TABLE   class="table table-striped table-hover text-center">
                             <thead><tr>
-                            <td>раса</td><td>всего игр</td><td>побед</td><td>поражений</td><td>% побед</td>
+                            <td>'._('race').'</td><td>'._('count of games').'</td><td>'._('wins').'</td><td>'._('losses').'</td><td>'._('wins ratio').'</td>
                             </tr>
                             </thead>
                             ';
@@ -236,7 +263,7 @@ if ($mysqli->connect_error) {
                         if($all != 0)
                             $Wnr8 =  round (100 * $win/$all);
                         echo "<tr>";
-                        echo "<td>всего</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
+                        echo "<td>"._('Total')."</td><td>". $all .  "</td><td>" . $win  . "</td><td>" . ($all - $win) . "</td> <td>" .$Wnr8.  '%</td>';
                         echo "</tr>";
                         echo "</TABLE>";
                     echo '</div>';
@@ -248,20 +275,20 @@ if ($mysqli->connect_error) {
                     <br/>
                     <div style = "clear:both"/>
                         <?php
-                            echo '<h3>Последние игры - ' . NickDecode::decodeNick($name) . '</h3>';
+                            echo '<h3>'._('Recent games').' - ' . NickDecode::decodeNick($name) . '</h3>';
                         ?>
                     </div>
                     <div class = "search_div">
                         <div class="form-group col-md-3" >
-                            <label class="sr-only" for="player_name_input">Соперник/союзник игрока</label>
-                            <input id="player_name_input" onkeydown=" player_name_input_keypress_battles(event)"  class="form-control autocomplete" placeholder="Введите соперника/союзника" >
+                            <label class="sr-only" for="player_name_input"><?php echo _('Player opponent/ally')?></label>
+                            <input id="player_name_input" onkeydown=" player_name_input_keypress_battles(event)"  class="form-control autocomplete" placeholder=<?php echo "'"._("Enter opponent/ally")."'"?> >
                         </div>
                         <span id = "search_advice_wrapper"></span>
 
                         <div class="form-group col-md-3">
-                            <label class="sr-only" for="race_option">Раса игрока</label>
+                            <label class="sr-only" for="race_option"><?php echo _('Player race')?></label>
                             <select class="form-control" id="race_option">
-                            <option>Любая раса</option>
+                            <option><?php echo _('Any race')?></option>
                             <?php
                                 for($i = 1;$i <= 9;$i++){
                                     echo "<option>" . RaceSwitcher::getRace($i) . "</option>";
@@ -283,7 +310,7 @@ if ($mysqli->connect_error) {
                         </div>
 
                         <div class="form-group col-md-3">
-                            <a class="btn btn-default" onclick = "search_player_battles()">Найти игры <span class="glyphicon glyphicon-search"></span></a>
+                            <a class="btn btn-default" onclick = "search_player_battles()"><?php echo _('Find games')?> <span class="glyphicon glyphicon-search"></span></a>
                         </div>
                     </div>
 
@@ -294,10 +321,10 @@ if ($mysqli->connect_error) {
                         <div id = "fight_result">
                         </div>
                     </div>
-                    <div id="scrollup"><img alt="Прокрутить вверх" src="images/arrows7.png"><br/>Вверх</div>
+                    <div id="scrollup"><img alt=<?php echo "'"._('Scroll up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
 
-        		</div> <!-- /.col-md-12 col-sm-12 -->
-        	</div> 
+                </div> <!-- /.col-md-12 col-sm-12 -->
+            </div> 
         </div> 
 
        

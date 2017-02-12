@@ -58,19 +58,19 @@ while ($row = $res->fetch_assoc()) {
 	$timehelpint = $row['gTime'] / 60;
 	$timehours = intval($timehelpint / 60);
 	echo "<b>" . $row['cTime'] . "</b><br>";
-	echo "Время игры: " . $timehours . " ч.   " . $timehelpint % 60 .  " мин.   " . $row['gTime'] % 60 . " сек. ";
+	echo _("Game time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
 	if($row['map'][1] == "P")
 		$newMap = substr($row['map'], 3); 
 	else
 		$newMap = $row['map'];
 	
-	echo "Карта: "  . $newMap . "<br>";
-	echo "Steam id отправителей: "  . $row['statsendsid'];
+	echo _("Map").": "  . $newMap . "<br>";
+	echo _("Senders steam ids").": "  . $row['statsendsid'];
 	
 	if(file_exists("../replays/".$row['id'].".rec"))
-		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>загрузить повтор</a>";
+		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>"._('download replay')."</a>";
 	else
-		echo "<br/>повтор отсутствует";
+		echo "<br/>"._("replay is absent");
 
 	$type = $row['type'];
 
@@ -80,23 +80,25 @@ while ($row = $res->fetch_assoc()) {
 
 	echo " <TABLE  class=\"table table-striped table-hover text-center table-games\">";
 	echo "<thead><tr>
-		<td>игрок</td><td>раса</td><td>апм<br/></td><td>итог</td>
-			</tr>
+		<td>"._('players')."</td>
+		<td>"._('races')."</td>
+		<td>"._('apm')."<br/></td>
+		<td>"._('result')."</td></tr>
 		</thead>";
 	for($i=1; $i<=$type*2; $i++)
 	{
 		echo "<TR>\n";
-	    echo " <td><a href = 'http://dowstats.h1n.ru/player.php?name=". $row["p".$i] ."'>" . NickDecode::decodeNick($row["p".$i]) . "</a></td>\n";
+	    echo " <td><a href = 'player.php?name=". $row["p".$i] ."'>" . NickDecode::decodeNick($row["p".$i]) . "</a></td>\n";
 	    echo " <td>" . RaceSwitcher::getRace($row["r".$i]) . "</td>\n";
 	    if($i==1)
 	    	" <td>" . $row["p".$i] . "</td>\n";
-	    $apm = ($row["apm".$i."r"] == 0) ? "нет данных" : $row["apm".$i."r"];
+	    $apm = ($row["apm".$i."r"] == 0) ? _("no data") : $row["apm".$i."r"];
 	    echo " <td>" . $apm . "</td>\n";
 
 	    if(in_array($row["p".$i], $winners))
-			echo " <td>победа</td>\n";
+			echo " <td>"._('win')."</td>";
 		else
-			echo " <td>поражение</td>\n";
+			echo " <td>"._('lose')."</td>";
 	    echo "</TR>\n";
 	}
 	 echo "</TABLE>\n";

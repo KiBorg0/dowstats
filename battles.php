@@ -1,6 +1,6 @@
 <?php
 require_once("lib/RaceSwitcher.php");
-header('Content-Type: text/html; charset=utf-8');
+// header('Content-Type: text/html; charset=utf-8');
 
 $host = $_SERVER['HTTP_HOST'];
 
@@ -90,19 +90,19 @@ if ($mysqli->connect_errno) {
                     <div class="toggle-content text-center">
 	                    <br/>
                         <div style = "clear:both"/>
-                            <h3>Недавние сражения</h3>
+                            <h3><?php echo _('Recent games')?></h3>
                         </div>
                         <div class = "search_div">
                             <div class="form-group col-md-3" >
-                                <label class="sr-only" for="player_name_input">Поиск по имени игрока/клана</label>
-                                <input id="player_name_input" onkeydown=" player_name_input_keypress_battles(event)"  class="form-control autocomplete" placeholder="Введите соперника/союзника" >
+                                <label class="sr-only" for="player_name_input"><?php echo _("Find by player name/clan name")?></label>
+                                <input id="player_name_input" onkeydown=" player_name_input_keypress_battles(event)"  class="form-control autocomplete" placeholder=<?php echo "'"._("Enter opponent/ally")."'"?> >
                             </div>
                             <span id = "search_advice_wrapper"></span>
 
                             <div class="form-group col-md-3">
                             <label class="sr-only" for="race_option">Раса</label>
                             <select class="form-control" id="race_option">
-                            <option>Любая раса</option>
+                            <option><?php echo _('Any race')?></option>
                             <?php
                                 for($i = 1;$i <= 9;$i++){
                                     echo "<option>" . RaceSwitcher::getRace($i) . "</option>";
@@ -122,7 +122,7 @@ if ($mysqli->connect_errno) {
                             </div>
 
                             <div class="form-group col-md-3">
-                                <a class="btn btn-default" onclick = "search_player_battles()">Найти игры <span class="glyphicon glyphicon-search"></span></a>
+                                <a class="btn btn-default" onclick = "search_player_battles()"><?php echo _('Find games')?> <span class="glyphicon glyphicon-search"></span></a>
                             </div>
                         </div>
 
@@ -131,22 +131,12 @@ if ($mysqli->connect_errno) {
                             <div id = "fight_result">
                             </div>
                         </div>
-                        <div id="scrollup"><img alt="Прокрутить вверх" src="images/arrows7.png"><br/>Вверх</div>
+                        <div id="scrollup"><img alt=<?php echo "'"._('Scroll up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
 
                     </div> <!-- /.col-md-12 -->
                 </div>
             </div> <!-- /.row -->
 	    </div> <!-- /.container-fluid -->
-	    
-	    <div class="container-fluid">   
-	        <div class="row">
-	            <div class="col-md-12 footer">
-	                <h4 id="footer-text">
-	                разработчик - <a href="https://vk.com/id59975761">Anibus</a> & <a href="https://vk.com/lebedkooa">New .</a><br>
-	                </h4>
-	            </div>
-	        </div>
-	    </div> 
     </div>
 </body>
 

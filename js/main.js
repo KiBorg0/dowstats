@@ -163,7 +163,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'all1x1':'1'},//параметры запроса
+			data:{'request_type':'0'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -176,7 +176,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'11x1':'1'},//параметры запроса
+			data:{'request_type':'1'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -189,7 +189,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'21x1':'1'},//параметры запроса
+			data:{'request_type':'2'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -202,7 +202,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'31x1':'1'},//параметры запроса
+			data:{'request_type':'3'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -215,7 +215,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'41x1':'1'},//параметры запроса
+			data:{'request_type':'4'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -228,7 +228,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'51x1':'1'},//параметры запроса
+			data:{'request_type':'5'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -241,7 +241,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'61x1':'1'},//параметры запроса
+			data:{'request_type':'6'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -254,7 +254,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'71x1':'1'},//параметры запроса
+			data:{'request_type':'7'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -262,12 +262,12 @@ function SendAllStat() {
 		});
 	}
 
-	function SendSistersOfBattleStat1x1() {
+	function SendSOBStat1x1() {
 		//отправляю GET запрос и получаю ответ
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'81x1':'1'},//параметры запроса
+			data:{'request_type':'8'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -280,7 +280,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'91x1':'1'},//параметры запроса
+			data:{'request_type':'9'},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);

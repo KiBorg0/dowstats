@@ -4,7 +4,7 @@ $("#sort_by_player").click(function(){
 	$.ajax({
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
-		data:{'sort':'player',
+		data:{'sort':'name',
 		'request_type': request_type_info},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера

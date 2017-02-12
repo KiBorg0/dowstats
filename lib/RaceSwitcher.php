@@ -1,67 +1,68 @@
-<?php
+﻿<?php
+
 class RaceSwitcher{
 	function getRace($num){
-		switch($num){
-			case 1:
-				return "Космодесант";
-				break;
-			case 2:
-				return "Хаос";
-				break;
-			case 3:
-				return "Орки";
-				break;
-			case 4:
-				return "Эльдары";
-				break;
-			case 5:
-				return "Имперская гвардия";
-				break;
-			case 6:
-				return "Некроны";
-				break;
-			case 7:
-				return "Империя Тау";
-				break;
-			case 8:
-				return "Сёстры битвы";
-				break;
-			case 9:
-				return "Темные эльдары";
-				break;
-		}
+	    switch($num){
+	        case 1:
+	            return _("Space Marines");
+	            break;
+	        case 2:
+	            return _("Chaos Marines");
+	            break;
+	        case 3:
+	            return _("Orks");
+	            break;
+	        case 4:
+	            return _("Eldar");
+	            break;
+	        case 5:
+	            return _("Imperial Guard");
+	            break;
+	        case 6:
+	            return _("Necrons");
+	            break;
+	        case 7:
+	            return _("Tau");
+	            break;
+	        case 8:
+	            return _("Sisters of Battle");
+	            break;
+	        case 9:
+	            return _("Dark Eldar");
+	            break;
+	    }
 	}
 
 	function getRaceNum($race_text){
 		switch($race_text){
-			case "Любая раса":
+			case _("Favorite race"):
 				return 0;
 				break;
-			case "Космодесант":
+			case _("Space Marines"):
 				return 1;
 				break;
-			case "Хаос":
+			case _("Chaos Marines"):
 				return 2;
 				break;
-			case "Орки":
+			case _("Orks"):
 				return 3;
 				break;
-			case "Эльдары":
+			case _("Eldar"):
 				return 4;
 				break;
-			case "Имперская гвардия":
+			case _("Imperial Guard"):
 				return 5;
 				break;
-			case "Некроны":
+			case _("Necrons"):
 				return 6;
 				break;
-			case "Империя Тау":
+			case _("Tau"):
 				return 7;
 				break;
-			case "Сёстры битвы":
+			case _("Sisters of Battle"):
 				return 8;
 				break;
-			case "Темные эльдары":
+			case _("Dark Eldar"):
 				return 9;
 				break;
 		}
