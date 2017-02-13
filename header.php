@@ -5,7 +5,7 @@
         $locale = isset($_GET['lang'])?$_GET['lang']:'en_US';
         $_SESSION['lang'] = $locale;
         $lang = $locale;
-        switch (substr($locale, -3)) {
+        switch (substr($locale, 0, 2)) {
         case 'ru':
             $lang_id = 'ru';
             break;

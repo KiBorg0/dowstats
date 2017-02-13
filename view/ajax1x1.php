@@ -5,8 +5,11 @@ require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+putenv('LC_ALL=' . $lang);
 setlocale(LC_ALL, $lang, $lang . '.utf8');
-bindtextdomain($lang, "../locale");
+bind_textdomain_codeset($lang, 'UTF-8');
+bindtextdomain($lang, '../locale');
+textdomain($lang);
 
 function get_table_header_by_sort_type($sort_type){
 ?><TABLE   class="table table-striped table-hover text-center">

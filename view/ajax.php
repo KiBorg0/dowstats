@@ -3,8 +3,11 @@ require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+putenv('LC_ALL=' . $lang);
 setlocale(LC_ALL, $lang, $lang . '.utf8');
-bindtextdomain($lang, "../locale");
+bind_textdomain_codeset($lang, 'UTF-8');
+bindtextdomain($lang, '../locale');
+textdomain($lang);
 
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 

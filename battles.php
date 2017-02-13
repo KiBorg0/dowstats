@@ -6,7 +6,11 @@ require_once("lib/RaceSwitcher.php");
 $host = $_SERVER['HTTP_HOST'];
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+putenv('LC_ALL=' . $lang);
 setlocale(LC_ALL, $lang, $lang . '.utf8');
+bind_textdomain_codeset($lang, 'UTF-8');
+bindtextdomain($lang, 'locale');
+textdomain($lang);
 
 date_default_timezone_set('Europe/Moscow');
 

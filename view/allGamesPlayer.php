@@ -3,8 +3,11 @@
 $host = $_SERVER['HTTP_HOST'];
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+putenv('LC_ALL=' . $lang);
 setlocale(LC_ALL, $lang, $lang . '.utf8');
-bindtextdomain($lang, "../locale");
+bind_textdomain_codeset($lang, 'UTF-8');
+bindtextdomain($lang, '../locale');
+textdomain($lang);
 date_default_timezone_set('Europe/Moscow');
 
 require_once("../lib/NickDecode.php");

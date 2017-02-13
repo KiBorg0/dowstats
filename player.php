@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: text/html; charset=utf-8');
 $host = $_SERVER['HTTP_HOST'];
 
@@ -20,7 +21,11 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 $steamid = "";
 $name = $_GET["name"];
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+putenv('LC_ALL=' . $lang);
 setlocale(LC_ALL, $lang, $lang . '.utf8');
+bind_textdomain_codeset($lang, 'UTF-8');
+bindtextdomain($lang, 'locale');
+textdomain($lang);
 
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 if ($mysqli->connect_error) {
@@ -36,7 +41,7 @@ if ($mysqli->connect_error) {
 
     <head>
 
-        <title>Soulstorm - статистика</title>
+        <title><?php echo _('Soulstorm Ladder')?></title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 

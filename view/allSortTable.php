@@ -4,8 +4,11 @@
     require_once("../lib/RaceSwitcher.php");
 
     $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+	putenv('LC_ALL=' . $lang);
 	setlocale(LC_ALL, $lang, $lang . '.utf8');
-	bindtextdomain($lang, "../locale");
+	bind_textdomain_codeset($lang, 'UTF-8');
+	bindtextdomain($lang, '../locale');
+	textdomain($lang);
 
     $sort = array('name' 		 => 0,
 			      'games' 		 => 1,
