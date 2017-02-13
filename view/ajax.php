@@ -4,6 +4,7 @@ require_once("../lib/RaceSwitcher.php");
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
 setlocale(LC_ALL, $lang, $lang . '.utf8');
+bindtextdomain($lang, "../locale");
 
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 

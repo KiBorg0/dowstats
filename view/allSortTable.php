@@ -5,6 +5,7 @@
 
     $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
 	setlocale(LC_ALL, $lang, $lang . '.utf8');
+	bindtextdomain($lang, "../locale");
 
     $sort = array('name' 		 => 0,
 			      'games' 		 => 1,

@@ -5,7 +5,7 @@ $host = $_SERVER['HTTP_HOST'];
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
 setlocale(LC_ALL, $lang, $lang . '.utf8');
-
+bindtextdomain($lang, "../locale");
 date_default_timezone_set('Europe/Moscow');
 
 require_once("../lib/NickDecode.php");

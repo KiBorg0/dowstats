@@ -6,6 +6,7 @@ require_once("../lib/RaceSwitcher.php");
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
 setlocale(LC_ALL, $lang, $lang . '.utf8');
+bindtextdomain($lang, "../locale");
 
 function get_table_header_by_sort_type($sort_type){
 ?><TABLE   class="table table-striped table-hover text-center">
