@@ -16,7 +16,9 @@
 			      'percent' 	 => 3,
 			      'apm' 		 => 4,
 			      'favRace' 	 => 5,
-			      'allGamesTime' => 6, );
+			      'allGamesTime' => 6,
+			      'top' => 7, );
+
 	
 
 	$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");

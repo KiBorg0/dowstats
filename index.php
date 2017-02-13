@@ -40,7 +40,7 @@ if ($mysqli->connect_error) {
         -->
         <!-- <?php echo $_SESSION['lang'];?> -->
         <script type="text/javascript">
-            var lang = '<?php echo $_SESSION['lang'];?>';
+            var lang = '<?php echo $lang?>';
         </script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">

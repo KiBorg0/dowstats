@@ -1,5 +1,4 @@
 <?php
-session_start();
 header('Content-Type: text/html; charset=utf-8');
 $host = $_SERVER['HTTP_HOST'];
 
@@ -62,7 +61,7 @@ if ($mysqli->connect_error) {
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/scrollup.js"></script> -->
         <script type="text/javascript">
-            var lang = '<?php echo $_SESSION['lang'];?>';
+            var lang = '<?php echo $lang;?>';
         </script>
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
