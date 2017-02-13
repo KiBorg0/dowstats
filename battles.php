@@ -38,7 +38,7 @@ if ($mysqli->connect_errno) {
 
     <head>
 
-        <title>Soulstorm - статистика</title>
+        <title><?php echo _('Soulstorm Ladder')?></title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="text/javascript">
