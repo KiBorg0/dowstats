@@ -3,21 +3,24 @@ $timeinfo = "";
 $startmt = microtime(true);
 require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
-$lang = $_GET['lang'];
+
+$lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+setlocale(LC_ALL, $lang, $lang . '.utf8');
+
 function get_table_header_by_sort_type($sort_type){
 ?><TABLE   class="table table-striped table-hover text-center">
 	<thead><tr>
-		<td><?php echo _('number')?></td>
-		<td><?php echo _('avatar')?></td>
-		<td><a id = "sort_by_player" href = "#"><?php echo _('player').' '; if ($sort_type == "player") echo "&#8595;" ?>
+		<td><?php echo _('Number')?></td>
+		<td><?php echo _('Avatar')?></td>
+		<td><a id = "sort_by_player" href = "#"><?php echo _('Player').' '; if ($sort_type == "player") echo "&#8595;" ?>
 		</a></td>
-		<td><a id = "sort_by_allgames" href = "#"><?php echo _('count of games').' '; if ($sort_type == "allgames") echo "&#8595;" ?>
+		<td><a id = "sort_by_allgames" href = "#"><?php echo _('Number of Games').' '; if ($sort_type == "allgames") echo "&#8595;" ?>
 		</a></td>
-		<td><a id = "sort_by_wins" href = "#"><?php echo _('wins').' '; if ($sort_type == "wins") echo "&#8595;" ?>
+		<td><a id = "sort_by_wins" href = "#"><?php echo _('Victories').' '; if ($sort_type == "wins") echo "&#8595;" ?>
 		</a></td>
-		<td><a id = "sort_by_pwins" href = "#"><?php echo _('win ratio').' '; if ($sort_type == "pwins") echo "&#8595;" ?>
+		<td><a id = "sort_by_pwins" href = "#"><?php echo _('Win Rate').' '; if ($sort_type == "pwins") echo "&#8595;" ?>
 		</a></td>
-		<td><?php echo _('favorite race').' '?></td>
+		<td><?php echo _('Favorite Race').' '?></td>
 		<td><a id = "sort_by_mmr" href = "#">SOLO MMR <?php if ($sort_type == "mmr") echo "&#8595;" ?>
 		</a></td>
 	</tr></thead>
@@ -59,7 +62,7 @@ else
 $res = $mysqli->use_result();
 $res = $res->fetch_assoc();
 $Wnr8 =  ($res["allsum"]!=0)?round (100 * $res["allsumwin"]/$res["allsum"]):0;
-echo _("win ratio").": ". $Wnr8 . "%";
+echo _("Win Rate").": ". $Wnr8 . "%";
 // echo "общий процент побед: " . $Wnr8 . "%";
 // echo "процент побед космодесанта 1х1: " . $Wnr8 . "%";
 

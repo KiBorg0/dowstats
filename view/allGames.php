@@ -57,28 +57,28 @@ while ($row = $res->fetch_assoc()) {
 	$timehelpint = $row['gTime'] / 60;
 	$timehours = intval($timehelpint / 60);
 	echo "<b>" . $row['cTime'] . "</b><br>";
-	echo _("Game time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
+	echo _("Game Time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
 	if($row['map'][1] == "P"){
 		$newMap = substr($row['map'], 3); 
 	}else{
 		$newMap = $row['map'];
 	}
 	echo _("Map").": "  . $newMap . "<br>";
-	echo _("Senders steam ids").": "  . $row['statsendsid'];
+	echo _("Senders Steam IDs").": "  . $row['statsendsid'];
 	if(file_exists("../replays/".$row['id'].".rec")){
-		echo "<br/><a class = 'btn btn-primary' href = '../replays/".$row['id'].".rec'>"._('download replay')."</a>";
+		echo "<br/><a class = 'btn btn-primary' href = '../replays/".$row['id'].".rec'>"._('Download Replay')."</a>";
 	}else{
-		echo "<br/>"._("replay is absent");
+		echo "<br/>"._("Replay is Absent");
 	}
 	?>
 
 	<table class="table table-striped table-hover text-center table-games">
 		<thead>
 			<tr>
-				<td><?php echo _('players')?></td>
-				<td><?php echo _('races')?></td>
-				<td><?php echo _('apm')?><br/></td>
-				<td><?php echo _('result')?></td>
+				<td><?php echo _('Players')?></td>
+				<td><?php echo _('Races')?></td>
+				<td><?php echo _('APM')?><br/></td>
+				<td><?php echo _('Result')?></td>
 			</tr>
 		</thead>
 
@@ -92,7 +92,7 @@ while ($row = $res->fetch_assoc()) {
 			$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
 		    echo "<td>". $href . "</td>";
 		    echo "<td>" . RaceSwitcher::getRace($player_race_coded) . "</td>";
-		    $apm = ($player_apm == 0) ? _("no data") :  $player_apm;
+		    $apm = ($player_apm == 0) ? _("No Data") :  $player_apm;
 		    echo "<td>" . $apm . "</td>";
 		    $is_victory = false;
 		    for($j=1; $j<=$type;$j++){
@@ -100,9 +100,9 @@ while ($row = $res->fetch_assoc()) {
 		    	if ($win_name_coded == $player_name_coded) $is_victory = true;
 		    }
 		    if($is_victory){
-				echo " <td>"._('win')."</td>";
+				echo " <td>"._('Winner')."</td>";
 			}else{
-				echo " <td>"._('lose')."</td>";
+				echo " <td>"._('Loser')."</td>";
 			}
 	    echo "</TR>";
 	}

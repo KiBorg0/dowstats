@@ -22,7 +22,7 @@ class RaceSwitcher{
 	            return _("Necrons");
 	            break;
 	        case 7:
-	            return _("Tau");
+	            return _("Tau Empire");
 	            break;
 	        case 8:
 	            return _("Sisters of Battle");
@@ -56,7 +56,7 @@ class RaceSwitcher{
 			case _("Necrons"):
 				return 6;
 				break;
-			case _("Tau"):
+			case _("Tau Empire"):
 				return 7;
 				break;
 			case _("Sisters of Battle"):

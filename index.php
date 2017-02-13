@@ -21,7 +21,7 @@ if ($mysqli->connect_error) {
 
     <head>
 
-        <title>Soulstorm - статистика</title>
+        <title><?php echo _('Soulstorm Ladder')?></title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -78,12 +78,12 @@ if ($mysqli->connect_error) {
                                     <div class="btn-group" role="group">
         <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General');?></button>
         <button class="btn btn-primary" onclick="SendSmStat();" role="group"><?php echo _('SM');?></button>
-        <button class="btn btn-primary" onclick="SendChaosStat();" role="group"><?php echo _('CSM');?></button>
+        <button class="btn btn-primary" onclick="SendChaosStat();" role="group"><?php echo _('Chaos');?></button>
         <button class="btn btn-primary" onclick="SendOrkStat();" role="group"><?php echo _('Orks');?></button>
         <button class="btn btn-primary" onclick="SendEldStat();" role="group"><?php echo _('Eldar');?></button>
         <button class="btn btn-primary" onclick="SendIGStat();" role="group"><?php echo _('IG');?></button>
         <button class="btn btn-primary" onclick="SendNecronStat();" role="group"><?php echo _('Necrons');?></button>
-        <button class="btn btn-primary" onclick="SendTauStat();" role="group"><?php echo _('Tau');?></button>
+        <button class="btn btn-primary" onclick="SendTauStat();" role="group"><?php echo _('Tau Empire');?></button>
         <button class="btn btn-primary" onclick="SendSOBStat();" role="group"><?php echo _('SoB');?></button>
         <button class="btn btn-primary" onclick="SendDEStat();" role="group"><?php echo _('DE');?></button>
                                     </div>

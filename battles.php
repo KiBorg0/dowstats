@@ -93,7 +93,7 @@ if ($mysqli->connect_errno) {
                     <div class="toggle-content text-center">
 	                    <br/>
                         <div style = "clear:both"/>
-                            <h3><?php echo _('Recent games')?></h3>
+                            <h3><?php echo _('Recent Games')?></h3>
                         </div>
                         <div class = "search_div">
                             <div class="form-group col-md-3" >
@@ -105,7 +105,7 @@ if ($mysqli->connect_errno) {
                             <div class="form-group col-md-3">
                             <label class="sr-only" for="race_option">Раса</label>
                             <select class="form-control" id="race_option">
-                            <option><?php echo _('Any race')?></option>
+                            <option><?php echo _('Any Race')?></option>
                             <?php
                                 for($i = 1;$i <= 9;$i++){
                                     echo "<option>" . RaceSwitcher::getRace($i) . "</option>";
@@ -125,7 +125,7 @@ if ($mysqli->connect_errno) {
                             </div>
 
                             <div class="form-group col-md-3">
-                                <a class="btn btn-default" onclick = "search_player_battles()"><?php echo _('Find games')?> <span class="glyphicon glyphicon-search"></span></a>
+                                <a class="btn btn-default" onclick = "search_player_battles()"><?php echo _('Find Games')?> <span class="glyphicon glyphicon-search"></span></a>
                             </div>
                         </div>
 
@@ -134,7 +134,7 @@ if ($mysqli->connect_errno) {
                             <div id = "fight_result">
                             </div>
                         </div>
-                        <div id="scrollup"><img alt=<?php echo "'"._('Scroll up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
+                        <div id="scrollup"><img alt=<?php echo "'"._('Scroll Up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
 
                     </div> <!-- /.col-md-12 -->
                 </div>

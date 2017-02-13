@@ -2,11 +2,14 @@
 require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
 
+$lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+setlocale(LC_ALL, $lang, $lang . '.utf8');
+
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-$lang = $_GET['lang'];
+
 if(isset($_GET['race'])) {
 	if($_GET['race']=='all') {
-		echo '<h3>'._('General stats').'</h3>';
+		echo '<h3>'._('General Stats').'</h3>';
 		$mysqli->real_query("SELECT * FROM players ORDER BY time DESC");
         $res = $mysqli->use_result();
 
@@ -23,7 +26,7 @@ if(isset($_GET['race'])) {
 		}
 		$Wnr8 =  ($all != 0)?round (100 * $win/$all):0;
 		
-		echo _('Total win ratio').': '.$Wnr8.'%';
+		echo _('Total Win Rate').': '.$Wnr8.'%';
 		?>
 		</br>
 		<div class="navbar-form navbar-left" style="width:400px;">
@@ -53,10 +56,10 @@ if(isset($_GET['race'])) {
 		}
 		$Wnr8 =  ($all != 0)?round (100 * $win/$all):0;
 		
-		echo _('Race win ratio').': ' . ($Wnr8). '%';
+		echo _('Race Win Rate').': ' . ($Wnr8). '%';
 		echo '<TABLE   class="table table-striped table-hover text-center">
 	         	<thead><tr>
-	            <td>'._('number').'</td><td>'._('avatar').'</td><td>'._('player').'</td><td>'._('count of games').'</td><td>'._('wins').'</td><td>'._('win ratio').'</td>
+	            <td>'._('Number').'</td><td>'._('Avatar').'</td><td>'._('Player').'</td><td>'._('Number of Games').'</td><td>'._('Victories').'</td><td>'._('Win Rate').'</td>
 	            </tr>
 	            </thead>
 	            ';

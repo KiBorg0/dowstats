@@ -58,19 +58,19 @@ while ($row = $res->fetch_assoc()) {
 	$timehelpint = $row['gTime'] / 60;
 	$timehours = intval($timehelpint / 60);
 	echo "<b>" . $row['cTime'] . "</b><br>";
-	echo _("Game time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
+	echo _("Game Time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
 	if($row['map'][1] == "P")
 		$newMap = substr($row['map'], 3); 
 	else
 		$newMap = $row['map'];
 	
 	echo _("Map").": "  . $newMap . "<br>";
-	echo _("Senders steam ids").": "  . $row['statsendsid'];
+	echo _("Senders Steam IDs").": "  . $row['statsendsid'];
 	
 	if(file_exists("../replays/".$row['id'].".rec"))
-		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>"._('download replay')."</a>";
+		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>"._('Download Replay')."</a>";
 	else
-		echo "<br/>"._("replay is absent");
+		echo "<br/>"._("Replay is Absent");
 
 	$type = $row['type'];
 
@@ -80,10 +80,10 @@ while ($row = $res->fetch_assoc()) {
 
 	echo " <TABLE  class=\"table table-striped table-hover text-center table-games\">";
 	echo "<thead><tr>
-		<td>"._('players')."</td>
-		<td>"._('races')."</td>
-		<td>"._('apm')."<br/></td>
-		<td>"._('result')."</td></tr>
+		<td>"._('Players')."</td>
+		<td>"._('Races')."</td>
+		<td>"._('APM')."<br/></td>
+		<td>"._('Result')."</td></tr>
 		</thead>";
 	for($i=1; $i<=$type*2; $i++)
 	{
@@ -92,13 +92,13 @@ while ($row = $res->fetch_assoc()) {
 	    echo " <td>" . RaceSwitcher::getRace($row["r".$i]) . "</td>\n";
 	    if($i==1)
 	    	" <td>" . $row["p".$i] . "</td>\n";
-	    $apm = ($row["apm".$i."r"] == 0) ? _("no data") : $row["apm".$i."r"];
+	    $apm = ($row["apm".$i."r"] == 0) ? _("No Data") : $row["apm".$i."r"];
 	    echo " <td>" . $apm . "</td>\n";
 
 	    if(in_array($row["p".$i], $winners))
-			echo " <td>"._('win')."</td>";
+			echo " <td>"._('Winner')."</td>";
 		else
-			echo " <td>"._('lose')."</td>";
+			echo " <td>"._('Loser')."</td>";
 	    echo "</TR>\n";
 	}
 	 echo "</TABLE>\n";

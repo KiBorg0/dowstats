@@ -3,35 +3,6 @@ header('Content-Type: text/html; charset=utf-8');
 $host = $_SERVER['HTTP_HOST'];
 
 
-// define('BASE_PATH', realpath(dirname(__FILE__)));
-// define('LANGUAGES_PATH', BASE_PATH . '/locale');
-
-// $locale = 'en_US';
-// $lang = isset($_GET['lang'])?$_GET['lang']:'en';
-
-// switch ($lang) {
-//     case 'ru':
-//         $locale = 'ru_RU';
-//         break;
-//     case 'en':
-//         $locale = 'en_US';
-//         break;
-//     case 'ko':
-//         $locale = 'ko_KR';
-//         break;
-//     default:
-//         $locale = 'en_US';
-//         break;
-// }
-
-// putenv('LC_ALL=' . $locale);
-// setlocale(LC_ALL, $locale, $locale . '.utf8');
-// date_default_timezone_set('Europe/Moscow');
-// bind_textdomain_codeset($locale, 'UTF-8');
-// bindtextdomain($locale, LANGUAGES_PATH);
-// textdomain($locale);
-
-
 require_once("lib/steam.php");
 require_once("lib/NickDecode.php");
 require_once("lib/RaceSwitcher.php");
@@ -48,6 +19,9 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 */
 $steamid = "";
 $name = $_GET["name"];
+$lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+setlocale(LC_ALL, $lang, $lang . '.utf8');
+
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 if ($mysqli->connect_error) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
@@ -102,7 +76,7 @@ if ($mysqli->connect_error) {
 
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#navbar_list').append("<li id = \"player_profile\"><a  href=\"player.php?name=<?php echo $name;?>\"><?php echo NickDecode::decodeNick($name); ?></a></li>");
+                $('#navbar_list').append("<li id = \"player_profile\"><a  href=\"player.php?name=<?php echo $name.'&lang='.$lang;?>\"><?php echo NickDecode::decodeNick($name); ?></a></li>");
                 $('#player_profile').addClass('active');
         });
         </script>
@@ -129,12 +103,12 @@ if ($mysqli->connect_error) {
             <div class="toggle-content text-center">
                 <div   role="group" >
                     <div class="btn-group" role="group">
-                        <button class="btn btn-primary"  onclick="show_tab('tab0');"  role="group"><?php echo _('General stats')?></button>
+                        <button class="btn btn-primary"  onclick="show_tab('tab0');"  role="group"><?php echo _('General Stats')?></button>
                         <button class="btn btn-primary"  onclick="show_tab('tab1');"  role="group">1x1</button>
                         <button class="btn btn-primary" onclick="show_tab('tab2');" role="group">2x2</button>
                         <button class="btn btn-primary" onclick="show_tab('tab3');" role="group">3x3</button>
                         <button class="btn btn-primary" onclick="show_tab('tab4');" role="group">4x4</button>
-                        <button class="btn btn-primary"  onclick="show_tab('tab5');"  role="group"><?php echo _('Last games')?></button>
+                        <button class="btn btn-primary"  onclick="show_tab('tab5');"  role="group"><?php echo _('Last Games')?></button>
                     </div>
                 </div>
             </div>
@@ -170,20 +144,20 @@ if ($mysqli->connect_error) {
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
                     $cTimeMAX = date('Y-m-d H:i:s', time());
                     
-                    echo '<h3>'._('total stats').' - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
+                    echo '<h3>'._('Total Stats').' - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
 
                     echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
 
-                    echo _('game time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
+                    echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
                     //---------любимая раса -----------------
 
-                    echo _('favorite race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
-                    echo _('favorite race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
-                    echo _('apm').': '. $row['apm'] . '</h5>';
+                    echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
+                    echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
+                    echo _('APM').': '. $row['apm'] . '</h5>';
 
                     echo '<TABLE   class="table table-striped table-hover text-center">
                         <thead><tr>
-                        <td>'._('race').'</td><td>'._('count of games').'</td><td>'._('wins').'</td><td>'._('losses').'</td><td>'._('wins ratio').'</td>
+                        <td>'._('Race').'</td><td>'._('Number of Games').'</td><td>'._('Victories').'</td><td>'._('Losses').'</td><td>'._('Wins Rate').'</td>
                         </tr>
                         </thead>';
                     $all_sum = 0; 
@@ -229,23 +203,23 @@ if ($mysqli->connect_error) {
                     echo '<div class="toggle-content text-center tabs" id="tab'.$type.'">';
                     echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
 
-                    echo '<h3>'._('stats').' '.$type.'x'.$type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
+                    echo '<h3>'._('Stats').' '.$type.'x'.$type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
                     echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
-                    echo _('game time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
-                    echo _("favorite race").": ". RaceSwitcher::getRace($favRaceAll) . "</br>";
-                    echo _("favorite race 1x1").": ". RaceSwitcher::getRace($favRace) . "<br/>" ;
-                    echo _('apm').": ". $row['apm'] . "</h5>";
+                    echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
+                    echo _("Favorite Race").": ". RaceSwitcher::getRace($favRaceAll) . "</br>";
+                    echo _("Favorite Race 1x1").": ". RaceSwitcher::getRace($favRace) . "<br/>" ;
+                    echo _('APM').": ". $row['apm'] . "</h5>";
 
                     $all = 0;
                     $win = 0;
 
                     echo '<TABLE   class="table table-striped table-hover text-center">
                         <thead><tr>
-                        <td>'._('race').'</td>
-                        <td>'._('count of games').'</td>
-                        <td>'._('wins').'</td>
-                        <td>'._('losses').'</td>
-                        <td>'._('wins ratio').'</td>
+                        <td>'._('Race').'</td>
+                        <td>'._('Number of Games').'</td>
+                        <td>'._('Victories').'</td>
+                        <td>'._('Losses').'</td>
+                        <td>'._('Wins Rate').'</td>
                         </tr>
                         </thead>';
                     for($i=1; $i<=9; $i++)
@@ -280,7 +254,7 @@ if ($mysqli->connect_error) {
                     <br/>
                     <div style = "clear:both"/>
                         <?php
-                            echo '<h3>'._('Recent games').' - ' . NickDecode::decodeNick($name) . '</h3>';
+                            echo '<h3>'._('Recent Games').' - ' . NickDecode::decodeNick($name) . '</h3>';
                         ?>
                     </div>
                     <div class = "search_div">
@@ -291,9 +265,9 @@ if ($mysqli->connect_error) {
                         <span id = "search_advice_wrapper"></span>
 
                         <div class="form-group col-md-3">
-                            <label class="sr-only" for="race_option"><?php echo _('Player race')?></label>
+                            <label class="sr-only" for="race_option"><?php echo _('Player Race')?></label>
                             <select class="form-control" id="race_option">
-                            <option><?php echo _('Any race')?></option>
+                            <option><?php echo _('Any Race')?></option>
                             <?php
                                 for($i = 1;$i <= 9;$i++){
                                     echo "<option>" . RaceSwitcher::getRace($i) . "</option>";
@@ -315,7 +289,7 @@ if ($mysqli->connect_error) {
                         </div>
 
                         <div class="form-group col-md-3">
-                            <a class="btn btn-default" onclick = "search_player_battles()"><?php echo _('Find games')?> <span class="glyphicon glyphicon-search"></span></a>
+                            <a class="btn btn-default" onclick = "search_player_battles()"><?php echo _('Find Games')?> <span class="glyphicon glyphicon-search"></span></a>
                         </div>
                     </div>
 
@@ -326,7 +300,7 @@ if ($mysqli->connect_error) {
                         <div id = "fight_result">
                         </div>
                     </div>
-                    <div id="scrollup"><img alt=<?php echo "'"._('Scroll up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
+                    <div id="scrollup"><img alt=<?php echo "'"._('Scroll Up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
 
                 </div> <!-- /.col-md-12 col-sm-12 -->
             </div> 

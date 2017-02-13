@@ -2,28 +2,27 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <?php
-        $locale = 'en_US';
-        $lang = isset($_GET['lang'])?$_GET['lang']:'en';
-        $_SESSION['lang'] = $lang;
-        $GLOBALS['lang'] = $lang;
-        switch ($lang) {
+        $locale = isset($_GET['lang'])?$_GET['lang']:'en_US';
+        $_SESSION['lang'] = $locale;
+        $lang = $locale;
+        switch (substr($locale, -3)) {
         case 'ru':
-            $locale = 'ru_RU';
+            $lang_id = 'ru';
             break;
         case 'en':
-            $locale = 'en_US';
+            $lang_id = 'en';
             break;
         case 'ko':
-            $locale = 'ko_KR';
+            $lang_id = 'ko';
             break;
         default:
-            $locale = 'en_US';
+            $lang_id = 'en';
             break;
         }
-        // echo $lang." ".$locale.'</br>';
+
         define('BASE_PATH', realpath(dirname(__FILE__)));
         define('LANGUAGES_PATH', BASE_PATH . '/locale');
-        // echo LANGUAGES_PATH.'</br>'.BASE_PATH;
+
         putenv('LC_ALL=' . $locale);
         setlocale(LC_ALL, $locale, $locale . '.utf8');
         bind_textdomain_codeset($locale, 'UTF-8');
@@ -40,7 +39,7 @@
         <div id="lang_selector" class="dropdown"  >
 
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <span class="lang-sm lang-lbl-full" lang="<?php echo $lang?>"></span>
+                <span class="lang-sm lang-lbl-full" lang="<?php echo $lang_id?>"></span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style = "z-index:1001;">
@@ -49,15 +48,15 @@
                     unset($get_array_url['lang']);
                     $url = $_SERVER['PHP_SELF'] . "?" . http_build_query($get_array_url);
                 ?>
-                <li><a href = "<?php echo $url  . "&lang=ru";?>"><span class="lang-sm lang-lbl-full" lang="ru"></span></a></li>
-                <li><a href = "<?php echo $url  . "&lang=en";?>"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li>
-                <li><a href = "<?php echo $url  . "&lang=ko";?>"><span class="lang-sm lang-lbl-full" lang="ko"></span></a></li>
+                <li><a href = "<?php echo $url  . "&lang=ru_RU";?>"><span class="lang-sm lang-lbl-full" lang="ru"></span></a></li>
+                <li><a href = "<?php echo $url  . "&lang=en_US";?>"><span class="lang-sm lang-lbl-full" lang="en"></span></a></li>
+                <li><a href = "<?php echo $url  . "&lang=ko_KR";?>"><span class="lang-sm lang-lbl-full" lang="ko"></span></a></li>
             </ul>
 
         </div>
       <ul class="nav navbar-nav" id="navbar_list">
-         <li id = "overall_stat" ><a href="<?php echo "index.php?lang=".$lang;?>"><?php echo _('General stats');?></a></li>
-        <li id = "1x1_stat">     <a href="<?php echo "1x1.php?lang=".$lang;?>"><?php echo _('Top 1x1');?></a></li>
+         <li id = "overall_stat" ><a href="<?php echo "index.php?lang=".$lang;?>"><?php echo _('General Ladder');?></a></li>
+        <li id = "1x1_stat">     <a href="<?php echo "1x1.php?lang=".$lang;?>"><?php echo _('1x1 Ladder');?></a></li>
         <li id = "battles">      <a href="<?php echo "battles.php?lang=".$lang;?>"><?php echo _('Battles');?></a></li>
 
         <!--<li class="dropdown">

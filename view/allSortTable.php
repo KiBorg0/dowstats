@@ -18,21 +18,21 @@
 		//---------------ВЫВОД ЗАГОЛОВКА ТАБЛИЦЫ----------
 		$sort_type = $sort[$_GET['allSort']];
         $tabel_header = array();
-		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByName();">'._('player');
-		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByAllGames();">'._('count of games');
-		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByWin();">'._('wins');
-		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByPercent();">'._('win ratio');
-		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByAPM();">'._('apm');
-		$tabel_header[] = '<td style = "width:15%;"><a href = "javascript: SortAllStatByFavRace();">'._('favorite race');
-		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByAllGamesTime();">&asymp;'._('time');
+		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByName();">'._('Player');
+		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByAllGames();">'._('Number of Games');
+		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByWin();">'._('Victories');
+		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByPercent();">'._('Win Rate');
+		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByAPM();">'._('APM');
+		$tabel_header[] = '<td style = "width:15%;"><a href = "javascript: SortAllStatByFavRace();">'._('Favorite Race');
+		$tabel_header[] = '<td style = "width:9%;"><a href = "javascript: SortAllStatByAllGamesTime();">&asymp;'._('Time');
 		$result_header = "";
 		for($i=0; $i<7;$i++)
 			if($i==$sort_type) $result_header .= $tabel_header[$i]." &#8595;</a></td>";
 			else $result_header .= $tabel_header[$i]."</a></td>";
 
 		echo '<thead><tr>
-		<td style = "width:5%;">'._('number').'</td>
-        <td style = "width:10%;">'._('avatar').'</td>'
+		<td style = "width:5%;">'._('Number').'</td>
+        <td style = "width:10%;">'._('Avatar').'</td>'
         .$result_header.
         '</tr>
         </thead>';
