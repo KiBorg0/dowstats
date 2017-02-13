@@ -4,7 +4,8 @@ header('Content-Type: text/html; charset=utf-8');
 
 $host = $_SERVER['HTTP_HOST'];
 
-setlocale(LC_TIME, "ru_RU.utf8");
+$lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+setlocale(LC_ALL, $lang, $lang . '.utf8');
 
 date_default_timezone_set('Europe/Moscow');
 

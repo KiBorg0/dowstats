@@ -3,6 +3,9 @@
 	require_once("../lib/NickDecode.php");
     require_once("../lib/RaceSwitcher.php");
 
+    $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+	setlocale(LC_ALL, $lang, $lang . '.utf8');
+
     $sort = array('name' 		 => 0,
 			      'games' 		 => 1,
 			      'win' 		 => 2,
@@ -13,7 +16,6 @@
 	
 
 	$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-	$lang = $_GET['lang'];
 	if(isset($_GET['allSort'])) {
 		//---------------ВЫВОД ЗАГОЛОВКА ТАБЛИЦЫ----------
 		$sort_type = $sort[$_GET['allSort']];

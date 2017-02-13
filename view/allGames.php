@@ -3,7 +3,8 @@
 
 $host = $_SERVER['HTTP_HOST'];
 
-setlocale(LC_TIME, "ru_RU.utf8");
+$lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+setlocale(LC_ALL, $lang, $lang . '.utf8');
 
 date_default_timezone_set('Europe/Moscow');
 
@@ -24,7 +25,6 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 */
 
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-$lang = $_GET['lang'];
 $searchname = NickDecode::codeNick($_GET["playername"]);
 $raceOption = RaceSwitcher::getRaceNum($_GET["selected_race"]);
 $selected_type = explode(";",$_GET["type_checkboxes"]);//массив[0,1,2,3], в котором true/false; 0-1x1 1-2x2 2-3x3 3-4x4
