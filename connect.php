@@ -1,7 +1,7 @@
 <?
+header('Content-Type: text/html; charset=utf-8');
 echo " - скрипт записи статистики начал выполнение\n";
 $startmt = microtime(true);
-header('Content-Type: text/html; charset=utf-8');
 
 $host = $_SERVER['HTTP_HOST'];
 
@@ -55,39 +55,6 @@ $mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_bas
 $mysqligame->set_charset("utf8");
 $type = $_GET["type"];
 
-$p1 = $_GET["p1"];
-$p2 = $_GET["p2"];
-$p3 = $_GET["p3"];
-$p4 = $_GET["p4"];
-$p5 = $_GET["p5"];
-$p6 = $_GET["p6"];
-$p7 = $_GET["p7"];
-$p8 = $_GET["p8"];
-
-$r1 = $_GET["r1"];
-$r2 = $_GET["r2"];
-$r3 = $_GET["r3"];
-$r4 = $_GET["r4"];
-$r5 = $_GET["r5"];
-$r6 = $_GET["r6"];
-$r7 = $_GET["r7"];
-$r8 = $_GET["r8"];
-
-$w1 = $_GET["w1"];
-$w2 = $_GET["w2"];
-$w3 = $_GET["w3"];
-$w4 = $_GET["w4"];
-
-$apm1r = isset($_GET["apm1r"]) ? $_GET["apm1r"] : 0;
-$apm2r = isset($_GET["apm2r"]) ? $_GET["apm2r"] : 0;
-$apm3r = isset($_GET["apm3r"]) ? $_GET["apm3r"] : 0;
-$apm4r = isset($_GET["apm4r"]) ? $_GET["apm4r"] : 0;
-$apm5r = isset($_GET["apm5r"]) ? $_GET["apm5r"] : 0;
-$apm6r = isset($_GET["apm6r"]) ? $_GET["apm6r"] : 0;
-$apm7r = isset($_GET["apm7r"]) ? $_GET["apm7r"] : 0;
-$apm8r = isset($_GET["apm8r"]) ? $_GET["apm8r"] : 0;
-
-
 // показывает имена игроков в массиве по индексам, если игрока нет, то NULL
 // var_dump($players);
 
@@ -105,8 +72,6 @@ for($i=1; $i<=4; $i++)
 {
 	$winners[] = $_GET["w".$i];
 }
-
-
 
 
 $sid = $_GET["sid"];
@@ -160,7 +125,7 @@ $res = $mysqligame->store_result();
 
 
 //-----Записываем игру
-$mysqligame->real_query("SELECT * FROM games WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)");
+$mysqligame->real_query("SELECT * FROM games WHERE (p1 = '".$players[0]."' AND p2 = '".$players[0]."'  AND '$cTimeMAX' < cTime)");
 $res = $mysqligame->store_result();
 
 // проверим, нет ли такой игры в базе
@@ -175,7 +140,7 @@ while ($row = $res->fetch_assoc()) {
 	}
 
 	$mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-	$mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '$w1',apm1r = apm1r + '$apm1r',apm2r = apm2r + '$apm2r',apm3r = apm3r + '$apm3r',apm4r = apm4r + '$apm4r',apm5r = apm5r + '$apm5r',apm6r = apm6r + '$apm6r',apm7r = apm7r + '$apm7r',apm8r = apm8r + '$apm8r'  WHERE (p1 = '$p1' AND p2 = '$p2'  AND '$cTimeMAX' < cTime)");
+	$mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '".$winners[0]."',apm1r = apm1r + '".$apmrs[0]."',apm2r = apm2r + '".$apmrs[1]."',apm3r = apm3r + '".$apmrs[2]."',apm4r = apm4r + '".$apmrs[3]."',apm5r = apm5r + '".$apmrs[4]."',apm6r = apm6r + '".$apmrs[5]."',apm7r = apm7r + '".$apmrs[6]."',apm8r = apm8r + '".$apmrs[7]."'  WHERE (p1 = '".$players[0]."' AND p2 = '".$players[0]."'  AND '$cTimeMAX' < cTime)");
 	$isFound = true;
 }
 
@@ -249,21 +214,33 @@ if(!$isFound)
 				$apm_info .= "<br/> расчет рейтинга:<br/> рейтинг до: ".$players[$i]." - " . $mmrs[$i];
 			}
 		}
-		if($isFoundPlayers){
+		// if($isFoundPlayers){
+		// 	for($i=0;$i<2;$i++)
+		// 		if(in_array($players[$i], $winners))
+		// 		{
+				$amb = $mmrs[1] - $mmrs[0];
+				$ea = 1/(1 + pow( 10 , $amb/400 ));
+				$f1 = round(50*(1 - $ea));
+				
+				if(in_array($players[0], $winners))
+				{
+					$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . $ea . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
+					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[0]."' + '$f1'  WHERE name = '".$players[0]."'");
+					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[1]."' - '$f1'  WHERE name = '".$players[1]."'");
+				}
+				$amb = $mmrs[0] - $mmrs[1];
+				$ea = 1/(1 + pow( 10 , $amb/400 ));
+				$f1 = round(50*(1 - $ea));
 
-			$amb = abs($mmrs[1] - $mmrs[0]);
-			$ea = 1/(1 + pow( 10 , $amb/400 ));
-			$f1 = round(50*(1 - $ea));
-			$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . $ea . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
-
-			for($i=0;$i<2;$i++)
-				if(in_array($players[$i], $winners))
-					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[$i]."' + '$f1'  WHERE name = '".$players[$i]."'");
-				else
-					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[$i]."' - '$f1'  WHERE name = '".$players[$i]."'");
-		}
+				if(in_array($players[1], $winners))
+				{
+					$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . $ea . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
+					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[1]."' + '$f1'  WHERE name = '".$players[1]."'");
+					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[0]."' - '$f1'  WHERE name = '".$players[0]."'");
+				}
+				
+		
 	}
-}
 };
 
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";

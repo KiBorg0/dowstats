@@ -124,7 +124,7 @@ else
 
 $startmt1 = microtime(true);
 $res = $mysqli->use_result();
-$number = 1;
+$number = 0;
 while ($row = $res->fetch_assoc()) {
 	$favRace = 0;
 	$countWinRace = 0;
@@ -134,40 +134,29 @@ while ($row = $res->fetch_assoc()) {
 			$favRace = $i;
 			$countWinRace = $row['1x1_'.$i];
 		}
+	$all = 0;
+	$win = 0;
 	if($r_type == 0) {
 		$all =  $row['1x1_1'] + $row['1x1_2'] +  $row['1x1_3'] +  $row['1x1_4'] +  $row['1x1_5'] +  $row['1x1_6'] + $row['1x1_7'] +  $row['1x1_8'] +  $row['1x1_9']; 
 		$win =  $row['1x1_1w'] + $row['1x1_2w'] +  $row['1x1_3w'] +  $row['1x1_4w'] +  $row['1x1_5w'] +  $row['1x1_6w'] + $row['1x1_7w'] +  $row['1x1_8w'] +  $row['1x1_9w'];
-		if($all!=0)
-		{ 
-			echo "<tr>"
-			."<td>" . $number 						 .  "</td>"
-			."<td><img class = 'avatar' src='" . $row['avatar_url'] . "'></td>"
-			."<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
-
-			."<td>" . $all 						     .  "</td>"
-			."<td>" . $win 						     .  "</td>"
-			."<td>" . round(100 * $win/$all)	     . "%</td>"
-			."<td>" . RaceSwitcher::getRace($favRace).  "</td>"
-			."<td>" . $row['mmr'] 				     .  "</td></tr>";
-		}
 	}
 	else{
 		$all = $row['1x1_'.$r_type];
 		$win = $row['1x1_'.$r_type.'w'];
-		if($all!=0)
-		{
-			echo "<tr>"
-			."<td>" . $number 						 .  "</td>"
-			."<td><img class = 'avatar' src='" . $row['avatar_url'] . "'></td>"
-			."<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
-			."<td>" . $all				  		     .  "</td>"
-			."<td>" . $win			  				 .  "</td>"
-			."<td>" . round(100 * $win/$all)		 . "%</td>"
-			."<td>" . RaceSwitcher::getRace($favRace).  "</td>"
-			."<td>" . $row['mmr']  					 .  "</td></tr>";
-		}
 	}
-	$number++;
+	if($all!=0)
+	{
+		$number++;
+		echo "<tr>"
+		."<td>" . $number 						 .  "</td>"
+		."<td><img class = 'avatar' src='" . $row['avatar_url'] . "'></td>"
+		."<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
+		."<td>" . $all				  		     .  "</td>"
+		."<td>" . $win			  				 .  "</td>"
+		."<td>" . round(100 * $win/$all)		 . "%</td>"
+		."<td>" . RaceSwitcher::getRace($favRace).  "</td>"
+		."<td>" . $row['mmr']  					 .  "</td></tr>";
+	}
 }
 $endmt1 = microtime(true) - $startmt1;
 $timeinfo .= "Вывод всех игроков - " . $endmt1;
