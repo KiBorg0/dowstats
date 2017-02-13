@@ -20,10 +20,10 @@
             $locale = 'en_US';
             break;
         }
-        echo $lang." ".$locale.'</br>';
+        // echo $lang." ".$locale.'</br>';
         define('BASE_PATH', realpath(dirname(__FILE__)));
         define('LANGUAGES_PATH', BASE_PATH . '/locale');
-        echo LANGUAGES_PATH.'</br>'.BASE_PATH;
+        // echo LANGUAGES_PATH.'</br>'.BASE_PATH;
         putenv('LC_ALL=' . $locale);
         setlocale(LC_ALL, $locale, $locale . '.utf8');
         bind_textdomain_codeset($locale, 'UTF-8');

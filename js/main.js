@@ -31,7 +31,7 @@ function SendAllStat() {
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
-				SortAllStatByPercent();
+				SortAllStatByTop();
 				// SortAllStatByName();
 			}
 		});
@@ -344,6 +344,19 @@ function SendAllStat() {
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
 			data:{'allSort':'win','lang':lang},//параметры запроса
+			response:'text',//тип возвращаемого ответа text либо xml
+			success:function (data) {//возвращаемый результат от сервера
+				$('#table-allStat').html(data);
+			}
+		});
+	}
+
+	function SortAllStatByTop() {
+		//отправляю GET запрос и получаю ответ
+		$.ajax({
+			type:'get',//тип запроса: get,post либо head
+			url:'view/allSortTable.php',//url адрес файла обработчика
+			data:{'allSort':'top','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
