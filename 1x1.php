@@ -1,37 +1,14 @@
 <?
-
+session_start();
 header('Content-Type: text/html; charset=utf-8');
 
 $host = $_SERVER['HTTP_HOST'];
 
-$locale = 'en_US';
-$lang = isset($_GET['lang'])?$_GET['lang']:'en';
-switch ($lang) {
-case 'ru':
-    $locale = 'ru_RU';
-    break;
-case 'en':
-    $locale = 'en_US';
-    break;
-case 'ko':
-    $locale = 'ko_KR';
-    break;
-default:
-    $locale = 'en_US';
-    break;
-}
+setlocale(LC_TIME, "ru_RU.utf8");
 
+date_default_timezone_set('Europe/Moscow');
 
-define('BASE_PATH', realpath(dirname(__FILE__)));
-define('LANGUAGES_PATH', BASE_PATH . '/locale');
-
-putenv('LC_ALL=' . $locale);
-setlocale(LC_ALL, $locale, $locale . '.utf8');
-bind_textdomain_codeset($locale, 'UTF-8');
-bindtextdomain($locale, LANGUAGES_PATH);
-textdomain($locale);
-
-
+// echo $_SESSION['lang'];
 
 /*
 
@@ -71,7 +48,9 @@ if ($mysqli->connect_errno) {
         Circle Template 
         http://www.templatemo.com/preview/templatemo_410_circle 
         -->
-
+        <script type="text/javascript">
+            var lang = '<?php echo $_SESSION['lang'];?>';
+        </script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">

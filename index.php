@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 header('Content-Type: text/html; charset=utf-8');
 
 $host = $_SERVER['HTTP_HOST'];
@@ -27,14 +27,16 @@ if ($mysqli->connect_error) {
 
         <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-        <title>Circle by templatemo</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- 
         Circle Template 
         http://www.templatemo.com/preview/templatemo_410_circle 
         -->
-
+        <!-- <?php echo $_SESSION['lang'];?> -->
+        <script type="text/javascript">
+            var lang = '<?php echo $_SESSION['lang'];?>';
+        </script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -50,6 +52,7 @@ if ($mysqli->connect_error) {
 
 
 
+
     </head>
 
     <body>
@@ -57,9 +60,10 @@ if ($mysqli->connect_error) {
 
     <div class="container-fluid">
         <div class="row">
-            
-            <?php include "header.php"; ?>
 
+            <?php 
+            include "header.php";
+            ?>
             <div class="col-md-12">
                 
                 <div id="menu-container">
@@ -72,21 +76,18 @@ if ($mysqli->connect_error) {
                                 <div class="toggle-content text-center">
                                 <div   role="group" >
                                     <div class="btn-group" role="group">
-        <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General')?></button>
-        <button class="btn btn-primary" onclick="SendSmStat();" role="group"><?php echo _('SM')?></button>
-        <button class="btn btn-primary" onclick="SendChaosStat();" role="group"><?php echo _('CSM')?></button>
-        <button class="btn btn-primary" onclick="SendOrkStat();" role="group"><?php echo _('Orks')?></button>
-        <button class="btn btn-primary" onclick="SendEldStat();" role="group"><?php echo _('Eldar')?></button>
-        <button class="btn btn-primary" onclick="SendIGStat();" role="group"><?php echo _('IG')?></button>
-        <button class="btn btn-primary" onclick="SendNecronStat();" role="group"><?php echo _('Necrons')?></button>
-        <button class="btn btn-primary" onclick="SendTauStat();" role="group"><?php echo _('Tau')?></button>
-        <button class="btn btn-primary" onclick="SendSOBStat();" role="group"><?php echo _('SoB')?></button>
-        <button class="btn btn-primary" onclick="SendDEStat();" role="group"><?php echo _('DE')?></button>
+        <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General');?></button>
+        <button class="btn btn-primary" onclick="SendSmStat();" role="group"><?php echo _('SM');?></button>
+        <button class="btn btn-primary" onclick="SendChaosStat();" role="group"><?php echo _('CSM');?></button>
+        <button class="btn btn-primary" onclick="SendOrkStat();" role="group"><?php echo _('Orks');?></button>
+        <button class="btn btn-primary" onclick="SendEldStat();" role="group"><?php echo _('Eldar');?></button>
+        <button class="btn btn-primary" onclick="SendIGStat();" role="group"><?php echo _('IG');?></button>
+        <button class="btn btn-primary" onclick="SendNecronStat();" role="group"><?php echo _('Necrons');?></button>
+        <button class="btn btn-primary" onclick="SendTauStat();" role="group"><?php echo _('Tau');?></button>
+        <button class="btn btn-primary" onclick="SendSOBStat();" role="group"><?php echo _('SoB');?></button>
+        <button class="btn btn-primary" onclick="SendDEStat();" role="group"><?php echo _('DE');?></button>
                                     </div>
                                 </div>
-
-                                	
-
                                      <center>
                                      <div id="result"></div>
                                      
@@ -102,7 +103,7 @@ if ($mysqli->connect_error) {
 
 
                 </div> <!-- /#menu-container -->
-                <div id="scrollup"><img alt=<?php echo "'"._('Scroll up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
+                <div id="scrollup"><img alt=<?php echo "'"._('Scroll up')."'";?> src="images/arrows7.png"><br/><?php echo _('Up');?></div>
             </div> <!-- /.col-md-8 -->
 
         </div> <!-- /.row -->
@@ -112,7 +113,7 @@ if ($mysqli->connect_error) {
         <div class="row">
             <div class="col-md-12 footer">
                 <h4 id="footer-text">
-                <?php echo _('developers')?>: <a href="https://vk.com/id59975761">Anibus</a> <?php echo _('and')?> <a href="https://vk.com/lebedkooa">New</a><br>
+                <?php echo _('Developers');?>: <a href="https://vk.com/id59975761">Anibus</a> <?php echo _('and');?> <a href="https://vk.com/lebedkooa">New</a><br>
                 </h4>
             </div><!-- /.footer --> 
         </div>

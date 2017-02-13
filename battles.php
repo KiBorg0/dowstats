@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("lib/RaceSwitcher.php");
 // header('Content-Type: text/html; charset=utf-8');
 
@@ -40,7 +41,9 @@ if ($mysqli->connect_errno) {
         <title>Soulstorm - статистика</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+        <script type="text/javascript">
+            var lang = '<?php echo $_SESSION['lang'];?>';
+        </script>
         <meta charset="utf-8">
         <link href="css/main.css" rel="stylesheet"/>
         <link href="css/battles.css" rel="stylesheet"/>

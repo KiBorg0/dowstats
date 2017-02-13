@@ -3,7 +3,7 @@ $timeinfo = "";
 $startmt = microtime(true);
 require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
-
+$lang = $_GET['lang'];
 function get_table_header_by_sort_type($sort_type){
 ?><TABLE   class="table table-striped table-hover text-center">
 	<thead><tr>
@@ -135,7 +135,7 @@ while ($row = $res->fetch_assoc()) {
 			echo "<tr>"
 			."<td>" . $number 						 .  "</td>"
 			."<td><img class = 'avatar' src='" . $row['avatar_url'] . "'></td>"
-			."<td><a href = 'player.php?name=". $row['name'] ."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
+			."<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
 
 			."<td>" . $all 						     .  "</td>"
 			."<td>" . $win 						     .  "</td>"
@@ -152,7 +152,7 @@ while ($row = $res->fetch_assoc()) {
 			echo "<tr>"
 			."<td>" . $number 						 .  "</td>"
 			."<td><img class = 'avatar' src='" . $row['avatar_url'] . "'></td>"
-			."<td><a href = 'player.php?name=". $row['name'] ."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
+			."<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
 			."<td>" . $all				  		     .  "</td>"
 			."<td>" . $win			  				 .  "</td>"
 			."<td>" . round(100 * $win/$all)		 . "%</td>"

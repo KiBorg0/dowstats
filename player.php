@@ -3,33 +3,33 @@ header('Content-Type: text/html; charset=utf-8');
 $host = $_SERVER['HTTP_HOST'];
 
 
-define('BASE_PATH', realpath(dirname(__FILE__)));
-define('LANGUAGES_PATH', BASE_PATH . '/locale');
+// define('BASE_PATH', realpath(dirname(__FILE__)));
+// define('LANGUAGES_PATH', BASE_PATH . '/locale');
 
-$locale = 'en_US';
-$lang = isset($_GET['lang'])?$_GET['lang']:'en';
+// $locale = 'en_US';
+// $lang = isset($_GET['lang'])?$_GET['lang']:'en';
 
-switch ($lang) {
-    case 'ru':
-        $locale = 'ru_RU';
-        break;
-    case 'en':
-        $locale = 'en_US';
-        break;
-    case 'ko':
-        $locale = 'ko_KR';
-        break;
-    default:
-        $locale = 'en_US';
-        break;
-}
+// switch ($lang) {
+//     case 'ru':
+//         $locale = 'ru_RU';
+//         break;
+//     case 'en':
+//         $locale = 'en_US';
+//         break;
+//     case 'ko':
+//         $locale = 'ko_KR';
+//         break;
+//     default:
+//         $locale = 'en_US';
+//         break;
+// }
 
-putenv('LC_ALL=' . $locale);
-setlocale(LC_ALL, $locale, $locale . '.utf8');
-date_default_timezone_set('Europe/Moscow');
-bind_textdomain_codeset($locale, 'UTF-8');
-bindtextdomain($locale, LANGUAGES_PATH);
-textdomain($locale);
+// putenv('LC_ALL=' . $locale);
+// setlocale(LC_ALL, $locale, $locale . '.utf8');
+// date_default_timezone_set('Europe/Moscow');
+// bind_textdomain_codeset($locale, 'UTF-8');
+// bindtextdomain($locale, LANGUAGES_PATH);
+// textdomain($locale);
 
 
 require_once("lib/steam.php");
@@ -68,7 +68,6 @@ if ($mysqli->connect_error) {
 
         <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-        <title>Circle by templatemo</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- 

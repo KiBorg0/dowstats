@@ -24,6 +24,7 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 */
 
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$lang = $_GET['lang'];
 $searchname = NickDecode::codeNick($_GET["playername"]);
 $raceOption = RaceSwitcher::getRaceNum($_GET["selected_race"]);
 $selected_type = explode(";",$_GET["type_checkboxes"]);//массив[0,1,2,3], в котором true/false; 0-1x1 1-2x2 2-3x3 3-4x4
@@ -88,7 +89,7 @@ while ($row = $res->fetch_assoc()) {
 		$player_race_coded = $row["r" . $i];
 		$player_apm = $row["apm" . $i . "r"];
 		echo "<TR>";
-			$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded ."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
+			$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
 		    echo "<td>". $href . "</td>";
 		    echo "<td>" . RaceSwitcher::getRace($player_race_coded) . "</td>";
 		    $apm = ($player_apm == 0) ? _("no data") :  $player_apm;

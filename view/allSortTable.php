@@ -13,8 +13,8 @@
 	
 
 	$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+	$lang = $_GET['lang'];
 	if(isset($_GET['allSort'])) {
-
 		//---------------ВЫВОД ЗАГОЛОВКА ТАБЛИЦЫ----------
 		$sort_type = $sort[$_GET['allSort']];
         $tabel_header = array();
@@ -86,6 +86,7 @@
 					$array[$i+1] = $b;
 				}
         $number=1;
+
         //------------ВЫВОД-------------
         for($j = sizeof($array)-1; $j >= 0;$j--)
         {
@@ -95,7 +96,7 @@
             <td>
             <img class = 'avatar' src='" . $array[$j]['avatar_url'] . "'>
 			</td>
-			<td><a href = 'player.php?name=". $array[$j]['name'] ."#tab0'>" . NickDecode::decodeNick($array[$j]['name']) . "</a></td>
+			<td><a href = 'player.php?name=". $array[$j]['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($array[$j]['name']) . "</a></td>
 			<td>". $array[$j]['all'] . "</td>
 			<td>". $array[$j]['win'] . "</td>
 			<td>". $array[$j]['percent'] . "%</td>

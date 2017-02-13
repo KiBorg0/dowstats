@@ -23,7 +23,7 @@ $(document).ready(function() {
 	            data: {"startFrom" : startFrom,
 					'playername': player,
 					'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
-					'selected_race': selected_race},
+					'selected_race': selected_race,'lang':lang},
             	response:'html',
 	            /* что нужно сделать до отправки запрса */
 	            beforeSend: function() {
@@ -55,7 +55,7 @@ function player_name_input_keypress_battles(e){
 		$.ajax({
 			type:'get',
 			url:'ajax/search_ajax.php',
-			data:{'playername': player},
+			data:{'playername': player,'lang':lang},
 			response:'text',
 			success:function (data) {
 				var nicks = data.split(',');
@@ -83,7 +83,7 @@ function search_player_battles(){
 		url:'view/allGames.php',
 		data:{'playername': player,
 		'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
-		'selected_race': selected_race},
+		'selected_race': selected_race,'lang':lang},
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
 			$('#fight_result').html(data);

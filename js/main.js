@@ -9,6 +9,7 @@
 
 	window.onload = function()
 	{
+		// console.log('язык', lang);
 		SendAllStat();
 		SendAllStat1x1();
 		
@@ -22,10 +23,11 @@
 
 function SendAllStat() {
 		//отправляю GET запрос и получаю ответ
+
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'all'},//параметры запроса
+            data:{'race':'all','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -40,7 +42,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'1'},//параметры запроса
+            data:{'race':'1','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -54,7 +56,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'2'},//параметры запроса
+            data:{'race':'2','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -67,7 +69,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'3'},//параметры запроса
+            data:{'race':'3','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -80,7 +82,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'4'},//параметры запроса
+            data:{'race':'4','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -93,7 +95,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'5'},//параметры запроса
+            data:{'race':'5','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -106,7 +108,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'6'},//параметры запроса
+            data:{'race':'6','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -119,7 +121,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'7'},//параметры запроса
+            data:{'race':'7','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -132,7 +134,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'8'},//параметры запроса
+            data:{'race':'8','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -145,7 +147,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax.php',//url адрес файла обработчика
-            data:{'race':'9'},//параметры запроса
+            data:{'race':'9','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result').html(data);
@@ -163,7 +165,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'0'},//параметры запроса
+			data:{'request_type':'0','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -176,7 +178,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'1'},//параметры запроса
+			data:{'request_type':'1','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -189,7 +191,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'2'},//параметры запроса
+			data:{'request_type':'2','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -202,7 +204,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'3'},//параметры запроса
+			data:{'request_type':'3','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -215,7 +217,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'4'},//параметры запроса
+			data:{'request_type':'4','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -228,7 +230,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'5'},//параметры запроса
+			data:{'request_type':'5','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -241,7 +243,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'6'},//параметры запроса
+			data:{'request_type':'6','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -254,7 +256,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'7'},//параметры запроса
+			data:{'request_type':'7','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -267,7 +269,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'8'},//параметры запроса
+			data:{'request_type':'8','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -280,7 +282,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/ajax1x1.php',//url адрес файла обработчика
-			data:{'request_type':'9'},//параметры запроса
+			data:{'request_type':'9','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#result1x1').html(data);
@@ -302,7 +304,7 @@ function SendAllStat() {
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
 			data:{'allSort':'name',
-			'playername': $('#player_name_input').val() },//параметры запроса
+			'playername': $('#player_name_input').val(),'lang':lang },//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
@@ -315,7 +317,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'name'},//параметры запроса
+			data:{'allSort':'name','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
@@ -328,7 +330,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'all'},//параметры запроса
+			data:{'allSort':'all','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
@@ -341,7 +343,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'win'},//параметры запроса
+			data:{'allSort':'win','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
@@ -354,7 +356,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'percent'},//параметры запроса
+			data:{'allSort':'percent','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
@@ -367,7 +369,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'apm'},//параметры запроса
+			data:{'allSort':'apm','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
@@ -380,7 +382,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'favRace'},//параметры запроса
+			data:{'allSort':'favRace','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);
@@ -393,7 +395,7 @@ function SendAllStat() {
 		$.ajax({
 			type:'get',//тип запроса: get,post либо head
 			url:'view/allSortTable.php',//url адрес файла обработчика
-			data:{'allSort':'allGamesTime'},//параметры запроса
+			data:{'allSort':'allGamesTime','lang':lang},//параметры запроса
 			response:'text',//тип возвращаемого ответа text либо xml
 			success:function (data) {//возвращаемый результат от сервера
 				$('#table-allStat').html(data);

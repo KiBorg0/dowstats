@@ -3,7 +3,7 @@ require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
 
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-
+$lang = $_GET['lang'];
 if(isset($_GET['race'])) {
 	if($_GET['race']=='all') {
 		echo '<h3>'._('General stats').'</h3>';
@@ -71,7 +71,7 @@ if(isset($_GET['race'])) {
 			echo "<td>";
 				echo "<img class = 'avatar' src='" . $row['avatar_url'] . "'>";
 				echo "</td>";
-			echo "<td><a href = 'http://dowstats.h1n.ru/player.php?name=". $row['name'] ."'>" . NickDecode::decodeNick($row['name']) . "</a></td>";
+			echo "<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>";
 			$all = $row['1x1_'.$race_id] + $row['2x2_'.$race_id] + $row['3x3_'.$race_id] +$row['4x4_'.$race_id];
 
 			$win = $row['1x1_'.$race_id.'w'] + $row['2x2_'.$race_id.'w'] + $row['3x3_'.$race_id.'w'] + $row['4x4_'.$race_id.'w'];
