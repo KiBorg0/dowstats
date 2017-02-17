@@ -84,10 +84,10 @@ while ($row = $res->fetch_assoc()) {
 
 	echo " <TABLE  class=\"table table-striped table-hover text-center table-games\">";
 	echo "<thead><tr>
-		<td>"._('Players')."</td>
-		<td>"._('Races')."</td>
-		<td>"._('APM')."<br/></td>
-		<td>"._('Result')."</td></tr>
+		<td>"._('Players') ."</td>
+		<td>"._('Races')   ."</td>
+		<td>"._('APM')	   ."<br/></td>
+		<td>"._('Result')  ."</td></tr>
 		</thead>";
 	for($i=1; $i<=$type*2; $i++)
 	{

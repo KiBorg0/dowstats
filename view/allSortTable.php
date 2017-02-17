@@ -11,7 +11,7 @@
 	textdomain($lang);
 
     $sort = array('name' 		 => 0,
-			      'games' 		 => 1,
+			      'all' 		 => 1,
 			      'win' 		 => 2,
 			      'percent' 	 => 3,
 			      'apm' 		 => 4,
@@ -86,34 +86,38 @@
 		}
 		//---------------СОРТИРОВКА----------
 		$sort_condition = $_GET['allSort'];
+		// для условия сортировки 'name' сортировку делать не будем, так как она выполняется на этапе получаения записей из базы
 		if($sort_condition!='name')
-		for($j = 0; $j <= sizeof($array)-1;$j++)
-			for($i = 0; $i < sizeof($array) - $j - 1;$i++)
-				if ($array[$i][$sort_condition] > $array[$i+1][$sort_condition]) {
-					$b = $array[$i]; //change for elements
-					$array[$i] = $array[$i+1];
-					$array[$i+1] = $b;
-				}
-        $number=1;
+			for($j = 0; $j <= sizeof($array)-1;$j++)
+				for($i = 0; $i < sizeof($array) - $j - 1;$i++)
+					if ($array[$i][$sort_condition] > $array[$i+1][$sort_condition]) {
+						$b = $array[$i]; //change for elements
+						$array[$i] = $array[$i+1];
+						$array[$i+1] = $b;
+					}
+        $number=0;
 
         //------------ВЫВОД-------------
         for($j = sizeof($array)-1; $j >= 0;$j--)
         {
-        	$timehelpint = floor($array[$j]['allGamesTime'] / 60);   
-            echo "<tr>
-            <td>". $number ."</td>
-            <td>
-            <img class = 'avatar' src='" . $array[$j]['avatar_url'] . "'>
-			</td>
-			<td><a href = 'player.php?name=". $array[$j]['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($array[$j]['name']) . "</a></td>
-			<td>". $array[$j]['all'] . "</td>
-			<td>". $array[$j]['win'] . "</td>
-			<td>". $array[$j]['percent'] . "%</td>
-			<td>". $array[$j]['apm'] . "</td>
-			<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>
-			<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>
-			</tr>";
-            $number++;
+        	if($array[$j]['all']!=0)
+        	{
+	        	$number++;
+	        	$timehelpint = floor($array[$j]['allGamesTime'] / 60);   
+	            echo "<tr>
+	            <td>". $number ."</td>
+	            <td>
+	            <img class = 'avatar' src='" . $array[$j]['avatar_url'] . "'>
+				</td>
+				<td><a href = 'player.php?name=". $array[$j]['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($array[$j]['name']) . "</a></td>
+				<td>". $array[$j]['all'] . "</td>
+				<td>". $array[$j]['win'] . "</td>
+				<td>". $array[$j]['percent'] . "%</td>
+				<td>". $array[$j]['apm'] . "</td>
+				<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>
+				<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>
+				</tr>";
+			}
         }
 	}
 ?>

@@ -95,7 +95,6 @@ if ($mysqli->connect_error) {
                                 </div>
                                      <center>
                                      <div id="result"></div>
-                                     
                                     </center>
                                 </div>
 

@@ -22,7 +22,7 @@ function calculate_and_change_apm($mysqligame, $player, $apm){
 	$apm_info.= $row['apm'] . "- был<br>";
 	$apm_info.= "апм новой игры: " . $apm . " всего игр с апм: " . $row['apm_game_counter'] . "<br/>";
 	$apm1new = ($row['apm'] * $row['apm_game_counter'] + $apm) / ($row['apm_game_counter'] + 1);
-	$apm_info.= "апм игрока ". NickDecode::decodeNick($player) . " стал: " . $apm1new;
+	$apm_info.= "апм игрока ". NickDecode::decodeNick($player) . " стал: " . round($apm1new, 2);
 	$apm_info.= "<br/>";
 	$apm_info.= "<br/>";
 	$mysqligame->real_query("UPDATE players SET apm = '$apm1new', apm_game_counter = apm_game_counter + 1 WHERE  (name = '$player') ");
@@ -80,7 +80,7 @@ $winby = $_GET["winby"];
 $gTime = $_GET["gtime"];
 $mod = $_GET["mod"];
 $key = $_GET["key"];
-$cTimeMAX = date('Y-m-d H:i:s', time()-120);
+$cTimeMAX = date('Y-m-d H:i:s', time()-180);
 
 //--------------
 
@@ -125,7 +125,7 @@ $res = $mysqligame->store_result();
 
 
 //-----Записываем игру
-$mysqligame->real_query("SELECT * FROM games WHERE (p1 = '".$players[0]."' AND p2 = '".$players[0]."'  AND '$cTimeMAX' < cTime)");
+$mysqligame->real_query("SELECT * FROM games WHERE (p1 = '".$players[0]."' AND p2 = '".$players[1]."'  AND '$cTimeMAX' < cTime)");
 $res = $mysqligame->store_result();
 
 // проверим, нет ли такой игры в базе
@@ -140,7 +140,7 @@ while ($row = $res->fetch_assoc()) {
 	}
 
 	$mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-	$mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '".$winners[0]."',apm1r = apm1r + '".$apmrs[0]."',apm2r = apm2r + '".$apmrs[1]."',apm3r = apm3r + '".$apmrs[2]."',apm4r = apm4r + '".$apmrs[3]."',apm5r = apm5r + '".$apmrs[4]."',apm6r = apm6r + '".$apmrs[5]."',apm7r = apm7r + '".$apmrs[6]."',apm8r = apm8r + '".$apmrs[7]."'  WHERE (p1 = '".$players[0]."' AND p2 = '".$players[0]."'  AND '$cTimeMAX' < cTime)");
+	$mysqligame2->real_query("UPDATE games SET statsendsid = '$ipnew', w1 = '".$winners[0]."',apm1r = apm1r + '".$apmrs[0]."',apm2r = apm2r + '".$apmrs[1]."',apm3r = apm3r + '".$apmrs[2]."',apm4r = apm4r + '".$apmrs[3]."',apm5r = apm5r + '".$apmrs[4]."',apm6r = apm6r + '".$apmrs[5]."',apm7r = apm7r + '".$apmrs[6]."',apm8r = apm8r + '".$apmrs[7]."'  WHERE (p1 = '".$players[0]."' AND p2 = '".$players[1]."'  AND '$cTimeMAX' < cTime)");
 	$isFound = true;
 }
 
@@ -211,10 +211,10 @@ if(!$isFound)
 			{
 				$mmrs[] = 1500;
 				$mmrs[$i] = $row['mmr'] ;
-				$apm_info .= "<br/> расчет рейтинга:<br/> рейтинг до: ".$players[$i]." - " . $mmrs[$i];
+				$apm_info .= "<br/> расчет рейтинга:<br/> рейтинг до: ".NickDecode::decodeNick($players[$i])." - " . $mmrs[$i];
 			}
-		}
-		// if($isFoundPlayers){
+		}	
+		if($isFoundPlayers){
 		// 	for($i=0;$i<2;$i++)
 		// 		if(in_array($players[$i], $winners))
 		// 		{
@@ -224,7 +224,7 @@ if(!$isFound)
 				
 				if(in_array($players[0], $winners))
 				{
-					$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . $ea . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
+					$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . round($ea,2) . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
 					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[0]."' + '$f1'  WHERE name = '".$players[0]."'");
 					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[1]."' - '$f1'  WHERE name = '".$players[1]."'");
 				}
@@ -234,11 +234,11 @@ if(!$isFound)
 
 				if(in_array($players[1], $winners))
 				{
-					$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . $ea . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
+					$apm_info .= "<br/> разница в рейтинге: " .$amb. "; вероятность победы игрока: " . round($ea,2) . "; итоговое изменение рейтинга: " . $f1 . "<br/>";
 					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[1]."' + '$f1'  WHERE name = '".$players[1]."'");
 					$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[0]."' - '$f1'  WHERE name = '".$players[0]."'");
 				}
-				
+		}
 		
 	}
 };

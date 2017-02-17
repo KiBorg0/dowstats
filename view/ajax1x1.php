@@ -63,6 +63,7 @@ if($r_type==0)
 	$mysqli->real_query("SELECT SUM(1x1_1) + SUM(1x1_2)+ SUM(1x1_3)+ SUM(1x1_4)+ SUM(1x1_5)+ SUM(1x1_6)+ SUM(1x1_7)+ SUM(1x1_8)+ SUM(1x1_9) AS allsum, SUM(1x1_1w) + SUM(1x1_2w)+ SUM(1x1_3w)+ SUM(1x1_4w)+ SUM(1x1_5w)+ SUM(1x1_6w)+ SUM(1x1_7w)+ SUM(1x1_8w)+ SUM(1x1_9w) AS allsumwin FROM players ORDER BY time DESC");
 else
 	$mysqli->real_query("SELECT SUM(1x1_".$r_type.") AS allsum, SUM(1x1_".$r_type."w) AS allsumwin FROM players ORDER BY time DESC");
+
 $res = $mysqli->use_result();
 $res = $res->fetch_assoc();
 $Wnr8 =  ($res["allsum"]!=0)?round (100 * $res["allsumwin"]/$res["allsum"]):0;

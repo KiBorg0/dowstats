@@ -40,12 +40,9 @@ if(isset($_GET['race'])) {
 		    <a class="btn btn-default" onclick = "Search_player()" ><span class="glyphicon glyphicon-search"></span></a>
 		</div>
 		<?php
-		echo '<TABLE   class="table table-striped table-hover text-center" id = "table-allStat">';
-             	
-		echo "</TABLE>";
+		echo '<TABLE   class="table table-striped table-hover text-center" id = "table-allStat"></TABLE>';
 	}
 	else {
-		// if($_GET['1']=='1') {
 		$race_id = $_GET['race']; 
 		echo '<h3>'.RaceSwitcher::getRace($race_id).'</h3>';
 		$mysqli->real_query("SELECT * FROM players ORDER BY time DESC");
@@ -55,7 +52,6 @@ if(isset($_GET['race'])) {
 	    $win = 0;
 	    while ($row = $res->fetch_assoc()) {
 			$all = $all + $row['1x1_'.$race_id] + $row['2x2_'.$race_id] + $row['3x3_'.$race_id] +$row['4x4_'.$race_id];
-
 			$win = $win + $row['1x1_'.$race_id.'w'] + $row['2x2_'.$race_id.'w'] + $row['3x3_'.$race_id.'w'] + $row['4x4_'.$race_id.'w'];
 		}
 		$Wnr8 =  ($all != 0)?round (100 * $win/$all):0;
@@ -63,35 +59,27 @@ if(isset($_GET['race'])) {
 		echo _('Race Win Rate').': ' . ($Wnr8). '%';
 		echo '<TABLE   class="table table-striped table-hover text-center">
 	         	<thead><tr>
-	            <td>'._('Number').'</td><td>'._('Avatar').'</td><td>'._('Player').'</td><td>'._('Number of Games').'</td><td>'._('Victories').'</td><td>'._('Win Rate').'</td>
-	            </tr>
-	            </thead>
-	            ';
+	            <td>'._('Number')		  .'</td>
+	            <td>'._('Avatar')		  .'</td>
+	            <td>'._('Player')		  .'</td>
+	            <td>'._('Number of Games').'</td>
+	            <td>'._('Victories')	  .'</td>
+	            <td>'._('Win Rate')		  .'</td></tr></thead>';
 	    $mysqli->real_query("SELECT * FROM players ORDER BY time DESC");        
 		$res = $mysqli->use_result();
 
 		$i = 1;
 	    while ($row = $res->fetch_assoc()) {
-			echo "<tr>";
-			// номер игрока в списке
-			echo "<td>" . $i . "</td>";
-			echo "<td>";
-				echo "<img class = 'avatar' src='" . $row['avatar_url'] . "'>";
-				echo "</td>";
-			echo "<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>";
 			$all = $row['1x1_'.$race_id] + $row['2x2_'.$race_id] + $row['3x3_'.$race_id] +$row['4x4_'.$race_id];
-
 			$win = $row['1x1_'.$race_id.'w'] + $row['2x2_'.$race_id.'w'] + $row['3x3_'.$race_id.'w'] + $row['4x4_'.$race_id.'w'];
 
-			echo "<td>" . $all . "</td>";
-			echo "<td>" . $win . "</td>";
-			if($all!= 0){
-				echo "<td>" . round(100 * $win/$all) . "</td>";
-			}else{
-				echo "<td>" . 0 . "</td>";
-			};
-
-			echo "</tr>";
+			echo "<tr>
+			<td>" . $i   . "</td>
+			<td><img class = 'avatar' src='".$row['avatar_url']."'></td>
+			<td><a href = 'player.php?name=".$row['name']."&lang=".$lang."#tab0'>".NickDecode::decodeNick($row['name'])."</a></td>
+			<td>" . $all . "</td>
+			<td>" . $win . "</td>
+			<td>" . (($all!=0)?round(100 * $win/$all)?:0) . "</td></tr>";
 			$i += 1;
 		}
 		echo "</TABLE>";
