@@ -95,10 +95,10 @@ if ($mysqli->connect_errno) {
                 </ul>  -->
                 <div class="col-md-12 col-sm-12">
                     <div class="toggle-content text-center">
-	                    <br/>
+<!-- 	                    <br/>
                         <div style = "clear:both"/>
                             <h3><?php echo _('Recent Games')?></h3>
-                        </div>
+                        </div> -->
                         <div class = "search_div">
                             <div class="form-group col-md-3" >
                                 <label class="sr-only" for="player_name_input"><?php echo _("Find by player name/clan name")?></label>

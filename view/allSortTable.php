@@ -48,13 +48,14 @@
         $array = array();  
         $int = 0;
 		if($_GET['allSort']=='name') {
-        	$pname = isset($_GET['playername'])?NickDecode::codeNick($_GET['playername']):"";
-	    	$mysqli->real_query("SELECT * FROM players WHERE name LIKE '%$pname%' ORDER BY name DESC ");
+        	// $pname = isset($_GET['playername'])?NickDecode::codeNick(strtolower($_GET['playername'])):"";
+        	$pname = isset($_GET['playername'])?strtolower($_GET['playername']):"";
+	    	$mysqli->real_query("SELECT * FROM players WHERE LOWER(CONVERT(UNHEX(name) USING utf8)) LIKE '%$pname%' ORDER BY name DESC ");
 		}
 		else
 			$mysqli->real_query("SELECT * FROM players ");     
 	       
-		$res = $mysqli->use_result();
+		$res = $mysqli->store_result();
         while ($row = $res->fetch_assoc()) {
 			$all = 0;
 			$win = 0;
@@ -109,7 +110,7 @@
 	            <td>
 	            <img class = 'avatar' src='" . $array[$j]['avatar_url'] . "'>
 				</td>
-				<td><a href = 'player.php?name=". $array[$j]['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($array[$j]['name']) . "</a></td>
+				<td><a href = 'player.php?sid=". $array[$j]['sid']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($array[$j]['name']) . "</a></td>
 				<td>". $array[$j]['all'] . "</td>
 				<td>". $array[$j]['win'] . "</td>
 				<td>". $array[$j]['percent'] . "%</td>

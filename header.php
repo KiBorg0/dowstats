@@ -54,26 +54,33 @@
             </ul>
 
         </div>
-      <ul class="nav navbar-nav" id="navbar_list">
-         <li id = "overall_stat" ><a href="<?php echo "index.php?lang=".$lang;?>"><?php echo _('General Ladder');?></a></li>
-        <li id = "1x1_stat">     <a href="<?php echo "1x1.php?lang=".$lang;?>"><?php echo _('1x1 Ladder');?></a></li>
-        <li id = "battles">      <a href="<?php echo "battles.php?lang=".$lang;?>"><?php echo _('Battles');?></a></li>
+<!--         <div>
+            <button class="btn btn-default" type="button" id="dropdownMenu1" aria-haspopup="true" aria-expanded="true">
+                 <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a>
+            </button>
+        </div> -->
+        <ul class="nav navbar-nav" id="navbar_list">
+            <li id = "overall_stat" ><a href="<?php echo "index.php?lang=".$lang;?>"><?php echo _('General Ladder');?></a></li>
+            <li id = "1x1_stat">     <a href="<?php echo "1x1.php?lang=".$lang;?>"><?php echo _('1x1 Ladder');?></a></li>
+            <li id = "battles">      <a href="<?php echo "battles.php?lang=".$lang;?>"><?php echo _('Battles');?></a></li>
+        </ul>
+            <!-- <li id = "collector">    <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a></li> -->
+            <!--<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>-->
 
-        <!--<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>-->
+        
 
-      </ul>
-        </div><!--/.nav-collapse -->
+    </div><!--/.nav-collapse -->
 
   </div><!--/.container-fluid -->
 </nav>

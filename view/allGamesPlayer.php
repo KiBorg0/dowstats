@@ -19,12 +19,12 @@ if ($mysqli->connect_errno) {
 }
 
 // C какой статьи будет осуществляться вывод
-$startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
+
 $name = $_GET["name"];
-$enemyOrAllyName = NickDecode::codeNick($_GET["enemyOrAllyName"]);
+$enemyOrAllyName = strtolower($_GET["enemyOrAllyName"]);
 $raceOption = RaceSwitcher::getRaceNum($_GET["selected_race"]);
 $selected_type = explode(";",$_GET["type_checkboxes"]);//массив[0,1,2,3], в котором true/false; 0-1x1 1-2x2 2-3x3 3-4x4
-$game_page_limit = 10;
+// формирование условия поиска по базе
 $where_condition = "(";
 for($i = 1; $i <= 8; $i++){
 	$where_condition .= "(";
@@ -34,50 +34,40 @@ for($i = 1; $i <= 8; $i++){
 	if($i != 8) $where_condition .= "or ";
 }
 $where_condition .= ")";
-
+// ник противника/союзника
 if($enemyOrAllyName != ""){
 	$where_condition .= " and ";
 	$where_condition .= "(";
 	for($i = 1; $i <= 8; $i++){
-		$where_condition .= "p" . $i . " LIKE '%" . $enemyOrAllyName . "%' ";
+		$where_condition .= "LOWER(CONVERT(UNHEX(p" . $i . ") USING utf8)) LIKE '%" . $enemyOrAllyName . "%' ";
 		if($i != 8) $where_condition .= "or ";
 	}
 	$where_condition .= ")";
 }
-
+// тип игры
 if($selected_type[0] == "false") $where_condition .= " and (type = 2 or type = 3 or type = 4)";
 if($selected_type[1] == "false") $where_condition .= " and (type = 1 or type = 3 or type = 4)";
 if($selected_type[2] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 4)";
 if($selected_type[3] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 3)";
 
-
-
-
-
-$mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit {$startFrom}, {$game_page_limit}");
-$res = $mysqli->use_result();
+$startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
+$mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit {$startFrom}, 10");
+$res = $mysqli->store_result();
 
 while ($row = $res->fetch_assoc()) {
-
 	$timehelpint = $row['gTime'] / 60;
 	$timehours = intval($timehelpint / 60);
+	$newMap = $row['map'][1]=="P"?substr($row['map'], 3):$newMap = $row['map']; 
 	echo "<b>" . $row['cTime'] . "</b><br>";
 	echo _("Game Time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
-	if($row['map'][1] == "P")
-		$newMap = substr($row['map'], 3); 
-	else
-		$newMap = $row['map'];
-	
 	echo _("Map").": "  . $newMap . "<br>";
 	echo _("Senders Steam IDs").": "  . $row['statsendsid'];
-	
 	if(file_exists("../replays/".$row['id'].".rec"))
 		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>"._('Download Replay')."</a>";
-	else
-		echo "<br/>"._("Replay is Absent");
+	// else
+	// 	echo "<br/>"._("Replay is Absent");
 
 	$type = $row['type'];
-
 	$winners = array();
 	for($i=1; $i<=$type; $i++)
 		$winners[] = $row["w".$i];
@@ -91,21 +81,16 @@ while ($row = $res->fetch_assoc()) {
 		</thead>";
 	for($i=1; $i<=$type*2; $i++)
 	{
-		echo "<TR>\n";
-	    echo " <td><a href = 'player.php?name=". $row["p".$i]."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row["p".$i]) . "</a></td>\n";
-	    echo " <td>" . RaceSwitcher::getRace($row["r".$i]) . "</td>\n";
-	    if($i==1)
-	    	" <td>" . $row["p".$i] . "</td>\n";
-	    $apm = ($row["apm".$i."r"] == 0) ? _("No Data") : $row["apm".$i."r"];
-	    echo " <td>" . $apm . "</td>\n";
-
-	    if(in_array($row["p".$i], $winners))
-			echo " <td>"._('Winner')."</td>";
-		else
-			echo " <td>"._('Loser')."</td>";
-	    echo "</TR>\n";
+		$apm = ($row["apm".$i."r"] == 0)?"-":$row["apm".$i."r"];
+	    // if($i==1)
+	    // 	" <td>" . $row["p".$i] . "</td>";
+		echo "<TR>
+		<td><a href = 'player.php?name=". $row["p".$i]."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row["p".$i]) . "</a></td>
+	    <td>" . RaceSwitcher::getRace($row["r".$i]) . "</td>
+	    <td>" . $apm . "</td>
+		<td>" . (in_array($row["p".$i], $winners)?_('Winner'):_('Loser'))  . "</td></TR>";
 	}
-	 echo "</TABLE>\n";
+	 echo "</TABLE>";
 	 echo "<br><br>";
 }
 

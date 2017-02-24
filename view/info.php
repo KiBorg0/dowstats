@@ -4,8 +4,8 @@ $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 $mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 $mysqligame->set_charset("utf8");
 
-$mysqligame->real_query("SELECT * FROM url_logs ORDER BY id DESC LIMIT {$startFrom},10");
-$res = $mysqligame->use_result();
+$mysqligame->real_query("SELECT * FROM url_logs ORDER BY id DESC LIMIT {$startFrom},20");
+$res = $mysqligame->store_result();
 
 echo "<tr>
 <td style = 'width:10%; '>id</td>

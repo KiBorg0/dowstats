@@ -18,7 +18,8 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 
 */
 $steamid = "";
-$name = $_GET["name"];
+
+
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
 putenv('LC_ALL=' . $lang);
 setlocale(LC_ALL, $lang, $lang . '.utf8');
@@ -30,6 +31,25 @@ $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 if ($mysqli->connect_error) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
+if(isset($_GET["sid"]))
+{
+    $sid = $_GET["sid"];
+    $mysqli->real_query("SELECT * FROM players WHERE sid = '$sid'");
+    $res = $mysqli->store_result();
+    $row = $res->fetch_assoc();
+    $name = $row["name"];
+}
+else if(isset($_GET["name"]))
+{
+    $name = $_GET["name"];
+    $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");
+    $res = $mysqli->store_result();
+    $row = $res->fetch_assoc();
+    $sid = $row["sid"];
+}
+
+
+
 
 ?>
 
@@ -82,7 +102,7 @@ if ($mysqli->connect_error) {
 
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#navbar_list').append("<li id = \"player_profile\"><a  href=\"player.php?name=<?php echo $name.'&lang='.$lang;?>\"><?php echo NickDecode::decodeNick($name); ?></a></li>");
+                $('#navbar_list').append("<li id = \"player_profile\"><a  href=\"player.php?sid=<?php echo $sid.'&lang='.$lang;?>\"><?php echo NickDecode::decodeNick($name); ?></a></li>");
                 $('#player_profile').addClass('active');
         });
         </script>
@@ -96,15 +116,38 @@ if ($mysqli->connect_error) {
             <?php include "header.php"; ?>
             <center>
                 <?php
-                $mysqli->real_query("SELECT * FROM players WHERE name = '$name'");//----------здесь делается запрос на игрока------------(1)
-                $res = $mysqli->use_result();
-                $row = $res->fetch_assoc();
-                $steamid = $row['sid'];
-                $big_avatar_url = Steam::get_big_avatar_url_by_id($row['sid']);
-                echo '<a href="https://steamcommunity.com/profiles/'. $steamid . '">'."<img class = 'avatar_big' src='" . $big_avatar_url . "'>".'</a>';    
+                $big_avatar_url = Steam::get_big_avatar_url_by_id($sid);
+                echo '<a href="https://steamcommunity.com/profiles/'. $sid . '">'."<img class = 'avatar_big' src='" . $big_avatar_url . "'>".'</a>';    
                 ?>
                 <h1><?php echo NickDecode::decodeNick($name); ?></h1>
-
+                <?php
+                //общие расчеты
+                // $timehelpint = $row['time'] / 60;
+                // $timehours = intval($timehelpint / 60);
+                $favRace = 0;
+                $favRaceAll = 0;
+                $countWinRace = 0;
+                $countWinRaceAll = 0;
+                for($i=1; $i<=9; $i++)
+                {
+                    if($countWinRace<$row['1x1_'.$i])
+                    {
+                        $favRace = $i;
+                        $countWinRace = $row['1x1_'.$i];
+                    }
+                    $sum = $row['1x1_'.$i]+$row['2x2_'.$i]+$row['3x3_'.$i]+$row['4x4_'.$i];
+                    if($countWinRaceAll<$sum)
+                    {
+                        $favRaceAll = $i;
+                        $countWinRaceAll = $sum;
+                    }
+                }
+                echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
+                echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
+                echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
+                echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
+                echo _('APM').': '. $row['apm'] . '</h5>';
+                ?>
             </center>
             <div class="toggle-content text-center">
                 <div   role="group" >
@@ -118,54 +161,27 @@ if ($mysqli->connect_error) {
                     </div>
                 </div>
             </div>
-
-            <?php
-            //общие расчеты
-            $timehelpint = $row['time'] / 60;
-            $timehours = intval($timehelpint / 60);
-            $favRace = 0;
-            $favRaceAll = 0;
-            $countWinRace = 0;
-            $countWinRaceAll = 0;
-            for($i=1; $i<=9; $i++)
-            {
-                if($countWinRace<$row['1x1_'.$i])
-                {
-                    $favRace = $i;
-                    $countWinRace = $row['1x1_'.$i];
-                }
-                $sum = $row['1x1_'.$i]+$row['2x2_'.$i]+$row['3x3_'.$i]+$row['4x4_'.$i];
-                if($countWinRaceAll<$sum)
-                {
-                    $favRaceAll = $i;
-                    $countWinRaceAll = $sum;
-                }
-            }
-            ?>
-
             <div class="col-md-12 col-sm-12">
                 <div class="toggle-content text-center tabs" id="tab0" >
 
                     <?php
-                    echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
-                    $cTimeMAX = date('Y-m-d H:i:s', time());
-                    
-                    echo '<h3>'._('Total Stats').' - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
-
-                    echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
-
-                    echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
-                    //---------любимая раса -----------------
-
-                    echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
-                    echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
-                    echo _('APM').': '. $row['apm'] . '</h5>';
+                    // $cTimeMAX = date('Y-m-d H:i:s', time());
+                    // echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
+                    // echo '<h3>'._('Total Stats').' - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
+                    // echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
+                    // echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
+                    // echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
+                    // echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
+                    // echo _('APM').': '. $row['apm'] . '</h5>';
 
                     echo '<TABLE   class="table table-striped table-hover text-center">
                         <thead><tr>
-                        <td>'._('Race').'</td><td>'._('Number of Games').'</td><td>'._('Victories').'</td><td>'._('Losses').'</td><td>'._('Wins Rate').'</td>
-                        </tr>
-                        </thead>';
+                        <td>'._('Race')           .'</td>
+                        <td>'._('Number of Games').'</td>
+                        <td>'._('Victories')      .'</td>
+                        <td>'._('Losses')         .'</td>
+                        <td>'._('Wins Rate')      .'</td>
+                        </tr></thead>';
                     $all_sum = 0; 
                     $win_sum = 0;    
                     for($i=1; $i<=9; $i++)
@@ -207,14 +223,14 @@ if ($mysqli->connect_error) {
                 <?php
                 for($type = 0;$type <= 4;$type++){
                     echo '<div class="toggle-content text-center tabs" id="tab'.$type.'">';
-                    echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
+                    // echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
 
-                    echo '<h3>'._('Stats').' '.$type.'x'.$type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
-                    echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
-                    echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
-                    echo _("Favorite Race").": ". RaceSwitcher::getRace($favRaceAll) . "</br>";
-                    echo _("Favorite Race 1x1").": ". RaceSwitcher::getRace($favRace) . "<br/>" ;
-                    echo _('APM').": ". $row['apm'] . "</h5>";
+                    // echo '<h3>'._('Stats').' '.$type.'x'.$type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
+                    // echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
+                    // echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
+                    // echo _("Favorite Race").": ". RaceSwitcher::getRace($favRaceAll) . "</br>";
+                    // echo _("Favorite Race 1x1").": ". RaceSwitcher::getRace($favRace) . "<br/>" ;
+                    // echo _('APM').": ". $row['apm'] . "</h5>";
 
                     $all = 0;
                     $win = 0;
@@ -258,11 +274,11 @@ if ($mysqli->connect_error) {
                 <!-- Суммирование  -->
                 <div class="toggle-content text-center tabs container" id = "tab5">
                     <br/>
-                    <div style = "clear:both"/>
+<!--                     <div style = "clear:both"/>
                         <?php
                             echo '<h3>'._('Recent Games').' - ' . NickDecode::decodeNick($name) . '</h3>';
                         ?>
-                    </div>
+                    </div> -->
                     <div class = "search_div">
                         <div class="form-group col-md-3" >
                             <label class="sr-only" for="player_name_input"><?php echo _('Player opponent/ally')?></label>

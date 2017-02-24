@@ -1,5 +1,5 @@
 ﻿/* С какой статьи надо делать выборку из базы при ajax-запросе */
-var startFrom = 10;
+var startFrom = 20;
 
 $(document).ready(function() {
 	search_info()
@@ -25,7 +25,7 @@ $(document).ready(function() {
                 success:function (data) {
                     $('#info_result').append(data);
                     inProgress = false;
-                    startFrom += 10;
+                    startFrom += 20;
                 }
             });
         }
@@ -33,7 +33,6 @@ $(document).ready(function() {
 });
 
 function search_info(){
-	startFrom = 10;
 	$('#info_result').html("search...");
 	$.ajax({
 		type:'get',

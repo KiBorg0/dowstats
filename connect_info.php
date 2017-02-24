@@ -19,6 +19,15 @@ date_default_timezone_set('Europe/Moscow');
     <script type="text/javascript" src="js/info.js"></script>
     <script type="text/javascript" src="js/scrollup.js"></script>
 </head> 
+<style type="text/css">
+    table {
+    table-layout: fixed;
+    width:100%
+    }
+    td {
+        word-wrap:break-word;
+    }
+</style>
 <body>
     <div class="toggle-content text-center">
         <center>

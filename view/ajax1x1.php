@@ -1,6 +1,4 @@
 <?php
-$timeinfo = "";
-$startmt = microtime(true);
 require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
 
@@ -37,10 +35,7 @@ function get_table_header_by_sort_type($sort_type){
 
 <?php
 //----------соединение с базой--------------------
-$startmt1 = microtime(true);
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-$endmt1 = microtime(true) - $startmt1;
-$timeinfo .= "Соединение с базой - " . $endmt1 . "<br/>";
 
 //----------тип запроса на вывод-----------------------
 $r_type = isset($_GET['request_type'])?$_GET['request_type']:"0";//если идет запрос от сортировки, а не от верхней панели, то тип статистики(общая, СМ, хаос и т.д) берется отсюда
@@ -55,24 +50,20 @@ $searchname = isset($_GET['playername'])?$_GET['playername']:"";
 
 <?php
 
-echo ($r_type!=0)?"<h3>".RaceSwitcher::getRace($r_type)." 1x1</h3>":"<h3>"._('General stats')." 1x1</h3>";
-
-$startmt1 = microtime(true);
+// echo ($r_type!=0)?"<h3>".RaceSwitcher::getRace($r_type)." 1x1</h3>":"<h3>"._('General stats')." 1x1</h3>";
 
 if($r_type==0)
 	$mysqli->real_query("SELECT SUM(1x1_1) + SUM(1x1_2)+ SUM(1x1_3)+ SUM(1x1_4)+ SUM(1x1_5)+ SUM(1x1_6)+ SUM(1x1_7)+ SUM(1x1_8)+ SUM(1x1_9) AS allsum, SUM(1x1_1w) + SUM(1x1_2w)+ SUM(1x1_3w)+ SUM(1x1_4w)+ SUM(1x1_5w)+ SUM(1x1_6w)+ SUM(1x1_7w)+ SUM(1x1_8w)+ SUM(1x1_9w) AS allsumwin FROM players ORDER BY time DESC");
 else
 	$mysqli->real_query("SELECT SUM(1x1_".$r_type.") AS allsum, SUM(1x1_".$r_type."w) AS allsumwin FROM players ORDER BY time DESC");
 
-$res = $mysqli->use_result();
+$res = $mysqli->store_result();
 $res = $res->fetch_assoc();
 $Wnr8 =  ($res["allsum"]!=0)?round (100 * $res["allsumwin"]/$res["allsum"]):0;
 echo _("Win Rate").": ". $Wnr8 . "%";
 // echo "общий процент побед: " . $Wnr8 . "%";
 // echo "процент побед космодесанта 1х1: " . $Wnr8 . "%";
 
-$endmt1 = microtime(true) - $startmt1;
-$timeinfo .= "Расчёт винрейта - " . $endmt1 . "<br/>";
 
 ?>
 <br/>
@@ -123,8 +114,7 @@ else
 	}
 
 
-$startmt1 = microtime(true);
-$res = $mysqli->use_result();
+$res = $mysqli->store_result();
 $number = 0;
 while ($row = $res->fetch_assoc()) {
 	$favRace = 0;
@@ -151,7 +141,7 @@ while ($row = $res->fetch_assoc()) {
 		echo "<tr>"
 		."<td>" . $number 						 .  "</td>"
 		."<td><img class = 'avatar' src='" . $row['avatar_url'] . "'></td>"
-		."<td><a href = 'player.php?name=". $row['name']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
+		."<td><a href = 'player.php?sid=". $row['sid']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($row['name']) . "</a></td>"
 		."<td>" . $all				  		     .  "</td>"
 		."<td>" . $win			  				 .  "</td>"
 		."<td>" . round(100 * $win/$all)		 . "%</td>"
@@ -159,10 +149,5 @@ while ($row = $res->fetch_assoc()) {
 		."<td>" . $row['mmr']  					 .  "</td></tr>";
 	}
 }
-$endmt1 = microtime(true) - $startmt1;
-$timeinfo .= "Вывод всех игроков - " . $endmt1;
 echo "</TABLE>";
-
-$stopmt = microtime(true) - $startmt;
-echo "общее время расчёта: " . $stopmt . "</br>" . $timeinfo;
 ?>

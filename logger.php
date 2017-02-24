@@ -15,7 +15,7 @@
 	$warnings_l = "warnings/";
 	$udates_l    = "updates/";
 	$uploaddir .= $version."/";
-	if(!is_dir($uploaddir)) mkdir($uploaddir);
+	if(!is_dir($uploaddir)) mkdir($uploaddir);	
 	if(!is_dir($uploaddir.$warnings_l)) mkdir($uploaddir.$warnings_l);
 	if(!is_dir($uploaddir.$udates_l)) mkdir($uploaddir.$udates_l);
 	// если это warning, то в имени файла путь к папке warnings
@@ -29,8 +29,9 @@
 		$uploadfile = $uploaddir.$steamid.".log";
 	
 
-	if (move_uploaded_file($_FILES['logfile']['tmp_name'], $uploadfile))
+	if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
 	    echo $uploadfile . " the log file has been successfully downloaded.";
 	else
 	    echo $uploadfile . " failed to load a log file!";
+
 ?>

@@ -9,7 +9,7 @@ if ($mysqli->connect_error) {
 $searchname = NickDecode::codeNick(mysql_real_escape_string($_GET["playername"]));
 
 $mysqli->real_query("SELECT name FROM players WHERE name LIKE '%$searchname%' ");
-$res = $mysqli->use_result();
+$res = $mysqli->store_result();
 $nick_array[] = array();	
 while ($row = $res->fetch_assoc()) {
 	echo NickDecode::decodeNick($row["name"]) . ",";

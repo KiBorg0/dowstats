@@ -76,7 +76,7 @@ function player_name_input_keypress_battles(e){
 
 function search_player_battles(){
 	startFrom = 10;
-	$('#fight_result').html("search...");
+	$('#fight_result').html("searching...");
 	var player = $("#player_name_input").val();
 	//формируем строку, в которой указываем какие чекбоксы типа игры были выбраны
 	var checkboxes = $("#1x1_checkbox").prop("checked") + ";" + $("#2x2_checkbox").prop("checked") + ";" + $("#3x3_checkbox").prop("checked") + ";" + $("#4x4_checkbox").prop("checked");
