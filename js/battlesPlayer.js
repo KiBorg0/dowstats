@@ -95,3 +95,14 @@ function search_player_battles(){
 		}
 	});
 }
+
+function increment_replay_download(game_id){
+	var download_count = $("#replay_counter" + game_id).html();
+	download_count++;
+	$("#replay_counter" + game_id).html(download_count);
+	$.ajax({
+		type:'get',
+		url:'ajax/replayDownloadCounter.php',
+		data:{game_id:game_id}
+	});
+}

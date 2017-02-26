@@ -1,4 +1,6 @@
 <?
+
+
 $host = $_SERVER['HTTP_HOST'];
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
@@ -43,12 +45,13 @@ while ($row = $res->fetch_assoc()) {
 	$timeh = intval($row['gTime'] /3600);
 	$timeh = $timeh==0?"":$timeh." "._('h.')."   ";
 	$newMap = $row['map'][1]=="P"?substr($row['map'], 3):$newMap = $row['map']; 
+	$replay_download = $row['rep_download_counter'];
 	echo "<b>". $row['cTime'] . "</b><br>"
-	._("Game Time")		   .": ".$timeh.$timem.$times
+	._("Game Time")		   .": ".$timeh.$timem.$times."<br>"
+	._("Senders Steam IDs").": ".$row['statsendsid'] ."<br>"
+	._("Number of replay downloads").": <span id = 'replay_counter".$row['id']."'>"  . $replay_download  . "</span><br>";
 	// ._("Map")			   .": ".$newMap."<br>"
-	._("Senders Steam IDs").": ".$row['statsendsid'];
-
-	foreach (glob("../replays/*(".$row['id'].").rec") as $filename)
+	foreach (glob("../replays/*".$row['id'].".rec") as $filename)
 		echo "<br/><a class = 'btn btn-primary' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a>";
 	?>
 

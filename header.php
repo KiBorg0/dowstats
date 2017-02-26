@@ -1,4 +1,9 @@
 <link rel="stylesheet" type="text/css" href = "language/languages.min.css"/>
+<style type="text/css">
+#cup {
+  color: red; /* or whatever color you prefer */
+}
+</style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <?php
@@ -63,6 +68,7 @@
             <li id = "overall_stat" ><a href="<?php echo "index.php?lang=".$lang;?>"><?php echo _('General Ladder');?></a></li>
             <li id = "1x1_stat">     <a href="<?php echo "1x1.php?lang=".$lang;?>"><?php echo _('1x1 Ladder');?></a></li>
             <li id = "battles">      <a href="<?php echo "battles.php?lang=".$lang;?>"><?php echo _('Battles');?></a></li>
+            <li id = "collector">    <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a></li>
         </ul>
             <!-- <li id = "collector">    <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a></li> -->
             <!--<li class="dropdown">

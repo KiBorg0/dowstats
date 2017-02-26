@@ -79,7 +79,7 @@
 			$row['all'] = $all ;
 			$row['win'] = $win ;
 			$row['percent'] = ($all!= 0)?round(100 * $win/$all):0;
-			$row['top'] = $row['all']/1.5+$row['percent'];
+			$row['top'] = $row['mmr'];
 			$row['favRace'] =  $favRace ;
 			$row['allGamesTime'] =  ($all != 0)?intval($row['time'] / $all):0;
 			$array[$int] = $row;

@@ -55,17 +55,20 @@ $mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime 
 $res = $mysqli->store_result();
 
 while ($row = $res->fetch_assoc()) {
-	$timehelpint = $row['gTime'] / 60;
-	$timehours = intval($timehelpint / 60);
+
+	$times = ($row['gTime']%60)." "._('s.')." ";
+	$timem = ($row['gTime']/60 % 60)." "._('m.')."   ";
+	$timeh = intval($row['gTime'] /3600);
+	$timeh = $timeh==0?"":$timeh." "._('h.')."   ";
 	$newMap = $row['map'][1]=="P"?substr($row['map'], 3):$newMap = $row['map']; 
-	echo "<b>" . $row['cTime'] . "</b><br>";
-	echo _("Game Time").": " . $timehours . " "._('h.')."   " . $timehelpint % 60 .  " "._('m.')."   " . $row['gTime'] % 60 . " "._('s.')." ";
-	echo _("Map").": "  . $newMap . "<br>";
-	echo _("Senders Steam IDs").": "  . $row['statsendsid'];
-	if(file_exists("../replays/".$row['id'].".rec"))
-		echo "<br/><a class = 'btn btn-primary' href = 'replays/".$row['id'].".rec'>"._('Download Replay')."</a>";
-	// else
-	// 	echo "<br/>"._("Replay is Absent");
+	$replay_download = $row['rep_download_counter'];
+	echo "<b>". $row['cTime'] . "</b><br>"
+	._("Game Time")		   .": ".$timeh.$timem.$times."<br>"
+	._("Senders Steam IDs").": ".$row['statsendsid'] ."<br>"
+	._("Number of replay downloads").": <span id = 'replay_counter".$row['id']."'>"  . $replay_download  . "</span><br>";
+	// ._("Map")			   .": ".$newMap."<br>"
+	foreach (glob("../replays/*".$row['id'].".rec") as $filename)
+		echo "<br/><a class = 'btn btn-primary' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a>";
 
 	$type = $row['type'];
 	$winners = array();

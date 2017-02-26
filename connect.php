@@ -32,7 +32,7 @@ function create_replay_file($last_game_id){
 	$replay_info .= $_FILES['file']['name'];
 	$uploaddir =  "replays/";
 	if(!is_dir($uploaddir)) mkdir($uploaddir);
-	$uploadfile = $uploaddir.substr($replay_info,0,-4)."(".$last_game_id.").rec";
+	$uploadfile = $uploaddir.substr($replay_info,0,-4)."#".$last_game_id.".rec";
 
 	// это условие нужно поменять, на случай, если первые реплеи придут от ливеров или обозревателей
 	if(!file_exists($uploadfile))
