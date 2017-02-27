@@ -52,7 +52,7 @@ while ($row = $res->fetch_assoc()) {
 	._("Number of replay downloads").": <span id = 'replay_counter".$row['id']."'>"  . $replay_download  . "</span><br>";
 	// ._("Map")			   .": ".$newMap."<br>"
 	foreach (glob("../replays/*".$row['id'].".rec") as $filename)
-		echo "<br/><a class = 'btn btn-primary' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a>";
+		echo "<br/><a class = 'btn btn-primary' onclick='increment_replay_download(".$row['id'].")' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a>";
 	?>
 
 	<style>
@@ -95,21 +95,21 @@ while ($row = $res->fetch_assoc()) {
 	<?php
 	// ".($i==1?("<td rowspan='6'><img class = 'avatar_big' src=".'../images/maps/'.$row['map'].'.jpg'."></td>"):"")."
 
-	for ($i = 1;$i <= $row['type']*2;$i++){
+	$type = $row['type'];
+	$winners = array();
+	for($i=1; $i<=$type; $i++)
+		$winners[] = $row["w".$i];
+
+	for ($i = 1;$i <= $type*2;$i++){
 		$player_name_coded = $row["p" . $i];
 		$player_apm = $row["apm" . $i . "r"];
-		$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
-		// _("No Data")
 		$apm = ($player_apm == 0)?"-":$player_apm;
-	    $is_victory = false;
-	    for($j=1; $j<=$row['type'];$j++)
-	    	if ($row["w" . $j] == $player_name_coded) $is_victory = true;
-
+		$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
 		echo "<TR>
 		<td>" . $href 								  . "</td>
 	    <td>" . RaceSwitcher::getRace($row["r" . $i]) . "</td>
 	    <td>" . $apm 								  . "</td>
-	    <td>" . ($is_victory?_('Winner'):_('Loser'))  . "</td></TR>";
+	    <td>" . (in_array($player_name_coded, $winners)?_('Winner'):_('Loser'))  . "</td></TR>";
 	}
 	?>
 	</table>

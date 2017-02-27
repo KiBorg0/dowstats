@@ -59,23 +59,23 @@
         while ($row = $res->fetch_assoc()) {
 			$all = 0;
 			$win = 0;
-			for($i=1;$i<=4;$i++)
-				for($j=1;$j<=9;$j++)
+			$favRace = 0;
+			$countGamesForRace = 0;
+			for($j=1;$j<=9;$j++)
+			{
+				$sum = 0;
+				for($i=1;$i<=4;$i++)
 				{
 					$win += $row[$i.'x'.$i.'_'.$j.'w'];
-					$all += $row[$i.'x'.$i.'_'.$j]; 
+					$sum += $row[$i.'x'.$i.'_'.$j];
 				}
-			$favRace = 0;
-			$countWinRace = 0;
-            for($i=1; $i<=9; $i++)
-            {
-                $sum = $row['1x1_'.$i]+$row['2x2_'.$i]+$row['3x3_'.$i]+$row['4x4_'.$i];
-	            if($countWinRace<$sum)
+				$all += $sum;
+	            if($countGamesForRace<$sum)
                 {
-                    $favRace = $i;
-                    $countWinRace = $sum;
-                }
-        	}
+                    $favRace = $j;
+                    $countGamesForRace = $sum;
+                } 
+			}
 			$row['all'] = $all ;
 			$row['win'] = $win ;
 			$row['percent'] = ($all!= 0)?round(100 * $win/$all):0;
@@ -96,8 +96,8 @@
 						$array[$i] = $array[$i+1];
 						$array[$i+1] = $b;
 					}
-        $number=0;
 
+        $number=0;
         //------------ВЫВОД-------------
         for($j = sizeof($array)-1; $j >= 0;$j--)
         {
@@ -107,9 +107,7 @@
 	        	$timehelpint = floor($array[$j]['allGamesTime'] / 60);   
 	            echo "<tr>
 	            <td>". $number ."</td>
-	            <td>
-	            <img class = 'avatar' src='" . $array[$j]['avatar_url'] . "'>
-				</td>
+	            <td><a href = 'player.php?sid=". $array[$j]['sid']."&lang=".$lang."#tab0'><img class = 'avatar' src='" . $array[$j]['avatar_url'] . "'></a></td>
 				<td><a href = 'player.php?sid=". $array[$j]['sid']."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($array[$j]['name']) . "</a></td>
 				<td>". $array[$j]['all'] . "</td>
 				<td>". $array[$j]['win'] . "</td>

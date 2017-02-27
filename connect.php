@@ -13,18 +13,19 @@ require_once("lib/NickDecode.php");
 $apm_info = "";
 $is_obs_or_leaver = false;
 
-function calculate_and_change_apm($mysqligame, $player, $apm){
+function calculate_and_change_apm($mysqligame, $sid, $apm){
 	global $apm_info; 
-	$mysqligame->real_query("SELECT apm, apm_game_counter FROM players WHERE name = '$player'");
+	$mysqligame->real_query("SELECT apm, apm_game_counter FROM players WHERE sid = '$sid'");
 	$res = $mysqligame->store_result();
-	$row = $res->fetch_assoc();
-	
-	$apm_info.= $row['apm'] . "- был<br>";
-	$apm_info.= "апм новой игры: " . $apm . " всего игр с апм: " . $row['apm_game_counter'] . "<br/>";
-	$apm1new = ($row['apm'] * $row['apm_game_counter'] + $apm) / ($row['apm_game_counter'] + 1);
-	$apm_info.= "апм игрока ". NickDecode::decodeNick($player) . " стал: " . round($apm1new, 2);
-	$apm_info.= "<br/>";
-	$mysqligame->real_query("UPDATE players SET apm = '$apm1new', apm_game_counter = apm_game_counter + 1 WHERE  (name = '$player') ");
+	if($row = $res->fetch_assoc())
+	{
+		$apm_info.= $row['apm'] . "- был<br>";
+		$apm_info.= "апм новой игры: " . $apm . " всего игр с апм: " . $row['apm_game_counter'] . "<br/>";
+		$apm1new = ($row['apm'] * $row['apm_game_counter'] + $apm) / ($row['apm_game_counter'] + 1);
+		$apm_info.= "апм игрока ". NickDecode::decodeNick($row['name']) . " стал: " . round($apm1new, 2);
+		$apm_info.= "<br/>";
+		$mysqligame->real_query("UPDATE players SET apm = '$apm1new', apm_game_counter = apm_game_counter + 1 WHERE sid = '$sid'");
+	}
 }
 
 function create_replay_file($last_game_id){
@@ -55,12 +56,12 @@ $type = $_GET["type"];
 
 $players = array();
 $races = array();
-$apmrs = array();
+// $apmrs = array();
 for($i=1; $i<=8; $i++)
 {
 	$races[] =   isset($_GET["r".$i]) ? $_GET["r".$i] : 0;
     $players[] = isset($_GET["p".$i]) ? $_GET["p".$i] : 0;
-    $apmrs[] =   isset($_GET["apm".$i."r"]) ? $_GET["apm".$i."r"] : 0;
+    // $apmrs[] =   isset($_GET["apm".$i."r"]) ? $_GET["apm".$i."r"] : 0;
 }
 $winners = array();
 for($i=1; $i<=4; $i++)
@@ -68,7 +69,7 @@ for($i=1; $i<=4; $i++)
 	$winners[] = $_GET["w".$i];
 }
 
-
+$apm = $_GET["apm"];
 $sid = $_GET["sid"];
 $map = $_GET["map"];
 $winby = $_GET["winby"];
@@ -114,10 +115,18 @@ if(strtolower($winby) == strtolower("Disconnect")){
 // 	//$mysqligame->real_query("INSERT INTO ipBans (ipBansstr) values ('$ipreal')  ");
 // }
 
+// нужно получить номер игрока, чтобы узнать кому писать apm
+$mysqligame->real_query("SELECT apm, apm_game_counter FROM players WHERE sid = '$sid'");
+$res = $mysqligame->store_result();
+if($row = $res->fetch_assoc())
+	$sender_index = array_search($row['name'], $players)+1;
 
 //-----Записываем игру
 $mysqligame->real_query("SELECT * FROM games WHERE (p1 = '".$players[0]."' AND p2 = '".$players[1]."'  AND '$cTimeMAX' < cTime)");
 $res = $mysqligame->store_result();
+
+// обновим апм у игрока приславшего статистику
+calculate_and_change_apm($mysqligame, $sid, $apm);
 
 // проверим, нет ли такой игры в базе
 $isFound = false;
@@ -125,24 +134,21 @@ while ($row = $res->fetch_assoc()) {
 	echo " - данная игра уже находится в базе\n";
 	$sid = $row['statsendsid'] . ", " . $sid;
 
+	// кто нибудь, расскажите мне что творится в этом участке кода, почему здесь $$?
 	for($i = 1; $i < 9; $i++){
 		$varname = "apm" . $i . "r";
 		if ($row[$varname] != 0) $$varname = 0;
 	}
 
 	$mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
-	$mysqligame2->real_query("UPDATE games SET statsendsid = '$sid', w1 = '".$winners[0]."',apm1r = '".$apmrs[0]."',apm2r = '".$apmrs[1]."',apm3r = '".$apmrs[2]."',apm4r = '".$apmrs[3]."',apm5r = '".$apmrs[4]."',apm6r = '".$apmrs[5]."',apm7r = '".$apmrs[6]."',apm8r = '".$apmrs[7]."' WHERE (p1 = '".$players[0]."' AND p2 = '".$players[1]."'  AND '$cTimeMAX' < cTime)");
+
+    $mysqligame2->real_query("UPDATE games SET statsendsid = '$sid', w1 = '".$winners[0]."', apm".$sender_index."r = '".$apm."' WHERE (p1 = '".$players[0]."' AND p2 = '".$players[1]."'  AND '$cTimeMAX' < cTime)");
 
 	// запишем файл реплея, если он не пришел от первого игрока
 	create_replay_file($row['id']);
 
 	$isFound = true;
 }
-
-// обновим апм у игроков
-for($i=1; $i<=$type*2; $i++)
-	if($apmrs[$i-1]!=0)
-		calculate_and_change_apm($mysqligame, $players[$i-1], $apmrs[$i-1]);
 
 // если такая игра не найдена, то запишем ее в базу
 if(!$isFound&&!$is_obs_or_leaver)
@@ -151,26 +157,25 @@ if(!$isFound&&!$is_obs_or_leaver)
 	//----------записываем игру в базу-------------
 	date_default_timezone_set( 'Europe/Moscow' );
 	$date = date('Y-m-d H:i:s', time());
-
 	$ipreal = $_SERVER['REMOTE_ADDR'];
 
 	$insert_str = "type,";
-	$values_str = "'$type', ";
+	$values_str = "'$type',";
 	for($i=1; $i<=$type*2; $i++){
-		$values_str .= "'" . $players[$i-1]. "', ";
 		$insert_str .= "p".$i.",";
+		$values_str .= "'".$players[$i-1]."',";
 	}
 	for($i=1; $i<=$type; $i++){
-		$values_str .= "'" . $winners[$i-1] . "', ";
 		$insert_str .= "w".$i.",";
+		$values_str .= "'".$winners[$i-1]."',";
 	}
 	for($i=1; $i<=$type*2; $i++){
-		$values_str .= "'" . $races[$i-1] . "', ";
 		$insert_str .= "r".$i.",";
+		$values_str .= "'".$races[$i-1]."',";
 	}
 	for($i=1; $i<=$type*2; $i++){
-		$values_str .= "'" . $apmrs[$i-1] . "', ";
 		$insert_str .= "apm".$i."r,";
+		$values_str .= ($sender_index==$i)?"'".$apm."',":"'0',";
 	}
 	$insert_str .= "map,gTime,cTime,statsendsid, game_mod, ipreal";
 	$values_str .= "'$map','$gTime','$date','$sid','$mod','$ipreal'" ;
@@ -181,46 +186,13 @@ if(!$isFound&&!$is_obs_or_leaver)
 	create_replay_file($mysqligame->insert_id);
 	// echo " - отработал скрипт расчёта реплея\n";
 
-	//-------записываем апм, победу и поражение в базу---------
+	//-------записываем победу и поражение в базу---------
 	for($i=0; $i<$type*2; $i++){
 		$mysqligame->real_query("UPDATE players SET ".$type."x".$type."_".$races[$i]." = ".$type."x".$type."_".$races[$i]." + 1, time = time + $gTime  WHERE (name = '".$players[$i]."' )");
 		if(in_array($players[$i], $winners))
         	$mysqligame->real_query("UPDATE players SET ".$type."x".$type."_".$races[$i]."w = ".$type."x".$type."_".$races[$i]."w + 1  WHERE (name = '".$players[$i]."')");
 	}
 
-	// //-----------------запись рейтинга---------------------------------------
-	// if($type == 1){
-	// 	$isFoundPlayers = true;
-	// 	$mmrs = array();
-	// 	for($i=0;$i<2;$i++){
-	// 	    $mysqligame->real_query("SELECT * FROM players WHERE name = '".$players[$i]."'");
-	// 		$res = $mysqligame->store_result();
-	// 		if($row = $res->fetch_assoc()){
-	// 			$mmrs[] = 1500;
-	// 			$mmrs[$i] = $row['mmr'];
-	// 			$apm_info .= "<br/> расчет рейтинга:<br/> рейтинг до: ".NickDecode::decodeNick($players[$i])." - " . $mmrs[$i];
-	// 		}
-	// 		else{
-	// 			$isFoundPlayers = false;
-	// 			break;
-	// 		}
-	// 	}
-	// 	$apm_info .= "<br/>";	
-	// 	if($isFoundPlayers)
-	// 		for($i=0;$i<2;$i++){
-	// 			$amb = (($i==0)?$mmrs[1]:$mmrs[0]) - $mmrs[$i];
-	// 			$ea = 1/(1 + pow( 10 , $amb/400 ));
-	// 			$f1 = round(50*((in_array($players[$i], $winners)?1:0) - $ea));
-
-	// 			$apm_info .= "разница в рейтинге: " 		  . $amb
-	// 					  . "; вероятность победы игрока: "   . round($ea,2) 
-	// 					  . "; итоговое изменение рейтинга: " . $f1 
-	// 					  . "<br/>";
-	// 			$mysqligame->real_query("UPDATE players SET mmr = '".$mmrs[$i]."' + '$f1'  WHERE name = '".$players[$i]."'");
-	// 		}
-	// }
-	// else{
-		
     $n = $type*2;  // количество игроков
     $K = 50 / ($n - 1);
     $apm_info .= $n." players<br/>";
@@ -234,13 +206,12 @@ if(!$isFound&&!$is_obs_or_leaver)
 		if($row = $res->fetch_assoc())
 		{
 			$curELO = $row['mmr'];
-		
-		// else
-		// 	$curELO = 1500;
-
+			// получим тут sid игрока, пригодится, емае
+			$sid = $row['sid'];
 			$eloChange = 0;
 			for($j = 0; $j < $n; $j++)
 			{
+				// ищем противников данного игрока и если такие есть, то рассчитываем изменение ммр
 				if(($i!=$j)&&($result!=in_array($players[$j], $winners)))
 				{
 				    $mysqligame->real_query("SELECT * FROM players WHERE name = '".$players[$j]."'");
@@ -251,9 +222,6 @@ if(!$isFound&&!$is_obs_or_leaver)
 						$apm_info .= "<br/>".NickDecode::decodeNick($players[$i])." vs ".NickDecode::decodeNick($players[$j])." рейтинг до: " . $curELO;
 						$opponentELO = $row['mmr'];
 					
-					// else
-					// 	$opponentELO = 1500;
-
 						//work out EA
 						$EA = 1 / (1 + pow(10, ($opponentELO - $curELO) / 400));
 						//calculate ELO change vs this one opponent, add it to our change bucket  
@@ -264,12 +232,13 @@ if(!$isFound&&!$is_obs_or_leaver)
 				}
 			}
 
-			
 			$curELO += $eloChange;
-			$mysqligame->real_query("UPDATE players SET mmr = '$curELO' WHERE name = '".$players[$i]."'");
+			// из-за этого условия ммр пишется всем, где ник равен текущему и поэтому у обоих зоргов одинаковый ммр, но о чудо, я додумался
+			// сейчас я изменю эту срань господню, отлично, я поменял проверку по имени на проверку по sid
+			// все равно у нас ммр считается только для тех кто в базе есть
+			$mysqligame->real_query("UPDATE players SET mmr = '$curELO' WHERE sid = '$sid'");
 		}
     }
-	// }
 }
 
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
