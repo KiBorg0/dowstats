@@ -57,3 +57,18 @@
     padding: 20px;
     height: 80px;
 }
+
+.map-img{
+    height: 128px;
+    position: absolute;
+    left:50%;
+    margin-top: 5px;
+    margin-left:-64px;
+}
+
+.fullGameInfo{
+    border: 1px dashed #ddd;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 2px 10px #eee;
+    margin-bottom: 20px;
+    padding:10px;
+}

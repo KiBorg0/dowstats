@@ -63,24 +63,23 @@ while ($row = $res->fetch_assoc()) {
 	<!-- <div class="container"> -->
 
 	
-	<div class="row">
-	<div class="row">
-		<div class="col-md-4">
+	<div class="row fullGameInfo" >
+	<div class="row" >
+		<div class="col-md-3">
 			<div class="row">
-				<div class="col-md-6">
-					<?php echo $newMap;?>
-				</div>
-				<div class="col-md-6">
-					<?php echo $timeh.$timem.$times."<br/>"?>
-				</div>
+
+				<b><?php echo $newMap;?></b>
+				<!--<div class="col-md-6">
+
+				</div>-->
 			</div>
-			<div class="row">
+			<div class="row" style="min-height: 120px;">
 				<!-- <div class="col-md-12"> -->
-					<img src=<?php echo '../images/maps/'.$row['map'].'.jpg'?>>
+					<img class = "map-img" src=<?php echo 'images/maps/'.$row['map'].'.jpg'?>>
 				<!-- </div> -->
 			</div>
 		</div>
-		<div class="col-md-8 table-responsive">
+		<div class="col-md-9 table-responsive">
 			<table class="table table-striped table-hover text-center table-games">
 
 			<thead>
@@ -115,11 +114,13 @@ while ($row = $res->fetch_assoc()) {
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
-			<?php echo "<br/><b>". $row['cTime'] . "</b><br/>";?>
+		<div class="col-md-3">
+			<?php echo "<br/><b>". $row['cTime'] . "</b>";?>
+
 		</div>
-		<div class="col-md-6">
-			<?php echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];?>
+		<div class="col-md-7">
+			<?php /*echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];*/?>
+			<?php echo "<br/>".$timeh.$timem.$times."<br/>"?>
 		</div>
 		<div class="col-md-2">
 			<?php if($row['replay_link']!='')
