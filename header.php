@@ -68,6 +68,7 @@
             <li id = "overall_stat" ><a href="<?php echo "index.php?lang=".$lang;?>"><?php echo _('General Ladder');?></a></li>
             <li id = "1x1_stat">     <a href="<?php echo "1x1.php?lang=".$lang;?>"><?php echo _('1x1 Ladder');?></a></li>
             <li id = "battles">      <a href="<?php echo "battles.php?lang=".$lang;?>"><?php echo _('Battles');?></a></li>
+            <li id = "donate">      <a href="<?php echo "donate.php?lang=".$lang;?>"><?php echo _('Donate');?></a></li>
             <li id = "collector">    <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a></li>
         </ul>
             <!-- <li id = "collector">    <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a></li> -->

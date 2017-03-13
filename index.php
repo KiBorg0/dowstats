@@ -93,12 +93,7 @@ if ($mysqli->connect_error) {
         <button class="btn btn-primary" onclick="SendDEStat();" role="group"><?php echo _('DE');?></button>
                                     </div>
                                 </div>
-                                     <center>
-                                     <div id="result"></div>
-                                    </center>
                                 </div>
-
-
                             </div> <!-- /.col-md-12 -->
                         </div> <!-- /.row -->
 
@@ -112,6 +107,10 @@ if ($mysqli->connect_error) {
 
         </div> <!-- /.row -->
     </div> <!-- /.container-fluid -->
+
+    <center>
+      <div id="result"></div>
+    </center>
     
     <div class="container-fluid">   
         <div class="row">

@@ -1,4 +1,4 @@
-<?
+﻿<?
 
 
 $host = $_SERVER['HTTP_HOST'];
@@ -39,86 +39,101 @@ $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 $mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit {$startFrom}, 10");
 $res = $mysqli->store_result();
 
+$json = file_get_contents ('../images/maps/maps.json');
+$arrara = json_decode($json, true);
 while ($row = $res->fetch_assoc()) {
 	$times = ($row['gTime']%60)." "._('s.')." ";
 	$timem = ($row['gTime']/60 % 60)." "._('m.')."   ";
 	$timeh = intval($row['gTime'] /3600);
 	$timeh = $timeh==0?"":$timeh." "._('h.')."   ";
-	$newMap = $row['map'][1]=="P"?substr($row['map'], 3):$newMap = $row['map']; 
+	$newMap = $arrara[strtolower($row['map'])]!=''?$arrara[strtolower($row['map'])]:$row['map']; 
 	$replay_download = $row['rep_download_counter'];
-	echo "<b>". $row['cTime'] . "</b><br>"
-	._("Game Time")		   .": ".$timeh.$timem.$times."<br>"
-	._("Senders Steam IDs").": ".$row['statsendsid'] ."<br>"
-	._("Number of replay downloads").": <span id = 'replay_counter".$row['id']."'>"  . $replay_download  . "</span><br>";
-	// ._("Map")			   .": ".$newMap."<br>"
-	foreach (glob("../replays/*".$row['id'].".rec") as $filename)
-		echo "<br/><a class = 'btn btn-primary' onclick='increment_replay_download(".$row['id'].")' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a>";
+	// echo "<b>". $row['cTime'] . "</b><br>"
+	// echo _("Game Time")		   .": ".$timeh.$timem.$times."<br/>"
+	// echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];
+	// ._("Number of replay downloads").": <span id = 'replay_counter".$row['id']."'>"  . $replay_download  . "</span>";
+	// ._("Map")			   .": ".$newMap."<br>";
+
+	// foreach (glob("../replays/*".$row['id'].".rec") as $filename)
+	// 	echo "<br/><a class = 'btn btn-primary' onclick='increment_replay_download(".$row['id'].")' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a>";
+	
 	?>
 
-	<style>
-		.elem {
-			border: solid  #6AC5AC 3px;
-			position: relative;
-		}
-		.elem-green > .label, .elem-green > .endlabel{
-			background-color: #FDC72F;
-		}
-		.clearfix:after {
-			content: ".";
-			display: block;
-			height: 0;
-			clear: both;
-			visibility: hidden;
-		}
-		.content {
-			max-width: 600px;
-			margin: 1em auto;
-		}
-		article img {
-			float: left;
-			width: 25%;
-		}
-	</style>
+
+	<!-- <div class="container"> -->
+
 	
-	<article class="elem elem-green content clearfix">
-	<table class="table table-striped table-hover text-center table-games">
-	<thead>
-		<tr>
-			<!-- <td><?php echo _("Map").": ".$newMap."<br>"?></td> -->
-			<td><?php echo _('Players')?></td>
-			<td><?php echo _('Races')?></td>
-			<td><?php echo _('APM')?><br/></td>
-			<td><?php echo _('Result')?></td>
-		</tr>
-	</thead>
+	<div class="row">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-6">
+					<?php echo $newMap;?>
+				</div>
+				<div class="col-md-6">
+					<?php echo $timeh.$timem.$times."<br/>"?>
+				</div>
+			</div>
+			<div class="row">
+				<!-- <div class="col-md-12"> -->
+					<img src=<?php echo '../images/maps/'.$row['map'].'.jpg'?>>
+				<!-- </div> -->
+			</div>
+		</div>
+		<div class="col-md-8 table-responsive">
+			<table class="table table-striped table-hover text-center table-games">
 
-	<?php
-	// ".($i==1?("<td rowspan='6'><img class = 'avatar_big' src=".'../images/maps/'.$row['map'].'.jpg'."></td>"):"")."
+			<thead>
+				<tr>
+					<!-- <td><?php echo _("Map").": ".$newMap."<br/>"?></td> -->
+					<td><?php echo _('Players')?></td>
+					<td><?php echo _('Races')?></td>
+					<td><?php echo _('APM')?><br/></td>
+					<td><?php echo _('Result')?></td>
+				</tr>
+			</thead>
 
-	$type = $row['type'];
-	$winners = array();
-	for($i=1; $i<=$type; $i++)
-		$winners[] = $row["w".$i];
+			<?php
+			$type = $row['type'];
+			$winners = array();
+			for($i=1; $i<=$type; $i++)
+				$winners[] = $row["w".$i];
 
-	for ($i = 1;$i <= $type*2;$i++){
-		$player_name_coded = $row["p" . $i];
-		$player_apm = $row["apm" . $i . "r"];
-		$apm = ($player_apm == 0)?"-":$player_apm;
-		$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
-		echo "<TR>
-		<td>" . $href 								  . "</td>
-	    <td>" . RaceSwitcher::getRace($row["r" . $i]) . "</td>
-	    <td>" . $apm 								  . "</td>
-	    <td>" . (in_array($player_name_coded, $winners)?_('Winner'):_('Loser'))  . "</td></TR>";
-	}
-	?>
-	</table>
-	<img src=<?php echo '../images/maps/'.$row['map'].'.jpg'?>>
-	</article>
-	
-	<!-- <hr style="border-bottom: 1px solid #555;"/> -->
+			for ($i = 1;$i <= $type*2;$i++){
+				$player_name_coded = $row["p" . $i];
+				$player_apm = $row["apm" . $i . "r"];
+				$apm = ($player_apm == 0)?"-":$player_apm;
+				$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
+				echo "<TR>
+				<td>" . $href 								  . "</td>
+			    <td>" . RaceSwitcher::getRace($row["r" . $i]) . "</td>
+			    <td>" . $apm 								  . "</td>
+			    <td>" . (in_array($player_name_coded, $winners)?_('Winner'):_('Loser'))  . "</td></TR>";
+			}
+			?>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<?php echo "<br/><b>". $row['cTime'] . "</b><br/>";?>
+		</div>
+		<div class="col-md-6">
+			<?php echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];?>
+		</div>
+		<div class="col-md-2">
+			<?php if($row['replay_link']!='')
+				echo " <a class = 'btn btn-primary' onclick='increment_replay_download(".$row['id'].")' href = '".$row['replay_link']."'>"._('Download Replay')."</a>";?>
+		</div>
+	</div>
+	</div>
+	<br/>
+	<!-- </div> -->
 
 <?php
+	// echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];
+	// if($row['replay_link']!='')
+	// 	echo " <a class = 'btn btn-primary' onclick='increment_replay_download(".$row['id'].")' href = '".$row['replay_link']."'>"._('Download Replay')."</a>";
 }
 
 if($res->num_rows == 0){

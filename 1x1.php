@@ -106,10 +106,7 @@ if ($mysqli->connect_errno) {
                                 </div>
 
 
-                                     <center>
-                                     <div id="result1x1"></div>
-                                     
-                                    </center>
+
                                 </div>
 
 
@@ -126,6 +123,9 @@ if ($mysqli->connect_errno) {
 
         </div> <!-- /.row -->
     </div> <!-- /.container-fluid -->
+    <center>
+        <div id="result1x1"></div>
+    </center>
     </body>
 
 </html>

@@ -91,6 +91,7 @@ else if(isset($_GET["name"]))
 
         <script type="text/javascript">
             var userName = '<?php echo $name;?>';
+            var userSID = '<?php echo $sid;?>';
         </script>
 
         <script type="text/javascript" src="js/player.js"></script>
@@ -143,9 +144,10 @@ else if(isset($_GET["name"]))
                     }
                 }
                 echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
-                echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
+                echo '<h5>SID: ' . $row['sid'] . '<br>';
+                echo 'SOLO MMR: ' . $row['mmr'] . '<br>';
                 echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
-                echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
+                if($favRace) echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
                 echo _('APM').': '. $row['apm'] . '</h5>';
                 ?>
             </center>

@@ -17,14 +17,16 @@ $(document).ready(function() {
 			var checkboxes = $("#1x1_checkbox").prop("checked") + ";" + $("#2x2_checkbox").prop("checked") + ";" + $("#3x3_checkbox").prop("checked") + ";" + $("#4x4_checkbox").prop("checked");
 			var selected_race = $("#race_option").val();
 	        $.ajax({
-                type:'get',
+                type: 'get',
 	            url: 'view/allGamesPlayer.php',
-	            data: {name:userName,//сам игрок
-					'enemyOrAllyName': player,//его соперник/союзник
-					'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
+	            data: {'name': userName, //сам игрок
+	            	'sid': userSID, //steam id игрока
+					'enemyOrAllyName': player, //его соперник/союзник
+					'type_checkboxes': checkboxes, //строка с выбором типа игры через ;
 					'selected_race': selected_race,
-					"startFrom" : startFrom,'lang':lang},
-            	response:'html',
+					'startFrom': startFrom,
+					'lang': lang},
+            	response: 'html',
 	            /* что нужно сделать до отправки запрса */
 	            beforeSend: function() {
 		            /* меняем значение флага на true, т.е. запрос сейчас в процессе выполнения */ 	
@@ -85,7 +87,8 @@ function search_player_battles(){
 	$.ajax({
 		type:'get',
 		url:'view/allGamesPlayer.php',
-		data:{name:userName,//сам игрок
+		data:{'name': userName,//сам игрок
+			'sid': userSID, //steam id игрока
 			'enemyOrAllyName': player,//его соперник/союзник
 			'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
 			'selected_race': selected_race,'lang':lang},

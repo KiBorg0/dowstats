@@ -36,9 +36,19 @@ for($i=0;$i<sizeof($_GET)/2-1;$i++)
 	if($row = $res->fetch_assoc())
 	{
 		$outlog .= "the player ".NickDecode::decodeNick($name)." is already in the database<br/>";
+		$nicknames = unserialize(base64_decode($row['last_nicknames']));
+		var_dump($nicknames);
+		if(!in_array($name, $nicknames))
+		{
+			$nicknames[]=$name;
+			$nicknames_str = base64_encode(serialize($nicknames));
+			$mysqligame->real_query("UPDATE players SET last_nicknames = '$nicknames_str' WHERE sid = '$sid'");
+		}
+
 		if($row['name']!=$name)
 		{
 			// $mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+
 			$mysqligame->real_query("UPDATE players SET name = '$name' WHERE sid = '$sid'");
 			$outlog .= "player nick changed: from ".NickDecode::decodeNick($row['name'])." to ". NickDecode::decodeNick($name) ."<br/>";
 		}

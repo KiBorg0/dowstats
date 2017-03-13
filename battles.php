@@ -62,7 +62,17 @@ if ($mysqli->connect_errno) {
             $('#battles').addClass('active');
         });
         </script>
-
+        <style type="text/css">
+            .vcenter {
+                display: inline-block;
+                vertical-align: middle;
+                float: none;
+            }
+            .vertical-align {
+                display: flex;
+                align-items: center;
+            }
+        </style> 
 
 
     </head>
