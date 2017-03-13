@@ -64,19 +64,12 @@ while ($row = $res->fetch_assoc()) {
 
 	
 	<div class="row fullGameInfo" >
-	<div class="row" >
-		<div class="col-md-3">
-			<div class="row">
+	<div class="row " style = "display: flex; align-items: center;" >
 
-				<b><?php echo $newMap;?></b>
-				<!--<div class="col-md-6">
-
-				</div>-->
-			</div>
-			<div class="row" style="min-height: 120px;">
-				<!-- <div class="col-md-12"> -->
-					<img class = "map-img" src=<?php echo 'images/maps/'.$row['map'].'.jpg'?>>
-				<!-- </div> -->
+		<div class="col-md-3"  >
+			<div class = " map-container">
+				<b><?php echo $newMap;?></b><br/>
+				<img class = "map-img" src=<?php echo 'images/maps/'.$row['map'].'.jpg'?>>
 			</div>
 		</div>
 		<div class="col-md-9 table-responsive">
