@@ -33,18 +33,27 @@ $res = $mysqli->store_result();
 $where_condition = "(";
 if($row = $res->fetch_assoc()){
 	$nicknames = unserialize(base64_decode($row['last_nicknames']));
-	for($j=0;$j<sizeof($nicknames);$j++) {
-		$where_condition .= "(";
-		for($i = 1; $i <= 8; $i++){
-			// $where_condition .= "(";
-			$where_condition .= "p" . $i . " = '".$nicknames[$j]."'";//поиск по имени игрока
-			if($raceOption != 0) $where_condition .= " and r".$i." =" . $raceOption;//поиск по расе игрока
-			// $where_condition .= ")";
-			if($i != 8) $where_condition .= " or ";
+	if($nicknames)
+		for($j=0;$j<sizeof($nicknames);$j++) {
+			$where_condition .= "(";
+			for($i = 1; $i <= 8; $i++){
+				// $where_condition .= "(";
+				$where_condition .= "p" . $i . " = '".$nicknames[$j]."'";//поиск по имени игрока
+				if($raceOption != 0) $where_condition .= " and r".$i." =" . $raceOption;//поиск по расе игрока
+				// $where_condition .= ")";
+				if($i != 8) $where_condition .= " or ";
+			}
+			$where_condition .= ")";
+			if($j != sizeof($nicknames)-1) $where_condition .= " or ";
 		}
-		$where_condition .= ")";
-		if($j != sizeof($nicknames)-1) $where_condition .= " or ";
-	}
+	else
+		for($i = 1; $i <= 8; $i++){
+				// $where_condition .= "(";
+				$where_condition .= "p" . $i . " = '".$name."'";//поиск по имени игрока
+				if($raceOption != 0) $where_condition .= " and r".$i." =" . $raceOption;//поиск по расе игрока
+				// $where_condition .= ")";
+				if($i != 8) $where_condition .= " or ";
+		}
 }
 // формирование условия поиска по базе
 $where_condition .= ")";
@@ -63,7 +72,7 @@ if($selected_type[0] == "false") $where_condition .= " and (type = 2 or type = 3
 if($selected_type[1] == "false") $where_condition .= " and (type = 1 or type = 3 or type = 4)";
 if($selected_type[2] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 4)";
 if($selected_type[3] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 3)";
-// echo $where_condition;
+echo $where_condition;
 
 $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 $mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit {$startFrom}, 10");

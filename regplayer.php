@@ -35,10 +35,10 @@ for($i=0;$i<sizeof($_GET)/2-1;$i++)
 	$res = $mysqligame->store_result();
 	if($row = $res->fetch_assoc())
 	{
-		$outlog .= "the player ".NickDecode::decodeNick($name)." is already in the database<br/>";
+		$outlog .= " the player ".NickDecode::decodeNick($name)." is already in the database<br/>";
 		$nicknames = unserialize(base64_decode($row['last_nicknames']));
-		var_dump($nicknames);
-		if(!in_array($name, $nicknames))
+
+		if($nicknames?(!in_array($name, $nicknames)):true)
 		{
 			$nicknames[]=$name;
 			$nicknames_str = base64_encode(serialize($nicknames));
