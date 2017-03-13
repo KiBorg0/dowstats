@@ -1,0 +1,336 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-14 05:28+1000\n"
+"PO-Revision-Date: 2017-02-14 05:36+1000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: New <loa92@mail.ru>\n"
+"Language-Team: \n"
+"Language: ko_KR\n"
+"X-Generator: Poedit 1.8.8\n"
+
+msgid "Soulstorm - stats"
+msgstr "소울스톰 - 전적"
+
+msgid "General"
+msgstr "일반"
+
+msgid "SM"
+msgstr "스페이스 마린"
+
+msgid "CSM"
+msgstr "카오스 스페이스 마린"
+
+msgid "Orks"
+msgstr "오크"
+
+msgid "Eldar"
+msgstr "엘다"
+
+msgid "IG"
+msgstr "임페리얼 가드"
+
+msgid "Necrons"
+msgstr "네크론"
+
+msgid "Tau"
+msgstr "타우"
+
+msgid "SoB"
+msgstr "시스터스 오브 배틀"
+
+msgid "DE"
+msgstr "다크 엘다"
+
+msgid "Recent games"
+msgstr "최근 게임"
+
+msgid "Find by player name/clan name"
+msgstr "\"유저명/클랜명 찾기"
+
+msgid "Enter opponent/ally"
+msgstr "\"상대/동맹 기입"
+
+msgid "Any race"
+msgstr "다른 종족"
+
+msgid "Find games"
+msgstr "경기 찾기"
+
+msgid "Scroll up"
+msgstr "위로"
+
+msgid "Up"
+msgstr "위로"
+
+msgid "General stats"
+msgstr "일반 전적"
+
+msgid "Top 1x1"
+msgstr "개인전 순위"
+
+msgid "Battles"
+msgstr "경기"
+
+msgid "Developers"
+msgstr "개발자"
+
+msgid "and"
+msgstr "와"
+
+msgid "Last games"
+msgstr "지난 게임"
+
+msgid "Share stats in VK"
+msgstr "VK에 전적 공유하기"
+
+msgid "total stats"
+msgstr "전체 전적"
+
+msgid "game time"
+msgstr "게임"
+
+msgid "h."
+msgstr "시."
+
+msgid "m."
+msgstr "분."
+
+msgid "s."
+msgstr "초."
+
+msgid "favorite race"
+msgstr "선호하는 종족"
+
+msgid "favorite race 1x1"
+msgstr "선호하는 종족 (개인전)"
+
+msgid "apm"
+msgstr "APM"
+
+msgid "race"
+msgstr "종족"
+
+msgid "count of games"
+msgstr "경기 수"
+
+msgid "wins"
+msgstr "승"
+
+msgid "losses"
+msgstr "패"
+
+msgid "wins ratio"
+msgstr "승률"
+
+msgid "stats"
+msgstr "전적"
+
+msgid "Total"
+msgstr "총"
+
+msgid "Player opponent/ally"
+msgstr "상대/동맹 플레이어"
+
+msgid "Player race"
+msgstr "플레이어 종족"
+
+msgid "Total win ratio"
+msgstr "총 승률"
+
+msgid "Race win ratio"
+msgstr "종족 승률"
+
+msgid "number"
+msgstr "순위"
+
+msgid "avatar"
+msgstr "아바타"
+
+msgid "player"
+msgstr "플레이어"
+
+msgid "win ratio"
+msgstr "승률"
+
+msgid "Game time"
+msgstr "게임 시간"
+
+msgid "Map"
+msgstr "맵"
+
+msgid "Senders steam ids"
+msgstr "송신자의 스팀 아이디"
+
+msgid "download replay"
+msgstr "리플레이 다운로드"
+
+msgid "replay is absent"
+msgstr "리플레이 없음"
+
+msgid "players"
+msgstr "순위"
+
+msgid "races"
+msgstr "종족"
+
+msgid "result"
+msgstr "결과"
+
+msgid "no data"
+msgstr "데이터 없음"
+
+msgid "win"
+msgstr "승"
+
+msgid "lose"
+msgstr "패"
+
+msgid "games with such parameters not found"
+msgstr "검색 결과를 찾을 수 없습니다."
+
+msgid "time"
+msgstr "시간"
+
+msgid "Space Marines"
+msgstr "스페이스 마린"
+
+msgid "Chaos Marines"
+msgstr "카오스 마린"
+
+msgid "Imperial Guard"
+msgstr "임페리얼 가드"
+
+msgid "Sisters of Battle"
+msgstr "시스터스 오브 배틀"
+
+msgid "Dark Eldar"
+msgstr "다크 엘다"
+
+msgid "Favorite race"
+msgstr "선호하는 종족"
+
+msgid "Soulstorm Ladder"
+msgstr "소울스톰 - 전적"
+
+msgid "Chaos"
+msgstr "카오스 스페이스 마린"
+
+msgid "Tau Empire"
+msgstr "타우"
+
+msgid "Recent Games"
+msgstr "최근 게임"
+
+msgid "Any Race"
+msgstr "다른 종족"
+
+msgid "Find Games"
+msgstr "경기 찾기"
+
+msgid "Scroll Up"
+msgstr "위로"
+
+msgid "General Ladder"
+msgstr "일반 전적"
+
+msgid "1x1 Ladder"
+msgstr "개인전 순위"
+
+msgid "General Stats"
+msgstr "일반 전적"
+
+msgid "Last Games"
+msgstr "지난 게임"
+
+msgid "Total Stats"
+msgstr "전체 전적"
+
+msgid "Game Time"
+msgstr "게임"
+
+msgid "Favorite Race"
+msgstr "선호하는 종족"
+
+msgid "Favorite Race 1x1"
+msgstr "선호하는 종족 (개인전)"
+
+msgid "APM"
+msgstr ""
+
+msgid "Race"
+msgstr "종족"
+
+msgid "Number of Games"
+msgstr "경기 수"
+
+msgid "Victories"
+msgstr "승"
+
+msgid "Losses"
+msgstr "패"
+
+msgid "Wins Rate"
+msgstr "승률"
+
+msgid "Stats"
+msgstr "전적"
+
+msgid "Player Race"
+msgstr "플레이어 종족"
+
+msgid "Total Win Rate"
+msgstr "총 승률"
+
+msgid "Race Win Rate"
+msgstr "종족 승률"
+
+msgid "Number"
+msgstr "순위"
+
+msgid "Avatar"
+msgstr "아바타"
+
+msgid "Player"
+msgstr "플레이어"
+
+msgid "Win Rate"
+msgstr "승률"
+
+msgid "Senders Steam IDs"
+msgstr "송신자의 스팀 아이디"
+
+msgid "Download Replay"
+msgstr "리플레이 다운로드"
+
+msgid "Replay is Absent"
+msgstr "리플레이 없음"
+
+msgid "Players"
+msgstr "순위"
+
+msgid "Races"
+msgstr "종족"
+
+msgid "Result"
+msgstr "결과"
+
+msgid "No Data"
+msgstr "데이터 없음"
+
+msgid "Winner"
+msgstr "승"
+
+msgid "Loser"
+msgstr "패"
+
+msgid "Time"
+msgstr "시간"

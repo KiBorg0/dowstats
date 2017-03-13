@@ -1,0 +1,53 @@
+.btn-group-justified{
+  margin: 2px;
+}
+.avatar{
+	width: 64px; height: 64px; /* Размеры */
+    background: #22a; /* Цвет фона */
+    border: 1px solid #000; /* Белая рамка */
+    border-radius: 10px; /* Радиус скругления */
+}
+.avatar_big{
+	width: 184px; height: 184px; /* Размеры */
+    background: #22a; /* Цвет фона */
+    border: 1px solid #000; /* Белая рамка */
+    border-radius: 10px; /* Радиус скругления */
+}
+
+
+.logo-wrapper{
+	display: inline;
+}
+
+/* таблицы */
+
+.table-games td{
+        width: 33%;
+    }
+
+/* кнопка прокрутки статы вверх */
+#scrollup {
+    position: fixed; /* фиксированная позиция */
+    opacity: 0.65; /* прозрачность */
+    padding: 15px 10px 10px; /* отступы */
+    border: 1px solid #999;
+    background: linear-gradient(180deg, #fff, #ddd);
+    border-radius: 5px; /* скругление углов */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    left:20px; /* отступ слева */
+    bottom: 20px; /* отступ снизу */
+    display: none; /* спрятать блок */
+    cursor: pointer;
+    font-family: Georgia;
+}
+
+.ui-helper-hidden-accessible{
+    display: none;
+}
+
+#lang_selector{
+    right:20px;
+    top:8px;
+    position: absolute;
+}
