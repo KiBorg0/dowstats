@@ -72,7 +72,7 @@ if($selected_type[0] == "false") $where_condition .= " and (type = 2 or type = 3
 if($selected_type[1] == "false") $where_condition .= " and (type = 1 or type = 3 or type = 4)";
 if($selected_type[2] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 4)";
 if($selected_type[3] == "false") $where_condition .= " and (type = 1 or type = 2 or type = 3)";
-echo $where_condition;
+// echo $where_condition;
 
 $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 $mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY cTime DESC limit {$startFrom}, 10");

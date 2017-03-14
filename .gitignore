@@ -8,3 +8,8 @@
 
 #игнорим реплеи
 replays/
+/ssstats/
+/ssstatssetup/
+/logfiles/
+/backup/
+/info/

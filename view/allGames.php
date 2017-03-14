@@ -1,4 +1,4 @@
-﻿<?
+<?
 
 
 $host = $_SERVER['HTTP_HOST'];
@@ -68,7 +68,7 @@ while ($row = $res->fetch_assoc()) {
 
 		<div class="col-md-3"  >
 			<div class = " map-container">
-				<b><?php echo $newMap;?></b><br/>
+				<b><?php echo $newMap;?></b><br/><br/>
 				<img class = "map-img" src=<?php echo 'images/maps/'.$row['map'].'.jpg'?>>
 			</div>
 		</div>
@@ -108,16 +108,15 @@ while ($row = $res->fetch_assoc()) {
 	</div>
 	<div class="row">
 		<div class="col-md-3">
-			<?php echo "<br/><b>". $row['cTime'] . "</b>";?>
-
+			<b><?php echo "<br/>".$timeh.$timem.$times."<br/>"?></b>
 		</div>
 		<div class="col-md-7">
-			<?php /*echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];*/?>
-			<?php echo "<br/>".$timeh.$timem.$times."<br/>"?>
+			<?php echo "<br/><b>". $row['cTime'] . "</b>";?>
+			<?php echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];?>
 		</div>
 		<div class="col-md-2">
 			<?php if($row['replay_link']!='')
-				echo " <a class = 'btn btn-primary' onclick='increment_replay_download(".$row['id'].")' href = '".$row['replay_link']."'>"._('Download Replay')."</a>";?>
+				echo "<div class='row'><div class='btn download-counter btn-primary'>137</div><a class = 'btn download-button btn-primary' onclick='increment_replay_download(".$row['id'].")' href = '".$row['replay_link']."'>"._('Download Replay')."</a></div>";?>
 		</div>
 	</div>
 	</div>

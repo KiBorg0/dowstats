@@ -25,7 +25,7 @@ if ($mysqli->connect_error) {
 <html>
 
     <head>
-
+        <!-- <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"> -->
         <title><?php echo _('Soulstorm Ladder')?></title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

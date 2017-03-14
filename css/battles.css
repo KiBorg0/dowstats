@@ -79,3 +79,13 @@
     padding:10px;
     border-radius: 10px;
 }
+
+.download-counter{
+    /*border-right: 1px solid white !important;*/
+    border-radius: 4px 0 0 4px !important;
+}
+
+.download-button{
+    /*border-left: 1px solid white !important;*/
+    border-radius: 0 4px 4px 0 !important;
+}
