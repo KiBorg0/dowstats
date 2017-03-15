@@ -81,34 +81,9 @@ if ($mysqli->connect_errno) {
 <?php include "header.php"; ?>
     <div class="container">
         <div class="row">
-            
-            
-
             <div class="col-md-12">
-                
-                <!--<ul class="tabs">
-                    <li class="col-md-4 col-sm-4">
-                        <a href="#tab4" class="icon-item">
-                            <i class="fa fa-cogs"></i>
-                        </a> 
-                    </li>
-                    <li class="col-md-4 col-sm-4">
-                        <a href="#tab5" class="icon-item">
-                            <i class="fa fa-leaf"></i>
-                        </a> 
-                    </li>
-                    <li class="col-md-4 col-sm-4">
-                        <a href="#tab6" class="icon-item">
-                            <i class="fa fa-users"></i>
-                        </a> 
-                    </li>
-                </ul>  -->
                 <div class="col-md-12 col-sm-12">
                     <div class="toggle-content text-center">
-<!-- 	                    <br/>
-                        <div style = "clear:both"/>
-                            <h3><?php echo _('Recent Games')?></h3>
-                        </div> -->
                         <div class = "search_div">
                             <div class="form-group col-md-3" >
                                 <label class="sr-only" for="player_name_input"><?php echo _("Find by player name/clan name")?></label>
@@ -129,7 +104,6 @@ if ($mysqli->connect_errno) {
                             </div>
 
                             <div class="form-group col-md-3">
-                                <!-- <label for="sel1">Тип игры</label> -->
                                 <div class="checkbox">
                                   <label><input id = "1x1_checkbox" type="checkbox" checked value="">1x1</label>
                                   <label><input id = "2x2_checkbox" type="checkbox" checked value="">2x2</label>

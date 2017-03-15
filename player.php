@@ -83,8 +83,8 @@ else if(isset($_GET["name"]))
         <script type="text/javascript">
             var lang = '<?php echo $lang;?>';
         </script>
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css"/> -->
+        <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"/> -->
         <link rel="stylesheet" href="css/main.css"/>
         <link rel="stylesheet" href="css/player.css"/>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css"/>
@@ -111,46 +111,61 @@ else if(isset($_GET["name"]))
     </head>
 
     <body>
-
-    <div class="container-fluid">
+    <?php include "header.php"; ?>
+    <div class="container">
         <div class="row">
-            <?php include "header.php"; ?>
-            <center>
-                <?php
-                $big_avatar_url = Steam::get_big_avatar_url_by_id($sid);
-                echo '<a href="https://steamcommunity.com/profiles/'. $sid . '">'."<img class = 'avatar_big' src='" . $big_avatar_url . "'>".'</a>';    
-                ?>
-                <h1><?php echo NickDecode::decodeNick($name); ?></h1>
-                <?php
-                //общие расчеты
-                // $timehelpint = $row['time'] / 60;
-                // $timehours = intval($timehelpint / 60);
-                $favRace = 0;
-                $favRaceAll = 0;
-                $countWinRace = 0;
-                $countWinRaceAll = 0;
-                for($i=1; $i<=9; $i++)
-                {
-                    if($countWinRace<$row['1x1_'.$i])
+<!--             <div class="col-md-12">
+            <div class="col-md-12 col-sm-12"> -->
+            <div style = "clear:both"/>
+            <div class="container-fluid" style="border:1px solid #cecece; border-radius: 4px;">
+                <div class="row" style="display: flex; align-items: center;">
+                <div class="col-md-3" >
+                    <!-- <div class = " map-container"> -->
+                    <center>
+                        <h1><?php echo NickDecode::decodeNick($name); ?></h1></center>
+                        <!-- <img class = "map-img" src=<?php echo 'images/maps/'.$row['map'].'.jpg'?>> -->
+                        <?php
+                        $big_avatar_url = Steam::get_big_avatar_url_by_id($sid);
+                        echo '<a href="https://steamcommunity.com/profiles/'. $sid . '">'."<img class = 'avatar_big img-rounded center-block' src='" . $big_avatar_url . "'>".'</a>';    
+                        ?>
+                    <!-- </div> -->
+                    <br/>
+                </div>
+                <div class="col-md-9">
+                    <?php
+                    $favRace = 0;
+                    $favRaceAll = 0;
+                    $countWinRace = 0;
+                    $countWinRaceAll = 0;
+                    for($i=1; $i<=9; $i++)
                     {
-                        $favRace = $i;
-                        $countWinRace = $row['1x1_'.$i];
+                        if($countWinRace<$row['1x1_'.$i])
+                        {
+                            $favRace = $i;
+                            $countWinRace = $row['1x1_'.$i];
+                        }
+                        $sum = $row['1x1_'.$i]+$row['2x2_'.$i]+$row['3x3_'.$i]+$row['4x4_'.$i];
+                        if($countWinRaceAll<$sum)
+                        {
+                            $favRaceAll = $i;
+                            $countWinRaceAll = $sum;
+                        }
                     }
-                    $sum = $row['1x1_'.$i]+$row['2x2_'.$i]+$row['3x3_'.$i]+$row['4x4_'.$i];
-                    if($countWinRaceAll<$sum)
-                    {
-                        $favRaceAll = $i;
-                        $countWinRaceAll = $sum;
-                    }
-                }
-                echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
-                echo '<h5>SID: ' . $row['sid'] . '<br>';
-                echo 'SOLO MMR: ' . $row['mmr'] . '<br>';
-                echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
-                if($favRace) echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
-                echo _('APM').': '. $row['apm'] . '</h5>';
-                ?>
-            </center>
+                    echo '<h5>SID: ' . $row['sid'] . '<br>';
+                    echo 'SOLO MMR: ' . $row['mmr'] . '<br>';
+                    echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
+                    if($favRace) echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
+                    echo _('APM').': '. $row['apm'] . '</h5>';
+                    echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?sid='. $sid . '" target="_blank">'._('Share stats in VK').'</a>';
+                    ?>
+                </div>    
+                </div>
+            </div>
+            </div>
+<!--             </div>
+            </div> -->
+            <br/>
+
             <div class="toggle-content text-center">
                 <div   role="group" >
                     <div class="btn-group" role="group">
@@ -163,18 +178,11 @@ else if(isset($_GET["name"]))
                     </div>
                 </div>
             </div>
+            <br/>
             <div class="col-md-12 col-sm-12">
                 <div class="toggle-content text-center tabs" id="tab0" >
 
                     <?php
-                    // $cTimeMAX = date('Y-m-d H:i:s', time());
-                    // echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
-                    // echo '<h3>'._('Total Stats').' - '. '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>'. '</h3>';
-                    // echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
-                    // echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
-                    // echo _('Favorite Race').': '. RaceSwitcher::getRace($favRaceAll) . '</br>';
-                    // echo _('Favorite Race 1x1').': '. RaceSwitcher::getRace($favRace) . '<br/>' ;
-                    // echo _('APM').': '. $row['apm'] . '</h5>';
 
                     echo '<TABLE   class="table table-striped table-hover text-center">
                         <thead><tr>
@@ -225,15 +233,6 @@ else if(isset($_GET["name"]))
                 <?php
                 for($type = 0;$type <= 4;$type++){
                     echo '<div class="toggle-content text-center tabs" id="tab'.$type.'">';
-                    // echo '<a href="http://vk.com/share.php?url=http://dowstats.h1n.ru/player.php?name='. $name . '" target="_blank" class="btn right"> <i class="fa fa-comments"></i>'._('Share stats in VK').'</a>';
-
-                    // echo '<h3>'._('Stats').' '.$type.'x'.$type.' - ' . '<a href="https://steamcommunity.com/profiles/'. $steamid . '">' . NickDecode::decodeNick($name) .'</a>' . '</h3>';
-                    // echo '<h5>SOLO MMR: ' . $row['mmr'] . '<br>';
-                    // echo _('Game Time').": ". $timehours . " "._("h.")."   " . $timehelpint % 60 .  " "._("m.")."   " . $row['time'] % 60 . ' '._('s.').'<br>';
-                    // echo _("Favorite Race").": ". RaceSwitcher::getRace($favRaceAll) . "</br>";
-                    // echo _("Favorite Race 1x1").": ". RaceSwitcher::getRace($favRace) . "<br/>" ;
-                    // echo _('APM').": ". $row['apm'] . "</h5>";
-
                     $all = 0;
                     $win = 0;
 
@@ -276,11 +275,6 @@ else if(isset($_GET["name"]))
                 <!-- Суммирование  -->
                 <div class="toggle-content text-center tabs container" id = "tab5">
                     <br/>
-<!--                     <div style = "clear:both"/>
-                        <?php
-                            echo '<h3>'._('Recent Games').' - ' . NickDecode::decodeNick($name) . '</h3>';
-                        ?>
-                    </div> -->
                     <div class = "search_div">
                         <div class="form-group col-md-3" >
                             <label class="sr-only" for="player_name_input"><?php echo _('Player opponent/ally')?></label>
@@ -301,12 +295,9 @@ else if(isset($_GET["name"]))
                         </div>
 
                         <div class="form-group col-md-3">
-                            <!-- <label for="sel1">Тип игры</label> -->
                             <div class="checkbox">
                               <label><input id = "1x1_checkbox" type="checkbox" checked value="">1x1</label>
                               <label><input id = "2x2_checkbox" type="checkbox" checked value="">2x2</label>
-<!--                             </div>
-                            <div class="checkbox"> -->
                               <label><input id = "3x3_checkbox" type="checkbox" checked value="">3x3</label>
                               <label><input id = "4x4_checkbox" type="checkbox" checked value="">4x4</label>
                             </div>
@@ -326,12 +317,10 @@ else if(isset($_GET["name"]))
                     </div>
                     <div id="scrollup"><img alt=<?php echo "'"._('Scroll Up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
 
-                </div> <!-- /.col-md-12 col-sm-12 -->
+                </div>
             </div> 
         </div> 
-
-       
-
+        </div> 
     </body>
 
 </html>

@@ -1,4 +1,4 @@
-.ui-autocomplete {
+﻿.ui-autocomplete {
     position: absolute;
     top: 100%;
     left: 0;
@@ -56,4 +56,9 @@
     -webkit-background-clip: padding-box;
     padding: 20px;
     height: 80px;
+}
+
+.flex-container{
+    display: box;
+    display: flex;
 }

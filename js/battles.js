@@ -1,6 +1,6 @@
 /* С какой статьи надо делать выборку из базы при ajax-запросе */
 var startFrom = 10;
-
+var sort = 'cTime';
 $(document).ready(function() {
 	
 
@@ -23,7 +23,8 @@ $(document).ready(function() {
 	            data: {"startFrom" : startFrom,
 					'playername': player,
 					'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
-					'selected_race': selected_race,'lang':lang},
+					'selected_race': selected_race,
+					'sort': sort, 'lang':lang},
             	response:'html',
 	            /* что нужно сделать до отправки запрса */
 	            beforeSend: function() {
@@ -83,12 +84,18 @@ function search_player_battles(){
 		url:'view/allGames.php',
 		data:{'playername': player,
 		'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
-		'selected_race': selected_race,'lang':lang},
+		'selected_race': selected_race,
+		'sort': sort, 'lang':lang},
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
 			$('#fight_result').html(data);
 		}
 	});
+}
+
+function sort_by_downloads(){
+	sort = 'rep_download_counter';
+	search_player_battles();
 }
 
 function increment_replay_download(game_id){

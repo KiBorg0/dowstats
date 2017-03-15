@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-19 01:49+0300\n"
-"PO-Revision-Date: 2017-03-08 15:13+1000\n"
+"POT-Creation-Date: 2017-03-15 18:34+1000\n"
+"PO-Revision-Date: 2017-03-15 18:35+1000\n"
 "Last-Translator: New <loa92@mail.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -18,33 +18,14 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../..\n"
-"X-Poedit-SearchPath-0: 1x1.php\n"
-"X-Poedit-SearchPath-1: battles.php\n"
-"X-Poedit-SearchPath-2: connect.php\n"
-"X-Poedit-SearchPath-3: connect_info.php\n"
-"X-Poedit-SearchPath-4: gosu1x1.php\n"
-"X-Poedit-SearchPath-5: header.php\n"
-"X-Poedit-SearchPath-6: index.php\n"
-"X-Poedit-SearchPath-7: logger.php\n"
-"X-Poedit-SearchPath-8: player.php\n"
-"X-Poedit-SearchPath-9: regplayer.php\n"
-"X-Poedit-SearchPath-10: sendreplay.php\n"
-"X-Poedit-SearchPath-11: test.php\n"
-"X-Poedit-SearchPath-12: truncateall.php\n"
-"X-Poedit-SearchPath-13: update.php\n"
-"X-Poedit-SearchPath-14: urlgen.php\n"
-"X-Poedit-SearchPath-15: view/ajax.php\n"
-"X-Poedit-SearchPath-16: view/ajax1x1.php\n"
-"X-Poedit-SearchPath-17: view/allGames.php\n"
-"X-Poedit-SearchPath-18: view/allGamesPlayer.php\n"
-"X-Poedit-SearchPath-19: view/allSortTable.php\n"
-"X-Poedit-SearchPath-20: view/info.php\n"
-"X-Poedit-SearchPath-21: lib/NickDecode.php\n"
-"X-Poedit-SearchPath-22: lib/others.php\n"
-"X-Poedit-SearchPath-23: lib/RaceSwitcher.php\n"
-"X-Poedit-SearchPath-24: ajax/search_ajax.php\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: view\n"
+"X-Poedit-SearchPath-2: lib\n"
+"X-Poedit-SearchPath-3: ajax\n"
 
-#: 1x1.php:43 battles.php:45 index.php:29 player.php:43
+#: 1x1.php:43 battles.php:45 donate.php:28 index.php:29 player.php:63
 msgid "Soulstorm Ladder"
 msgstr "Статистика Soulstorm"
 
@@ -88,57 +69,61 @@ msgstr "СоБ"
 msgid "DE"
 msgstr "ТЭ"
 
-#: battles.php:100 player.php:263
-msgid "Recent Games"
-msgstr "Недавние игры"
-
-#: battles.php:104 view/ajax.php:38 view/ajax1x1.php:80
+#: battles.php:89 view/ajax.php:36 view/ajax1x1.php:71
 msgid "Find by player name/clan name"
 msgstr "Найти по имени игрока/клана"
 
-#: battles.php:105 player.php:269
+#: battles.php:90 player.php:281
 msgid "Enter opponent/ally"
 msgstr "Введите соперника/союзника"
 
-#: battles.php:112 player.php:276
+#: battles.php:97 player.php:288
 msgid "Any Race"
 msgstr "Любая раса"
 
-#: battles.php:132 player.php:298
+#: battles.php:116 player.php:307
 msgid "Find Games"
 msgstr "Найти игры"
 
-#: battles.php:141 connect_info.php:38 player.php:309
+#: battles.php:125 connect_info.php:38 player.php:318
 msgid "Scroll Up"
 msgstr "Вверх"
 
-#: battles.php:141 connect_info.php:38 index.php:111 player.php:309
+#: battles.php:125 connect_info.php:38 index.php:105 player.php:318
 msgid "Up"
 msgstr "Вверх"
 
-#: header.php:58
-msgid "General Ladder"
-msgstr "Общая статистика"
-
-#: header.php:59
-msgid "1x1 Ladder"
-msgstr "Статистика 1 на 1"
-
-#: header.php:60
-msgid "Battles"
-msgstr "Сражения"
-
-#: index.php:111
-msgid "Scroll up"
-msgstr "Вверх"
-
-#: index.php:121
+#: donate.php:79 index.php:119
 msgid "Developers"
 msgstr "Разработчики"
 
-#: index.php:121
+#: donate.php:79 index.php:119
 msgid "and"
 msgstr "и"
+
+#: header.php:64 header.php:72 header.php:74
+msgid "Stats Collector"
+msgstr "Сборщик статистики"
+
+#: header.php:68
+msgid "General Ladder"
+msgstr "Общая статистика"
+
+#: header.php:69
+msgid "1x1 Ladder"
+msgstr "Статистика 1 на 1"
+
+#: header.php:70
+msgid "Battles"
+msgstr "Сражения"
+
+#: header.php:71
+msgid "Donate"
+msgstr "Поддержка"
+
+#: index.php:105
+msgid "Scroll up"
+msgstr "Вверх"
 
 #: lib/RaceSwitcher.php:7 lib/RaceSwitcher.php:41
 msgid "Space Marines"
@@ -164,173 +149,167 @@ msgstr "Темные эльдары"
 msgid "Favorite race"
 msgstr "Любимая раса"
 
-#: player.php:112 view/ajax.php:16
-msgid "General Stats"
-msgstr "Общая статистика"
-
-#: player.php:117
-msgid "Last Games"
-msgstr "Последние игры"
-
-#: player.php:150 player.php:210
-msgid "Share stats in VK"
-msgstr "Поделиться статистикой в ВК"
-
-#: player.php:153
-msgid "Total Stats"
-msgstr "Общая статистика"
-
-#: player.php:157 player.php:214 view/allGames.php:63
-#: view/allGamesPlayer.php:65
-msgid "Game Time"
-msgstr "Время игры"
-
-#: player.php:157 player.php:214 view/allGames.php:63
-#: view/allGamesPlayer.php:65
-msgid "h."
-msgstr "ч."
-
-#: player.php:157 player.php:214 view/allGames.php:63
-#: view/allGamesPlayer.php:65
-msgid "m."
-msgstr "м."
-
-#: player.php:157 player.php:214 view/allGames.php:63
-#: view/allGamesPlayer.php:65
-msgid "s."
-msgstr "с."
-
-#: player.php:160 player.php:215 view/ajax1x1.php:27 view/allSortTable.php:34
+#: player.php:156 view/ajax1x1.php:25 view/allSortTable.php:34
 msgid "Favorite Race"
 msgstr "Любимая раса"
 
-#: player.php:161 player.php:216
+#: player.php:157
 msgid "Favorite Race 1x1"
 msgstr "Любимая раса 1 на 1"
 
-#: player.php:162 player.php:217 view/allGames.php:85
-#: view/allGamesPlayer.php:89 view/allSortTable.php:33
+#: player.php:158 view/allGames.php:79 view/allGamesPlayer.php:109
+#: view/allSortTable.php:33
 msgid "APM"
 msgstr ""
 
-#: player.php:166 player.php:224
+#: player.php:159
+msgid "Share stats in VK"
+msgstr "Поделиться статистикой в ВК"
+
+#: player.php:172
+msgid "General Stats"
+msgstr "Общая статистика"
+
+#: player.php:177
+msgid "Last Games"
+msgstr "Последние игры"
+
+#: player.php:189 player.php:241
 msgid "Race"
 msgstr "Раса"
 
-#: player.php:166 player.php:225 view/ajax.php:65 view/ajax1x1.php:21
+#: player.php:190 player.php:242 view/ajax.php:77 view/ajax1x1.php:20
 #: view/allSortTable.php:30
 msgid "Number of Games"
 msgstr "Количество игр"
 
-#: player.php:166 player.php:226 view/ajax.php:66 view/ajax1x1.php:23
+#: player.php:191 player.php:243 view/ajax.php:78 view/ajax1x1.php:21
 #: view/allSortTable.php:31
 msgid "Victories"
 msgstr "Побед"
 
-#: player.php:166 player.php:227
+#: player.php:192 player.php:244
 msgid "Losses"
 msgstr "Поражений"
 
-#: player.php:166 player.php:228
+#: player.php:193 player.php:245
 msgid "Wins Rate"
 msgstr "Процент побед"
 
-#: player.php:212
-msgid "Stats"
-msgstr "Статистика"
-
-#: player.php:247
+#: player.php:264
 msgid "Total"
 msgstr "Всего"
 
-#: player.php:268
+#: player.php:280
 msgid "Player opponent/ally"
 msgstr "Соперник/союзник игрока"
 
-#: player.php:274
+#: player.php:286
 msgid "Player Race"
 msgstr "Раса игрока"
 
-#: view/ajax.php:33
+#: view/ajax.php:31
 msgid "Total Win Rate"
 msgstr "Общий процент побед"
 
-#: view/ajax.php:59
+#: view/ajax.php:71
 msgid "Race Win Rate"
 msgstr "Процент побед расы"
 
-#: view/ajax.php:62 view/ajax1x1.php:17 view/allSortTable.php:42
+#: view/ajax.php:74 view/ajax1x1.php:16 view/allSortTable.php:42
 msgid "Number"
 msgstr "Номер"
 
-#: view/ajax.php:63 view/ajax1x1.php:18 view/allSortTable.php:43
+#: view/ajax.php:75 view/ajax1x1.php:17 view/allSortTable.php:43
 msgid "Avatar"
 msgstr "Аватар"
 
-#: view/ajax.php:64 view/ajax1x1.php:19 view/allSortTable.php:29
+#: view/ajax.php:76 view/ajax1x1.php:18 view/allSortTable.php:29
 msgid "Player"
 msgstr "Игрок"
 
-#: view/ajax.php:67 view/ajax1x1.php:25 view/ajax1x1.php:69
+#: view/ajax.php:79 view/ajax1x1.php:23 view/ajax1x1.php:64
 #: view/allSortTable.php:32
 msgid "Win Rate"
 msgstr "Процент побед"
 
-#: view/ajax1x1.php:58
-msgid "General stats"
-msgstr "Общая статистика"
+#: view/allGames.php:45 view/allGamesPlayer.php:85
+msgid "s."
+msgstr "с."
 
-#: view/allGames.php:69 view/allGamesPlayer.php:71
+#: view/allGames.php:46 view/allGamesPlayer.php:86
+msgid "m."
+msgstr "м."
+
+#: view/allGames.php:48 view/allGamesPlayer.php:88
+msgid "h."
+msgstr "ч."
+
+#: view/allGames.php:76 view/allGamesPlayer.php:95
 msgid "Map"
 msgstr "Карта"
 
-#: view/allGames.php:71
-msgid "Number of replay downloads"
-msgstr "Количество скачиваний реплея"
-
-#: view/allGames.php:72 view/allGamesPlayer.php:72
-msgid "Senders Steam IDs"
-msgstr "Steam ID отправителей"
-
-#: view/allGames.php:74 view/allGamesPlayer.php:75
-msgid "Download Replay"
-msgstr "Скачать реплей"
-
-#: view/allGames.php:76 view/allGamesPlayer.php:77
-msgid "Replay is Absent"
-msgstr "Реплей отсутствует"
-
-#: view/allGames.php:83 view/allGamesPlayer.php:87
+#: view/allGames.php:77 view/allGamesPlayer.php:107
 msgid "Players"
 msgstr "Игроки"
 
-#: view/allGames.php:84 view/allGamesPlayer.php:88
+#: view/allGames.php:78 view/allGamesPlayer.php:108
 msgid "Races"
 msgstr "Расы"
 
-#: view/allGames.php:86 view/allGamesPlayer.php:90
+#: view/allGames.php:80 view/allGamesPlayer.php:110
 msgid "Result"
 msgstr "Итог"
 
-#: view/allGames.php:100 view/allGamesPlayer.php:99
-msgid "No Data"
-msgstr "Нет данных"
-
-#: view/allGames.php:108 view/allGamesPlayer.php:103
+#: view/allGames.php:99 view/allGamesPlayer.php:122
 msgid "Winner"
 msgstr "Победитель"
 
-#: view/allGames.php:110 view/allGamesPlayer.php:105
+#: view/allGames.php:99 view/allGamesPlayer.php:122
 msgid "Loser"
 msgstr "Проигравший"
 
-#: view/allGames.php:124
+#: view/allGames.php:111 view/allGamesPlayer.php:94
+msgid "Senders Steam IDs"
+msgstr "Steam ID отправителей"
+
+#: view/allGames.php:115 view/allGamesPlayer.php:98
+msgid "Download Replay"
+msgstr "Скачать реплей"
+
+#: view/allGames.php:130
 msgid "games with such parameters not found"
 msgstr "игры с такими параметрами не были найдены"
+
+#: view/allGamesPlayer.php:93
+msgid "Game Time"
+msgstr "Время игры"
+
+#: view/allGamesPlayer.php:96
+msgid "Number of replay downloads"
+msgstr "Количество скачиваний реплея"
 
 #: view/allSortTable.php:35
 msgid "Time"
 msgstr "Время"
+
+#~ msgid "Recent Games"
+#~ msgstr "Недавние игры"
+
+#~ msgid "Total Stats"
+#~ msgstr "Общая статистика"
+
+#~ msgid "Stats"
+#~ msgstr "Статистика"
+
+#~ msgid "General stats"
+#~ msgstr "Общая статистика"
+
+#~ msgid "Replay is Absent"
+#~ msgstr "Реплей отсутствует"
+
+#~ msgid "No Data"
+#~ msgstr "Нет данных"
 
 #~ msgid "total stats"
 #~ msgstr "общая статистика"

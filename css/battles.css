@@ -1,4 +1,4 @@
-.ui-autocomplete {
+﻿.ui-autocomplete {
     position: absolute;
     top: 100%;
     left: 0;
@@ -56,36 +56,4 @@
     -webkit-background-clip: padding-box;
     padding: 20px;
     height: 80px;
-}
-
-.map-container{
-    width:150px;
-    height:150px;
-    background-size: 100% 100%;
-    margin:0px auto;
-    margin-bottom: 20px;
-}
-
-.map-container img{
-    border-radius: 10px;
-}
-
-.fullGameInfo{
-    border-color: #ccc;
-    border-color: rgba(0, 0, 0, 0.2);
-    border-style: solid;
-    border-width: 1px;
-    margin-bottom: 20px;
-    padding:10px;
-    border-radius: 10px;
-}
-
-.download-counter{
-    /*border-right: 1px solid white !important;*/
-    border-radius: 4px 0 0 4px !important;
-}
-
-.download-button{
-    /*border-left: 1px solid white !important;*/
-    border-radius: 0 4px 4px 0 !important;
 }
