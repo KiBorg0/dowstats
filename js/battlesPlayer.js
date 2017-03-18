@@ -1,6 +1,6 @@
 /* С какой статьи надо делать выборку из базы при ajax-запросе */
 var startFrom = 10;
-
+var sort = 'cTime';
 $(document).ready(function() {
     search_player_battles();
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
 					'type_checkboxes': checkboxes, //строка с выбором типа игры через ;
 					'selected_race': selected_race,
 					'startFrom': startFrom,
-					'lang': lang},
+					'sort': sort, 'lang':lang},
             	response: 'html',
 	            /* что нужно сделать до отправки запрса */
 	            beforeSend: function() {
@@ -61,7 +61,8 @@ function player_name_input_keypress_battles(e){
 		$.ajax({
 			type:'get',
 			url:'ajax/search_ajax.php',
-			data:{'playername': player,'lang':lang},
+			data:{'playername': player,
+			'sort': sort, 'lang':lang},
 			response:'text',
 			success:function (data) {
 				var nicks = data.split(',');
@@ -91,12 +92,18 @@ function search_player_battles(){
 			'sid': userSID, //steam id игрока
 			'enemyOrAllyName': player,//его соперник/союзник
 			'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
-			'selected_race': selected_race,'lang':lang},
+			'selected_race': selected_race,
+			'sort': sort, 'lang':lang},
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
 			$('#fight_result').html(data);
 		}
 	});
+}
+
+function sort_by_downloads(){
+	sort = 'rep_download_counter';
+	search_player_battles();
 }
 
 function increment_replay_download(game_id){

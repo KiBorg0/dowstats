@@ -45,10 +45,8 @@ if ($mysqli->connect_errno) {
         <title><?php echo _('Soulstorm Ladder')?></title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script type="text/javascript">
-            var lang = '<?php echo $lang?>';
-        </script>
         <meta charset="utf-8">
+
         <link href="css/main.css" rel="stylesheet"/>
         <link href="css/battles.css" rel="stylesheet"/>
         <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
@@ -57,23 +55,15 @@ if ($mysqli->connect_errno) {
 		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
         <script type="text/javascript" src="js/battles.js"></script>
         <script type="text/javascript" src="js/scrollup.js"></script>
+
+        <script type="text/javascript">
+            var lang = '<?php echo $lang?>';
+        </script>
         <script type="text/javascript">
             $(document).ready(function () {
             $('#battles').addClass('active');
         });
         </script>
-        <style type="text/css">
-            .vcenter {
-                display: inline-block;
-                vertical-align: middle;
-                float: none;
-            }
-            .vertical-align {
-                display: flex;
-                align-items: center;
-            }
-        </style> 
-
 
     </head>
 
@@ -126,9 +116,9 @@ if ($mysqli->connect_errno) {
 
                     </div> <!-- /.col-md-12 -->
                 </div>
-            </div> <!-- /.row -->
-	    </div> <!-- /.container-fluid -->
-    </div>
+            </div>
+	    </div>  <!-- /.row -->
+    </div>  <!-- /.container-fluid -->
 </body>
 
 </html>

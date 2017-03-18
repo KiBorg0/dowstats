@@ -19,7 +19,8 @@ $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 $searchname = strtolower($_GET["playername"]);
 $raceOption = RaceSwitcher::getRaceNum($_GET["selected_race"]);
 $selected_type = explode(";",$_GET["type_checkboxes"]);//массив[0,1,2,3], в котором true/false; 0-1x1 1-2x2 2-3x3 3-4x4
-$game_page_limit = 10;
+$startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'cTime';$game_page_limit = 10;
 $where_condition = "";
 for($i = 1; $i <= 8; $i++){
 	if($searchname!=''||$raceOption!=0){
@@ -34,13 +35,8 @@ for($i = 1; $i <= 8; $i++){
 	}
 }
 
-
-$startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'cTime';
-
 if($sort=='rep_download_counter')
 	$where_condition = $where_condition!='' ? '('.$where_condition.") AND replay_link!=''" : "replay_link!=''";
-
 
 $type_condition = '';
 for($i=0; $i<4; $i++){
@@ -86,7 +82,7 @@ while ($row = $res->fetch_assoc()) {
 					<!-- <td><?php echo _("Map").": ".$newMap."<br/>"?></td> -->
 					<td><?php echo _('Players')?></td>
 					<td><?php echo _('Races')?></td>
-					<td><?php echo _('APM')?><br/></td>
+					<td><?php echo _('APM')?></td>
 					<td><?php echo _('Result')?></td>
 				</tr>
 			</thead>
