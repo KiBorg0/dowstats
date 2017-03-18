@@ -1,0 +1,17 @@
+.donate-container{
+    background: url("../images/donate.jpg");
+    color:darkred;
+    background-size: 100% 100%;
+    border:1px solid #cecece;
+    border-radius: 4px;
+}
+
+.donate-form{
+    opacity: 0.5;
+    transition: 1s;
+}
+
+.donate-form:hover{
+    opacity: 1;
+    transition: 1s;
+}
