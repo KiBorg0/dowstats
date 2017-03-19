@@ -13,7 +13,7 @@ textdomain($lang);
 
 date_default_timezone_set('Europe/Moscow');
 
-$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 if ($mysqli->connect_error) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_error . ") " ;
 }

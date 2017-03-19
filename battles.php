@@ -27,7 +27,7 @@ Layout: Manny <manny@tenka.co.uk>. www.tenka.co.uk
 
 */
 
-$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 if ($mysqli->connect_errno) {
     echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }

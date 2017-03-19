@@ -15,7 +15,7 @@ if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 	return;
 }
 
-$mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 $mysqligame->real_query("TRUNCATE TABLE games");
 $mysqligame->real_query("TRUNCATE TABLE players");
 $mysqligame->real_query("TRUNCATE TABLE url_logs");

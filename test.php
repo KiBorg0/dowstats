@@ -1,7 +1,7 @@
 
 <?php 
 
-$mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 $replay_info = "данные пост запроса: ";
 ob_start();
 var_dump($_FILES);

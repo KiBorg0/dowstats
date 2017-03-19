@@ -36,7 +36,7 @@ function get_table_header_by_sort_type($sort_type){
 
 <?php
 //----------соединение с базой--------------------
-$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 
 //----------тип запроса на вывод-----------------------
 $r_type = isset($_GET['race'])?$_GET['race']:0;//если идет запрос от сортировки, а не от верхней панели, то тип статистики(общая, СМ, хаос и т.д) берется отсюда

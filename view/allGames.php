@@ -15,7 +15,7 @@ require_once("../lib/NickDecode.php");
 require_once("../lib/RaceSwitcher.php");
 
 
-$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 $searchname = strtolower($_GET["playername"]);
 $raceOption = RaceSwitcher::getRaceNum($_GET["selected_race"]);
 $selected_type = explode(";",$_GET["type_checkboxes"]);//массив[0,1,2,3], в котором true/false; 0-1x1 1-2x2 2-3x3 3-4x4

@@ -116,7 +116,7 @@ function update_players($mysqligame)
     }
 }
 
-$mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 $mysqligame->set_charset("utf8");
 $type = $_GET["type"];
 

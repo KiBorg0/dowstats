@@ -1,7 +1,7 @@
 <?php
 $startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
 
-$mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 $mysqligame->set_charset("utf8");
 
 $mysqligame->real_query("SELECT * FROM url_logs ORDER BY id DESC LIMIT {$startFrom},20");

@@ -18,7 +18,7 @@ if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 
 $outlog = "";
 
-$mysqligame = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+$mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 for($i=0;$i<sizeof($_GET)/2-1;$i++)
 {
 	if(isset($_GET['name'.$i]))
@@ -47,7 +47,7 @@ for($i=0;$i<sizeof($_GET)/2-1;$i++)
 
 		if($row['name']!=$name)
 		{
-			// $mysqligame2 = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+			// $mysqligame2 = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 
 			$mysqligame->real_query("UPDATE players SET name = '$name' WHERE sid = '$sid'");
 			$outlog .= "player nick changed: from ".NickDecode::decodeNick($row['name'])." to ". NickDecode::decodeNick($name) ."<br/>";

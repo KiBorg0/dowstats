@@ -19,7 +19,7 @@
 			      'allGamesTime' => 6,
 			      'top' => 7, );
 
-	$mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
+	$mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 
 	$sort_type = isset($_GET['allSort'])?$_GET['allSort']:'top';
 	if($sort_type=='name') {
