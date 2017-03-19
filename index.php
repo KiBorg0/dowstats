@@ -82,15 +82,15 @@ if ($mysqli->connect_error) {
                                 <div   role="group" >
                                     <div class="btn-group" role="group">
         <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General');?></button>
-        <button class="btn btn-primary" onclick="SendSmStat();" role="group"><?php echo _('SM');?></button>
-        <button class="btn btn-primary" onclick="SendChaosStat();" role="group"><?php echo _('Chaos');?></button>
-        <button class="btn btn-primary" onclick="SendOrkStat();" role="group"><?php echo _('Orks');?></button>
-        <button class="btn btn-primary" onclick="SendEldStat();" role="group"><?php echo _('Eldar');?></button>
-        <button class="btn btn-primary" onclick="SendIGStat();" role="group"><?php echo _('IG');?></button>
-        <button class="btn btn-primary" onclick="SendNecronStat();" role="group"><?php echo _('Necrons');?></button>
-        <button class="btn btn-primary" onclick="SendTauStat();" role="group"><?php echo _('Tau Empire');?></button>
-        <button class="btn btn-primary" onclick="SendSOBStat();" role="group"><?php echo _('SoB');?></button>
-        <button class="btn btn-primary" onclick="SendDEStat();" role="group"><?php echo _('DE');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(1);" role="group"><?php echo _('SM');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(2);" role="group"><?php echo _('Chaos');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(3);" role="group"><?php echo _('Orks');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(4);" role="group"><?php echo _('Eldar');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(5);" role="group"><?php echo _('IG');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(6);" role="group"><?php echo _('Necrons');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(7);" role="group"><?php echo _('Tau Empire');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(8);" role="group"><?php echo _('SoB');?></button>
+        <button class="btn btn-primary" onclick="SendRaceStat(9);" role="group"><?php echo _('DE');?></button>
                                     </div>
                                 </div>
                                 </div>
@@ -109,7 +109,7 @@ if ($mysqli->connect_error) {
     </div> <!-- /.container-fluid -->
 
     <center>
-      <div id="result"></div>
+        <div id="table-allStat"></div>
     </center>
     
     <div class="container-fluid">   

@@ -60,7 +60,7 @@ if ($mysqli->connect_errno) {
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/1x1.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript">
         	$(document).ready(function () {
@@ -92,16 +92,16 @@ if ($mysqli->connect_errno) {
                                 <div class="toggle-content text-center">
                                 <div   role="group" >
                                     <div class="btn-group" role="group">
-        <button class="btn btn-primary" onclick="SendAllStat1x1();" role="group"><?php echo _('General')?></button>
-      	<button class="btn btn-primary" onclick="SendSmStat1x1();" role="group"><?php echo _('SM')?></button>
-      	<button class="btn btn-primary" onclick="SendChaosStat1x1();" role="group"><?php echo _('Chaos')?></button>
-      	<button class="btn btn-primary" onclick="SendOrkStat1x1();" role="group"><?php echo _('Orks')?></button>
-     	<button class="btn btn-primary" onclick="SendEldStat1x1();" role="group"><?php echo _('Eldar')?></button>
-     	<button class="btn btn-primary" onclick="SendIGStat1x1();" role="group"><?php echo _('IG')?></button>
-     	<button class="btn btn-primary" onclick="SendNecronStat1x1();" role="group"><?php echo _('Necrons')?></button>
-     	<button class="btn btn-primary" onclick="SendTauStat1x1();" role="group"><?php echo _('Tau Empire')?></button>
-     	<button class="btn btn-primary" onclick="SendSOBStat1x1();" role="group"><?php echo _('SoB')?></button>
-     	<button class="btn btn-primary" onclick="SendDEStat1x1();" role="group"><?php echo _('DE')?></button>
+        <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General')?></button>
+      	<button class="btn btn-primary" onclick="SendRaceStat(1);" role="group"><?php echo _('SM')?></button>
+      	<button class="btn btn-primary" onclick="SendRaceStat(2);" role="group"><?php echo _('Chaos')?></button>
+      	<button class="btn btn-primary" onclick="SendRaceStat(3);" role="group"><?php echo _('Orks')?></button>
+     	<button class="btn btn-primary" onclick="SendRaceStat(4);" role="group"><?php echo _('Eldar')?></button>
+     	<button class="btn btn-primary" onclick="SendRaceStat(5);" role="group"><?php echo _('IG')?></button>
+     	<button class="btn btn-primary" onclick="SendRaceStat(6);" role="group"><?php echo _('Necrons')?></button>
+     	<button class="btn btn-primary" onclick="SendRaceStat(7);" role="group"><?php echo _('Tau Empire')?></button>
+     	<button class="btn btn-primary" onclick="SendRaceStat(8);" role="group"><?php echo _('SoB')?></button>
+     	<button class="btn btn-primary" onclick="SendRaceStat(9);" role="group"><?php echo _('DE')?></button>
                                     </div>
                                 </div>
 
@@ -124,7 +124,7 @@ if ($mysqli->connect_errno) {
         </div> <!-- /.row -->
     </div> <!-- /.container-fluid -->
     <center>
-        <div id="result1x1"></div>
+        <div id="result"></div>
     </center>
     </body>
 

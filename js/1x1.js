@@ -1,3 +1,50 @@
+(function (window, $) {
+	'use strict';
+
+	// Cache document for fast access.
+	var document = window.document;
+
+
+	/************** LightBox *********************/
+
+	window.onload = function()
+	{
+		SendAllStat();
+	}
+
+	
+
+
+})(window, jQuery);
+
+function SendAllStat() {
+	//отправляю GET запрос и получаю ответ
+	$.ajax({
+		type:'get',//тип запроса: get,post либо head
+		url:'view/ajax1x1.php',//url адрес файла обработчика
+		data:{'race':0,'lang':lang},//параметры запроса
+		response:'text',//тип возвращаемого ответа text либо xml
+		success:function (data) {//возвращаемый результат от сервера
+			$('#result').html(data);
+		}
+	});
+}
+
+function SendRaceStat(raceID) {
+	//отправляю GET запрос и получаю ответ
+	$.ajax({
+		type:'get',//тип запроса: get,post либо head
+		url:'/view/ajax1x1.php',//url адрес файла обработчика
+        data:{'race':raceID,'lang':lang},//параметры запроса
+		response:'text',//тип возвращаемого ответа text либо xml
+		success:function (data) {//возвращаемый результат от сервера
+			$('#result').html(data);
+			
+		}
+	});
+}
+
+
 //этот скрипт подключается к таблице с игроками 1х1
 $("#sort_by_player").click(function(){
 	var request_type_info = $("#request_type_info").html();
@@ -5,10 +52,10 @@ $("#sort_by_player").click(function(){
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
 		data:{'sort':'name',
-		'request_type': request_type_info,'lang':lang},//параметры запроса
+		'race': request_type_info,'lang':lang},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			$('#result1x1').html(data);
+			$('#result').html(data);
 		}
 	});
 });
@@ -19,10 +66,10 @@ $("#sort_by_allgames").click(function(){
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
 		data:{'sort':'allgames',
-		'request_type': request_type_info,'lang':lang},//параметры запроса
+		'race': request_type_info,'lang':lang},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			$('#result1x1').html(data);
+			$('#result').html(data);
 		}
 	});
 });
@@ -33,10 +80,10 @@ $("#sort_by_wins").click(function(){
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
 		data:{'sort':'wins',
-		'request_type': request_type_info,'lang':lang},//параметры запроса
+		'race': request_type_info,'lang':lang},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			$('#result1x1').html(data);
+			$('#result').html(data);
 		}
 	});
 });
@@ -47,10 +94,10 @@ $("#sort_by_pwins").click(function(){
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
 		data:{'sort':'pwins',
-		'request_type': request_type_info,'lang':lang},//параметры запроса
+		'race': request_type_info,'lang':lang},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			$('#result1x1').html(data);
+			$('#result').html(data);
 		}
 	});
 });
@@ -61,10 +108,10 @@ $("#sort_by_favrace").click(function(){
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
 		data:{'sort':'favrace',
-		'request_type': request_type_info,'lang':lang},//параметры запроса
+		'race': request_type_info,'lang':lang},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			$('#result1x1').html(data);
+			$('#result').html(data);
 		}
 	});
 });
@@ -75,10 +122,10 @@ $("#sort_by_mmr").click(function(){
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
 		data:{'sort':'mmr',
-		'request_type': request_type_info,'lang':lang},//параметры запроса
+		'race': request_type_info,'lang':lang},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			$('#result1x1').html(data);
+			$('#result').html(data);
 		}
 	});
 });
@@ -100,10 +147,10 @@ function search_player1x1(){
 		type:'get',//тип запроса: get,post либо head
 		url:'view/ajax1x1.php',//url адрес файла обработчика
 		data:{'playername': player,
-		'request_type': request_type_info,'lang':lang},//параметры запроса
+		'race': request_type_info,'lang':lang},//параметры запроса
 		response:'text',//тип возвращаемого ответа text либо xml
 		success:function (data) {//возвращаемый результат от сервера
-			$('#result1x1').html(data);
+			$('#result').html(data);
 		}
 	});
 }

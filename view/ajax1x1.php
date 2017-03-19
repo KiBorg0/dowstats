@@ -13,17 +13,17 @@ function get_table_header_by_sort_type($sort_type){
 ?>
 <TABLE   class="table table-striped table-hover text-center">
   <thead><tr>
-    <td><?php echo _('Number')?></td>
-    <td><?php echo _('Avatar')?></td>
-    <td><a id = "sort_by_player" href = "#"><?php echo _('Player').' ';if($sort_type == "player") echo "&#8595;"?>
+    <td style = "width:5%;"><?php echo _('Number')?></td>
+    <td style = "width:10%;"><?php echo _('Avatar')?></td>
+    <td style = "width:15%;"><a id = "sort_by_player" href = "#"><?php echo _('Player').' ';if($sort_type == "player") echo "&#8595;"?>
     </a></td>
-    <td><a id = "sort_by_allgames" href = "#"><?php echo _('Number of Games').' ';if($sort_type == "allgames") echo "&#8595;"?>  /a></td>
-    <td><a id = "sort_by_wins" href = "#"><?php echo _('Victories').' ';if($sort_type == "wins") echo "&#8595;"?>
+    <td style = "width:15%;"><a id = "sort_by_allgames" href = "#"><?php echo _('Number of Games').' ';if($sort_type == "allgames") echo "&#8595;"?>  </a></td>
+    <td style = "width:15%;"><a id = "sort_by_wins" href = "#"><?php echo _('Victories').' ';if($sort_type == "wins") echo "&#8595;"?>
     </a></td>
-    <td><a id = "sort_by_pwins" href = "#"><?php echo _('Win Rate').' ';if($sort_type == "pwins") echo "&#8595;"?>
+    <td style = "width:15%;"><a id = "sort_by_pwins" href = "#"><?php echo _('Win Rate').' ';if($sort_type == "pwins") echo "&#8595;"?>
 	  </a></td>
-    <td><?php echo _('Favorite Race').' '?></td>
-    <td><a id = "sort_by_mmr" href = "#">SOLO MMR <?php if($sort_type == "mmr") echo "&#8595;" ?>
+    <td style = "width:15%;"><?php echo _('Favorite Race').' '?></td>
+    <td style = "width:10%;"	><a id = "sort_by_mmr" href = "#">SOLO MMR <?php if($sort_type == "mmr") echo "&#8595;" ?>
     </a></td>
   </tr></thead>
 
@@ -39,7 +39,7 @@ function get_table_header_by_sort_type($sort_type){
 $mysqli = new mysqli("localhost", "zisfxloz_base", "W7y9B3r5", "zisfxloz_base");
 
 //----------тип запроса на вывод-----------------------
-$r_type = isset($_GET['request_type'])?$_GET['request_type']:"0";//если идет запрос от сортировки, а не от верхней панели, то тип статистики(общая, СМ, хаос и т.д) берется отсюда
+$r_type = isset($_GET['race'])?$_GET['race']:0;//если идет запрос от сортировки, а не от верхней панели, то тип статистики(общая, СМ, хаос и т.д) берется отсюда
 $sort_type = isset($_GET['sort'])?$_GET['sort']:"mmr";
 
 $searchname = isset($_GET['playername'])?$_GET['playername']:"";

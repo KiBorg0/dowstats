@@ -5,7 +5,7 @@
 	width: 64px; height: 64px; /* Размеры */
     background: #22a; /* Цвет фона */
     border: 1px solid #000; /* Белая рамка */
-    border-radius: 10px; /* Радиус скругления */
+    border-radius: 4px; /* Радиус скругления */
 }
 .avatar_big{
 	width: 184px; height: 184px; /* Размеры */
