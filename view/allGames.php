@@ -53,9 +53,16 @@ $where_condition = $where_condition!='' ? $where_condition : '1';
 $mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY $sort DESC limit {$startFrom}, 10");
 $res = $mysqli->store_result();
 
-$json = file_get_contents ('../images/maps/maps.json');
+$json = file_get_contents('../images/maps/maps.json');
 $arrara = json_decode($json, true);
+// var_dump($arrara);
 while ($row = $res->fetch_assoc()) {
+
+	if(!$row['confirmed']&&$row['replay_link']=='')
+		continue;
+	// echo $row['id'].' ';
+	// var_dump((glob("../replays/*".$row['id'].".rec")));
+
 	$times = ($row['gTime']%60)." "._('s.')." ";
 	$timem = ($row['gTime']/60 % 60)." "._('m.')."   ";
 	$timeh = intval($row['gTime'] /3600);
@@ -71,7 +78,7 @@ while ($row = $res->fetch_assoc()) {
 		<div class="col-md-3"  >
 			<!-- <div class = " map-container"> -->
 				<b><?php echo $newMap;?></b><br/><br/>
-				<img class = "img-rounded center-block" src=<?php echo 'images/maps/'.$row['map'].'.jpg'?>>
+				<img class = "img-rounded center-block" src=<?php echo 'images/maps/'.strtolower($row['map']).'.jpg'?>>
 			<!-- </div> -->
 		</div>
 		<div class="col-md-9 table-responsive">
@@ -117,8 +124,14 @@ while ($row = $res->fetch_assoc()) {
 			<?php echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];?>
 		</div>
 		<div class="col-md-3">
-			<?php if($row['replay_link']!='')
-				echo "<div class='btn-group' role='group'><div class='btn btn-primary' id = 'replay_counter".$row['id']."' role='group' onclick='sort_by_downloads()'>"  . $replay_download  . "</div><a class = 'btn btn-primary' role='group' onclick='increment_replay_download(".$row['id'].")' href = '".$row['replay_link']."'>"._('Download Replay')."</a></div>";?>
+			<?php 
+			if($row['replay_link']!='')
+				echo "<div class='btn-group' role='group'><div class='btn btn-primary' id = 'replay_counter".$row['id']."' role='group' onclick='sort_by_downloads()'>"  . $replay_download  . "</div><a class = 'btn btn-primary' role='group' onclick='increment_replay_download(".$row['id'].")' href = '".$row['replay_link']."'>"._('Download Replay')."</a></div>";
+			else {
+				foreach (glob("../replays/*".$row['id'].".rec") as $filename)
+					echo "<div class='btn-group' role='group'><div class='btn btn-primary' id = 'replay_counter".$row['id']."' role='group' onclick='sort_by_downloads()'>"  . $replay_download  . "</div><a class = 'btn btn-primary' role='group' onclick='increment_replay_download(".$row['id'].")' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a></div>";
+			}
+			?>
 		</div>
 	</div>
 	</div>

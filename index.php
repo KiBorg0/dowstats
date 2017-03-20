@@ -65,10 +65,11 @@ if ($mysqli->connect_error) {
 
     <div class="container-fluid">
         <div class="row">
-
             <?php 
             include "header.php";
             ?>
+            <p id = "info" style="color:red;text-indent: 25px;"><?php echo _('If your stats doesn\'t work, reinstall it with last version stats of collector!');?></p>
+            <p id = "info" style="text-indent: 25px;"><?php echo _('You can report the problem found using the following contacts:').' ';?><a href="mailto:loa92@mail.ru">loa92@mail.ru</a>, <a href="http://steamcommunity.com/id/kiborg0/">steam</a>, <a href="https://vk.com/lebedkooa">vk.com</a>.</p>
             <div class="col-md-12">
                 
                 <div id="menu-container">

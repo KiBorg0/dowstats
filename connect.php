@@ -122,9 +122,13 @@ $type = $_GET["type"];
 
 // показывает имена игроков в массиве по индексам, если игрока нет, то NULL
 // var_dump($players);
+$apm = 0;
+for($i=1;$i<=8;$i++)
+	if(isset($_GET["apm".$i."r"]))
+		$apm = $_GET["apm".$i."r"];
 
-
-$apm = $_GET["apm"];
+$apm = $apm!=0?$apm:$_GET["apm"];
+// echo $apm;
 $sid = $_GET["sid"];
 $map = $_GET["map"];
 $winby = $_GET["winby"];

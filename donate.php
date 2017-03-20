@@ -56,9 +56,11 @@ if ($mysqli->connect_error) {
 
     <div class="container text-center donate-container" >
         <h1><?php echo _('\'ELP US LOOT DIS'); ?>!!!</h1>
-        <iframe class = "donate-form" frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?account=410014995896827&quickpay=donate&payment-type-choice=on&mobile-payment-type-choice=on&default-sum=100&targets=%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE+%D0%B7%D0%B0+%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D1%83&target-visibility=on&project-name=Soulstorm+Ladder&project-site=http%3A%2F%2Fdowstats.h1n.ru&button-text=05&successURL=" width="508" height="117"></iframe>
+<!--         <iframe class = "donate-form" frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?account=410014995896827&quickpay=donate&payment-type-choice=on&mobile-payment-type-choice=on&default-sum=100&targets=%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE+%D0%B7%D0%B0+%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D1%83&target-visibility=on&project-name=Soulstorm+Ladder&project-site=http%3A%2F%2Fdowstats.h1n.ru&button-text=05&successURL=" width="508" height="117"></iframe> -->
+        <iframe class = "donate-form" frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/donate.xml?account=410013789584224&quickpay=donate&payment-type-choice=on&mobile-payment-type-choice=on&default-sum=100&targets=%D0%A1%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE+%D0%B7%D0%B0+%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D1%83&target-visibility=on&project-name=Soulstorm+Ladder&project-site=http%3A%2F%2Fdowstats.h1n.ru&button-text=05&comment=on&hint=%D0%9A%D0%BE%D0%BC%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%80%D0%B8%D0%B9+%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B0%D1%82%D0%B5%D0%BB%D1%8E&successURL=" width="508" height="187"></iframe>
         <br/><br/>
-        <iframe class = "donate-form" src="https://funding.webmoney.ru/widgets/vertical/1029c19c-0d76-421e-bb44-e8155451ca44?bt=0&hc=1&hs=1&sum=2" width="240" height="190" scrolling="no" style="border:none;"></iframe>
+<!--         <iframe class = "donate-form" src="https://funding.webmoney.ru/widgets/vertical/1029c19c-0d76-421e-bb44-e8155451ca44?bt=0&hc=1&hs=1&sum=2" width="240" height="190" scrolling="no" style="border:none;"></iframe> -->
+        <iframe class = "donate-form" src="https://funding.webmoney.ru/widgets/horizontal/1029c19c-0d76-421e-bb44-e8155451ca44?bt=0&hs=1&sum=2" width="468" height="150" scrolling="no" style="border:none;"></iframe>
         <br/><br/>
         <form class = "donate-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_s-xclick">
