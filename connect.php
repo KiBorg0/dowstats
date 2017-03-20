@@ -12,6 +12,26 @@ require_once("lib/NickDecode.php");
 
 $apm_info = "";
 $is_obs_or_leaver = false;
+$apm = 0;
+for($i=1;$i<=8;$i++)
+	$apm = isset($_GET["apm".$i."r"])?$_GET["apm".$i."r"]:0;
+$apm = $apm!=0?$apm:(isset($_GET["apm"])?$_GET["apm"]:0);
+$type = isset($_GET["type"])?$_GET["type"]:0;
+$sid = isset($_GET["sid"])?$_GET["sid"]:'';
+$map = isset($_GET["map"])?$_GET["map"]:'';
+$winby = isset($_GET["winby"])?$_GET["winby"]:'';
+$gTime = isset($_GET["gtime"])?$_GET["gtime"]:'';
+$mod = isset($_GET["mod"])?$_GET["mod"]:'';
+$key = isset($_GET["key"])?$_GET["key"]:'';
+$players = array();
+$races = array();
+$winners = array();
+for($i=1; $i<=8; $i++)
+{
+	$races[]   = isset($_GET["r".$i]) ? $_GET["r".$i] : 0;
+    $players[] = isset($_GET["p".$i]) ? $_GET["p".$i] : '';
+    $winners[] = $i<=4&&isset($_GET["w".$i]) ? $_GET["w".$i] : '';
+}
 
 function calculate_and_change_apm($mysqligame, $sid, $apm){
 	global $apm_info; 
@@ -118,39 +138,14 @@ function update_players($mysqligame)
 
 $mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 $mysqligame->set_charset("utf8");
-$type = $_GET["type"];
 
-// показывает имена игроков в массиве по индексам, если игрока нет, то NULL
-// var_dump($players);
-$apm = 0;
-for($i=1;$i<=8;$i++)
-	if(isset($_GET["apm".$i."r"]))
-		$apm = $_GET["apm".$i."r"];
 
-$apm = $apm!=0?$apm:$_GET["apm"];
-// echo $apm;
-$sid = $_GET["sid"];
-$map = $_GET["map"];
-$winby = $_GET["winby"];
-$gTime = $_GET["gtime"];
-$mod = $_GET["mod"];
-$key = $_GET["key"];
 $date = date('Y-m-d H:i:s', time());
 $ipreal = $_SERVER['REMOTE_ADDR'];
 $cTimeMAX = date('Y-m-d H:i:s', time()-180);
 
 if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 	return;
-}
-
-$players = array();
-$races = array();
-$winners = array();
-for($i=1; $i<=8; $i++)
-{
-	$races[]   = isset($_GET["r".$i]) ? $_GET["r".$i] : 0;
-    $players[] = isset($_GET["p".$i]) ? $_GET["p".$i] : '';
-    $winners[] = $i<=4&&isset($_GET["w".$i]) ? $_GET["w".$i] : '';
 }
 
 if(strtolower($winby) == strtolower("Disconnect")){

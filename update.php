@@ -1,7 +1,7 @@
 <?php
 
-$key = $_GET["key"];
-$name = $_GET["name"];
+$key = isset($_GET["key"])?$_GET["key"]:'';
+$name = isset($_GET["name"])?$_GET["name"]:'';
 if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 	echo "неверный ключ";
 	return;

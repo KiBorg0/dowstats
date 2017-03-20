@@ -4,7 +4,7 @@ class NickDecode{
 
 		
 
-	function hexToStr($hex){
+	public static function hexToStr($hex){
 	    $string='';
 	    for ($i=0; $i < strlen($hex)-1; $i+=2){
 	        $string .= chr(hexdec($hex[$i].$hex[$i+1])) ;
@@ -14,7 +14,7 @@ class NickDecode{
 	}
 
 
-	function StrToHex($string){
+	public static function StrToHex($string){
 	    $hex='';
     for ($i=0; $i < strlen($string); $i++){
         $hex .= dechex(ord($string[$i]));
@@ -22,11 +22,11 @@ class NickDecode{
     return $hex;
 	}
 
-	function decodeNick($name){
+	public static function decodeNick($name){
 		return NickDecode::hexToStr($name);
 	}
 
-	function codeNick($name){
+	public static function codeNick($name){
 		return NickDecode::StrToHex($name);
 	}
 

@@ -1,7 +1,7 @@
-﻿<?php
+<?php
 
 class RaceSwitcher{
-	function getRace($num){
+	public static function getRace($num){
 	    switch($num){
 	        case 1:
 	            return _("Space Marines");
@@ -33,7 +33,7 @@ class RaceSwitcher{
 	    }
 	}
 
-	function getRaceNum($race_text){
+	public static function getRaceNum($race_text){
 		switch($race_text){
 			case _("Favorite race"):
 				return 0;

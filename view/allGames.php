@@ -35,8 +35,8 @@ for($i = 1; $i <= 8; $i++){
 	}
 }
 
-if($sort=='rep_download_counter')
-	$where_condition = $where_condition!='' ? '('.$where_condition.") AND replay_link!=''" : "replay_link!=''";
+// if($sort=='rep_download_counter')
+	// $where_condition = $where_condition!='' ? '('.$where_condition.") AND replay_link!=''" : "replay_link!=''";
 
 $type_condition = '';
 for($i=0; $i<4; $i++){
@@ -50,6 +50,7 @@ if($type_condition!='')
 $where_condition = $where_condition!=''?'('.$where_condition.")".$type_condition:$type_condition;
 
 $where_condition = $where_condition!='' ? $where_condition : '1';
+// echo $where_condition.' '.$sort;
 $mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY $sort DESC limit {$startFrom}, 10");
 $res = $mysqli->store_result();
 
@@ -128,7 +129,7 @@ while ($row = $res->fetch_assoc()) {
 			if($row['replay_link']!='')
 				echo "<div class='btn-group' role='group'><div class='btn btn-primary' id = 'replay_counter".$row['id']."' role='group' onclick='sort_by_downloads()'>"  . $replay_download  . "</div><a class = 'btn btn-primary' role='group' onclick='increment_replay_download(".$row['id'].")' href = '".$row['replay_link']."'>"._('Download Replay')."</a></div>";
 			else {
-				foreach (glob("../replays/*".$row['id'].".rec") as $filename)
+				foreach (glob("../replays/".$row['id'].".rec") as $filename)
 					echo "<div class='btn-group' role='group'><div class='btn btn-primary' id = 'replay_counter".$row['id']."' role='group' onclick='sort_by_downloads()'>"  . $replay_download  . "</div><a class = 'btn btn-primary' role='group' onclick='increment_replay_download(".$row['id'].")' href = '".str_replace("#", "%23", $filename)."'>"._('Download Replay')."</a></div>";
 			}
 			?>

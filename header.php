@@ -7,6 +7,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <?php
+        // require_once("lib/steam.php");
         $locale = isset($_GET['lang'])?$_GET['lang']:'en_US';
         $_SESSION['lang'] = $locale;
         $lang = $locale;
@@ -39,6 +40,16 @@
               return mb_strtoupper(mb_substr($string, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr($string, 1, mb_strlen($string), 'UTF-8');
           }
         }
+        
+        // $mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
+        // $mysqligame->real_query("SELECT * FROM players");
+        // $res = $mysqligame->store_result();
+        // $online = 0;
+        // while($row = $res->fetch_assoc()){
+        //     if(Steam::get_status($row['sid']))
+        //         $online++;
+        // }
+        
     ?>
     <div id="navbar" class="navbar-collapse collapse">
         <div id="lang_selector" class="dropdown"  >
@@ -70,6 +81,7 @@
             <li id = "battles">      <a href="<?php echo "battles.php?lang=".$lang;?>"><?php echo _('Battles');?></a></li>
             <li id = "donate">      <a href="<?php echo "donate.php?lang=".$lang;?>"><?php echo _('Donate');?></a></li>
             <li id = "collector">    <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a></li>
+            <!-- <li id = "online">    <a><?php echo $online.' '._('online');?></a></li> -->
         </ul>
             <!-- <li id = "collector">    <a href="ssstats/ssstats.rar"><?php echo _('Stats Collector');?></a></li> -->
             <!--<li class="dropdown">

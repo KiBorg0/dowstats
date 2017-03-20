@@ -197,7 +197,7 @@ else if(isset($_GET["name"]))
                             <td>".$perc.'%</td></tr>';
                 }
                 echo "<tr>";
-                if($all_sum != 0)
+                if($all_sum)
                     $Wnr8 =  round (100 * $win_sum/$all_sum);
                 echo "<td>всего</td>
                     <td>".$all_sum."</td>
@@ -210,7 +210,7 @@ else if(isset($_GET["name"]))
             </div>
 
             <?php
-            for($type = 0;$type <= 4;$type++){
+            for($type = 1;$type <= 4;$type++){
                 echo '<div class="toggle-content text-center tabs" id="tab'.$type.'">';
                 $all = 0;
                 $win = 0;

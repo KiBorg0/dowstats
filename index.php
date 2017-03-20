@@ -38,7 +38,6 @@ if ($mysqli->connect_error) {
         Circle Template 
         http://www.templatemo.com/preview/templatemo_410_circle 
         -->
-        <!-- <?php echo $_SESSION['lang'];?> -->
         <script type="text/javascript">
             var lang = '<?php echo $lang?>';
         </script>

@@ -1,8 +1,8 @@
 <?php
 
-	$key = $_GET["key"];
+	$key = isset($_GET["key"])?$_GET["key"]:'';
 	$steamid = isset($_GET["steamid"])?$_GET["steamid"]:"temp";
-	$type = $_GET["type"];
+	$type = isset($_GET["type"])?$_GET["type"]:0;
 	$version = isset($_GET['version'])?$_GET['version']:"temp";
 	if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 		echo "wrong key";
@@ -29,7 +29,7 @@
 		$uploadfile = $uploaddir.$steamid.".log";
 	
 
-	if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
+	if (isset($_FILES['file']['tmp_name'])&&move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
 	    echo $uploadfile . " the log file has been successfully downloaded.";
 	else
 	    echo $uploadfile . " failed to load a log file!";
