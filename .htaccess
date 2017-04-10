@@ -2,3 +2,20 @@
 AddType application/octet-stream .rec
 RewriteBase /
 Options All -Indexes
+
+# редирект на русскоязычную версию сайта для русских, украинских, белорусских и казахских браузеров
+
+RewriteCond %{REQUEST_URI} ^/$ [NC]
+RewriteCond %{HTTP:Accept-Language} (ru|uk|by|kz) [NC]
+RewriteRule .* http://dowstats.h1n.ru/index.php?lang=ru_RU [R=302,L]
+
+# редирект на корейскую версию сайта
+
+RewriteCond %{REQUEST_URI} ^/$ [NC]
+RewriteCond %{HTTP:Accept-Language} (ko) [NC]
+RewriteRule .* http://dowstats.h1n.ru/index.php?lang=ko_KR [R=302,L]
+
+# редирект на англоязычную версию сайта для всех остальных языков
+
+RewriteCond %{REQUEST_URI} ^/$ [NC]
+RewriteRule .* http://dowstats.h1n.ru/index.php?lang=en_US [R=302,L]

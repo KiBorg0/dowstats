@@ -41,15 +41,14 @@ if ($mysqli->connect_error) {
         <script type="text/javascript">
             var lang = '<?php echo $lang?>';
         </script>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
         <script type="text/javascript" src="js/scrollup.js"></script>
         <script type="text/javascript">
-        	$(document).ready(function () {
+    	$(document).ready(function () {
             $('#overall_stat').addClass('active');
         });
         </script>
@@ -60,26 +59,19 @@ if ($mysqli->connect_error) {
     </head>
 
     <body>
-
-
+   
     <div class="container-fluid">
         <div class="row">
             <?php 
             include "header.php";
             ?>
-            <p id = "info" style="color:red;text-indent: 25px;"><?php echo _('If your stats doesn\'t work, reinstall it with last version stats of collector!');?></p>
-            <p id = "info" style="text-indent: 25px;"><?php echo _('You can report the problem found using the following contacts:').' ';?><a href="mailto:loa92@mail.ru">loa92@mail.ru</a>, <a href="http://steamcommunity.com/id/kiborg0/">steam</a>, <a href="https://vk.com/lebedkooa">vk.com</a>.</p>
             <div class="col-md-12">
                 
                 <div id="menu-container">
 
                     <div id="menu-1" class="about content">
                         <div class="row">
-
-                            <div class="col-xs-12 col-xs-12">
-                                
                                 <div class="toggle-content text-center">
-                                <div   role="group" >
                                     <div class="btn-group" role="group">
         <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General');?></button>
         <button class="btn btn-primary" onclick="SendRaceStat(1);" role="group"><?php echo _('SM');?></button>
@@ -93,8 +85,6 @@ if ($mysqli->connect_error) {
         <button class="btn btn-primary" onclick="SendRaceStat(9);" role="group"><?php echo _('DE');?></button>
                                     </div>
                                 </div>
-                                </div>
-                            </div> <!-- /.col-md-12 -->
                         </div> <!-- /.row -->
 
 

@@ -16,8 +16,8 @@
 			      'percent' 	 => 3,
 			      'apm' 		 => 4,
 			      'favRace' 	 => 5,
-			      'allGamesTime' => 6,
-			      'top' => 7, );
+			      'allGamesTime' => 7,
+			      'top' 		 => 6, );
 
 	$mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
 
@@ -36,11 +36,14 @@
     $race_id = isset($_GET['race'])?$_GET['race']:0;
 	?>
     </br>
+    <div class="row">
     <div class="navbar-form navbar-left" style="width:400px;">
         <div class="form-group ">
             <input id="player_name_input" onkeypress=" player_name_input_keypress(event,<?php echo $race_id?>)" style="width:300px;" class="form-control" placeholder=<?php echo "'"._("Find by player name/clan name")."'"?>>
         </div>
-        <a class="btn btn-default" onclick = "Search_player(<?php echo $race_id?>)" ><span class="glyphicon glyphicon-search"></span></a>
+        <a class="btn btn-default" onclick = "Search_player(<?php echo $race_id?>)" ><span style="height:20px; width:18px;" class="glyphicon glyphicon-search"></span></a>
+        <!-- &#128269 -->
+    </div>
     </div>
 	<?php
 
@@ -78,7 +81,7 @@
 			$row['all'] = $all ;
 			$row['win'] = $win ;
 			$row['percent'] = ($all!= 0)?round(100 * $win/$all):0;
-			$row['top'] = $row['mmr'];
+			$row['top'] = $row['overall_mmr'];
 			$row['favRace'] =  $favRace ;
 			$row['allGamesTime'] =  ($all != 0)?intval($row['time'] / $all):0;
 			$array[$int] = $row;
@@ -107,10 +110,11 @@
 		$tabel_header[] = '<td style = "width:10%;"><a href = "javascript: SortBy(\'percent\');">'._('Win Rate');
 		$tabel_header[] = '<td style = "width:10%;"><a href = "javascript: SortBy(\'apm\');">'._('APM');
 		$tabel_header[] = '<td style = "width:10%;"><a href = "javascript: SortBy(\'favRace\');">'._('Favorite Race');
-		$tabel_header[] = '<td style = "width:10%;"><a href = "javascript: SortBy(\'allGamesTime\');">&asymp;'._('Time');
+		// $tabel_header[] = '<td style = "width:10%;"><a href = "javascript: SortBy(\'allGamesTime\');">&asymp;'._('Time');
+		$tabel_header[] = '<td style = "width:10%;"><a href = "javascript: SortBy(\'top\');">'._('MMR');
 		$result_header = "";
 		for($i=0; $i<7;$i++)
-			if($i==$sort_type) $result_header .= $tabel_header[$i]." &#8595;</a></td>";
+			if($i==$sort[$sort_type]) $result_header .= $tabel_header[$i]." &#8595;</a></td>";
 			else $result_header .= $tabel_header[$i]."</a></td>";
 
 		echo '<thead><tr>
@@ -134,9 +138,10 @@
 				<td>". $array[$j]['win'] . "</td>
 				<td>". $array[$j]['percent'] . "%</td>
 				<td>". $array[$j]['apm'] . "</td>
-				<td>" . RaceSwitcher::getRace($array[$j]['favRace']) . "</td>
-				<td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>
+				<td>". RaceSwitcher::getRace($array[$j]['favRace']) . "</td>
+				<td>". $array[$j]['top'] . "</td>
 				</tr>";
+				// <td>" . $timehelpint  .  " м.   " . $array[$j]['allGamesTime'] % 60 . " с. </td>
 			}
 		echo "</TABLE>";
 	}else{

@@ -19,7 +19,7 @@ $mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base"
 $searchname = strtolower($_GET["playername"]);
 $raceOption = RaceSwitcher::getRaceNum($_GET["selected_race"]);
 $selected_type = explode(";",$_GET["type_checkboxes"]);//массив[0,1,2,3], в котором true/false; 0-1x1 1-2x2 2-3x3 3-4x4
-$startFrom = isset($_GET['startFrom']) ? $_GET['startFrom'] : 0;
+$startFrom = isset($_GET['startfrom']) ? $_GET['startfrom'] : 0;
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'cTime';$game_page_limit = 10;
 $where_condition = "";
 for($i = 1; $i <= 8; $i++){
@@ -50,19 +50,17 @@ if($type_condition!='')
 $where_condition = $where_condition!=''?'('.$where_condition.")".$type_condition:$type_condition;
 
 $where_condition = $where_condition!='' ? $where_condition : '1';
-// echo $where_condition.' '.$sort;
+
 $mysqli->real_query(" SELECT * FROM games WHERE $where_condition ORDER BY $sort DESC limit {$startFrom}, 10");
 $res = $mysqli->store_result();
 
 $json = file_get_contents('../images/maps/maps.json');
 $arrara = json_decode($json, true);
-// var_dump($arrara);
+
 while ($row = $res->fetch_assoc()) {
 
 	if(!$row['confirmed']&&$row['replay_link']=='')
 		continue;
-	// echo $row['id'].' ';
-	// var_dump((glob("../replays/*".$row['id'].".rec")));
 
 	$times = ($row['gTime']%60)." "._('s.')." ";
 	$timem = ($row['gTime']/60 % 60)." "._('m.')."   ";
@@ -71,23 +69,30 @@ while ($row = $res->fetch_assoc()) {
 	$newMap = $arrara[strtolower($row['map'])]!=''?$arrara[strtolower($row['map'])]:$row['map']; 
 	$replay_download = $row['rep_download_counter'];
 
+	$statsendsid_str = $row['statsendsid'];
+	$statsendsid = unserialize(base64_decode($statsendsid_str));
+
 	?>
 
 
-	<div class="container-fluid" style="border:1px solid #cecece; border-radius: 4px;">
+	<div id="<?php echo $row['id'];?>" class="container-fluid" style="border:1px solid #cecece; border-radius: 4px;">
 	<div class="row " style = "display: flex; align-items: center;" >
-		<div class="col-md-3"  >
-			<!-- <div class = " map-container"> -->
+		<div class="col-md-3">
+				<br/>
+				<!-- <b><?php echo $row['id'];?></b> -->
 				<b><?php echo $newMap;?></b><br/><br/>
-				<img class = "img-rounded center-block" src=<?php echo 'images/maps/'.strtolower($row['map']).'.jpg'?>>
-			<!-- </div> -->
+				<?php 
+				$mapname = '../images/maps/'.strtolower($row['map']).'.jpg';
+				if(!file_exists($mapname))
+					$mapname = 'images/maps/default.jpg';
+				?>
+				<img class = "img-rounded center-block" src=<?php echo $mapname?>>
 		</div>
 		<div class="col-md-9 table-responsive">
 			<table class="table table-striped table-hover text-center table-games" >
 
 			<thead>
 				<tr>
-					<!-- <td><?php echo _("Map").": ".$newMap."<br/>"?></td> -->
 					<td><?php echo _('Players')?></td>
 					<td><?php echo _('Races')?></td>
 					<td><?php echo _('APM')?></td>
@@ -105,12 +110,19 @@ while ($row = $res->fetch_assoc()) {
 				$player_name_coded = $row["p" . $i];
 				$player_apm = $row["apm" . $i . "r"];
 				$apm = ($player_apm == 0)?"-":$player_apm;
-				$href = ($player_apm != 0) ? "<a href = 'player.php?name=". $player_name_coded."&lang=".$lang."#tab0'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
+				$href = "player.php?";
+				if($statsendsid){
+					$sid = isset($statsendsid[$i])?$statsendsid[$i]:'';
+					$href .= "sid=". $sid."&lang=".$lang."#tab0";
+				}
+				else
+					$href .= "name=". $player_name_coded."&lang=".$lang."#tab0";
+				$href = ($player_apm != 0) ? "<a href = '".$href."'>" . NickDecode::decodeNick($player_name_coded) . "</a>" :  NickDecode::decodeNick($player_name_coded);
 				echo "<TR>
 				<td>" . $href 								  . "</td>
 			    <td>" . RaceSwitcher::getRace($row["r" . $i]) . "</td>
 			    <td>" . $apm 								  . "</td>
-			    <td>" . (in_array($player_name_coded, $winners)?_('Winner'):_('Loser'))  . "</td></TR>";
+			    <td>" . (!$row['confirmed']?"-":(in_array($player_name_coded, $winners)?_('Winner'):_('Loser')))  . "</td></TR>";
 			}
 			?>
 			</table>
@@ -122,7 +134,24 @@ while ($row = $res->fetch_assoc()) {
 		</div>
 		<div class="col-md-6">
 			<?php echo "<br/><b>". $row['cTime'] . "</b>";?>
-			<?php echo "<br/>"._("Senders Steam IDs").": ".$row['statsendsid'];?>
+			<?php
+			$echo_str = "<br/>"._("Senders").": ";
+			// $echo_str = "<br/>"._("Senders Steam IDs").": ";
+			if($statsendsid)
+			{
+				echo $echo_str;
+				for($j=0;$j<=8;$j++)
+					if(isset($statsendsid[$j]))
+					{
+						$mysqli->real_query("SELECT name FROM players WHERE sid='".$statsendsid[$j]."'");
+						$resplayer = $mysqli->store_result();
+						$rowplayer = $resplayer->fetch_assoc();
+						echo "<a href='player.php?sid=".$statsendsid[$j]."&lang=".$lang."#tab0'>".NickDecode::decodeNick($rowplayer['name'])."</a> ";
+					}
+			}
+			else
+				echo $echo_str.$statsendsid_str;
+			?>
 		</div>
 		<div class="col-md-3">
 			<?php 
@@ -136,7 +165,7 @@ while ($row = $res->fetch_assoc()) {
 		</div>
 	</div>
 	</div>
-	</div>
+	<!-- </div> -->
 	<br/>
 
 <?php

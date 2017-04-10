@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-21 00:02+1000\n"
-"PO-Revision-Date: 2017-03-21 00:02+1000\n"
+"POT-Creation-Date: 2017-04-01 13:08+1000\n"
+"PO-Revision-Date: 2017-04-01 13:16+1000\n"
 "Last-Translator: New <loa92@mail.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -25,122 +25,125 @@ msgstr ""
 "X-Poedit-SearchPath-2: lib\n"
 "X-Poedit-SearchPath-3: ajax\n"
 
-#: 1x1.php:43 battles.php:45 donate.php:28 index.php:29 player.php:63
+#: 1x1.php:43 battles.php:45 index.php:29 player.php:64 support.php:28
 msgid "Soulstorm Ladder"
 msgstr "Статистика Soulstorm"
 
-#: 1x1.php:95 index.php:85
-msgid "General"
-msgstr "Общая"
+#: 1x1.php:86 index.php:75
+msgid "Donate for the project"
+msgstr "Поддержать проект"
 
-#: 1x1.php:96 index.php:86
-msgid "SM"
-msgstr "СМ"
-
-#: 1x1.php:97 index.php:87
-msgid "Chaos"
-msgstr "Хаос"
-
-#: 1x1.php:98 index.php:88 lib/RaceSwitcher.php:13 lib/RaceSwitcher.php:47
-msgid "Orks"
-msgstr "Орки"
-
-#: 1x1.php:99 index.php:89 lib/RaceSwitcher.php:16 lib/RaceSwitcher.php:50
-msgid "Eldar"
-msgstr "Эльдары"
-
-#: 1x1.php:100 index.php:90
-msgid "IG"
-msgstr "ИГ"
-
-#: 1x1.php:101 index.php:91 lib/RaceSwitcher.php:22 lib/RaceSwitcher.php:56
-msgid "Necrons"
-msgstr "Некроны"
-
-#: 1x1.php:102 index.php:92 lib/RaceSwitcher.php:25 lib/RaceSwitcher.php:59
-msgid "Tau Empire"
-msgstr "Империя Тау"
-
-#: 1x1.php:103 index.php:93
-msgid "SoB"
-msgstr "СоБ"
-
-#: 1x1.php:104 index.php:94
-msgid "DE"
-msgstr "ТЭ"
-
-#: battles.php:79 view/ajax1x1.php:71 view/allSortTable.php:41
-msgid "Find by player name/clan name"
-msgstr "Найти по имени игрока/клана"
-
-#: battles.php:80 player.php:260
-msgid "Enter opponent/ally"
-msgstr "Введите соперника/союзника"
-
-#: battles.php:87 player.php:267
-msgid "Any Race"
-msgstr "Любая раса"
-
-#: battles.php:106 player.php:286
-msgid "Find Games"
-msgstr "Найти игры"
-
-#: battles.php:115 connect_info.php:38 player.php:297
-msgid "Scroll Up"
-msgstr "Вверх"
-
-#: battles.php:115 connect_info.php:38 index.php:106 player.php:297
-msgid "Up"
-msgstr "Вверх"
-
-#: donate.php:58
+#: 1x1.php:91 index.php:80
 msgid "'ELP US LOOT DIS"
 msgstr ""
 
-#: donate.php:80 index.php:120
-msgid "Developers"
-msgstr "Разработчики"
+#: 1x1.php:107 index.php:96
+msgid "Close"
+msgstr "Закрыть"
 
-#: donate.php:80 index.php:120
-msgid "and"
-msgstr "и"
+#: 1x1.php:131 index.php:121
+msgid "General"
+msgstr "Общая"
 
-#: header.php:64 header.php:72 header.php:74
+#: 1x1.php:132 index.php:122
+msgid "SM"
+msgstr "СМ"
+
+#: 1x1.php:133 index.php:123
+msgid "Chaos"
+msgstr "Хаос"
+
+#: 1x1.php:134 index.php:124 lib/RaceSwitcher.php:13 lib/RaceSwitcher.php:47
+msgid "Orks"
+msgstr "Орки"
+
+#: 1x1.php:135 index.php:125 lib/RaceSwitcher.php:16 lib/RaceSwitcher.php:50
+msgid "Eldar"
+msgstr "Эльдары"
+
+#: 1x1.php:136 index.php:126
+msgid "IG"
+msgstr "ИГ"
+
+#: 1x1.php:137 index.php:127 lib/RaceSwitcher.php:22 lib/RaceSwitcher.php:56
+msgid "Necrons"
+msgstr "Некроны"
+
+#: 1x1.php:138 index.php:128 lib/RaceSwitcher.php:25 lib/RaceSwitcher.php:59
+msgid "Tau Empire"
+msgstr "Империя Тау"
+
+#: 1x1.php:139 index.php:129
+msgid "SoB"
+msgstr "СоБ"
+
+#: 1x1.php:140 index.php:130
+msgid "DE"
+msgstr "ТЭ"
+
+#: 1x1.php:146 index.php:136
+msgid "Donate"
+msgstr "Поддержка проекта"
+
+#: battles.php:79 view/ajax1x1.php:70 view/allSortTable.php:42
+msgid "Find by player name/clan name"
+msgstr "Найти по имени игрока/клана"
+
+#: battles.php:80 player.php:262
+msgid "Enter opponent/ally"
+msgstr "Введите соперника/союзника"
+
+#: battles.php:87 player.php:269
+msgid "Any Race"
+msgstr "Любая раса"
+
+#: battles.php:106 player.php:288
+msgid "Find Games"
+msgstr "Найти игры"
+
+#: battles.php:115 connect_info.php:44 player.php:299
+msgid "Scroll Up"
+msgstr "Вверх"
+
+#: battles.php:115 connect_info.php:44 index.php:145 player.php:299
+msgid "Up"
+msgstr "Вверх"
+
+#: header.php:75 header.php:86
 msgid "Stats Collector"
 msgstr "Сборщик статистики"
 
-#: header.php:68
+#: header.php:79
 msgid "General Ladder"
 msgstr "Общая статистика"
 
-#: header.php:69
+#: header.php:80
 msgid "1x1 Ladder"
 msgstr "Статистика 1 на 1"
 
-#: header.php:70
+#: header.php:81
 msgid "Battles"
 msgstr "Сражения"
 
-#: header.php:71
-msgid "Donate"
-msgstr "Поддержка"
+#: header.php:82
+msgid "Support"
+msgstr "Помощь"
 
-#: index.php:71
-msgid ""
-"If your stats doesn't work, reinstall it with last version stats of "
-"collector!"
-msgstr ""
-"Если ваша статистика не записывается, переустановите сборщик, используя "
-"последнюю версию!"
+#: header.php:83
+msgid "Download"
+msgstr "Скачать"
 
-#: index.php:72
-msgid "You can report the problem found using the following contacts:"
-msgstr ""
-"Вы можете сообщить о найденной проблеме, используя следующие контакты:"
-
-#: index.php:106
+#: index.php:145
 msgid "Scroll up"
 msgstr "Вверх"
+
+#: index.php:159 support.php:121
+msgid "Developers"
+msgstr "Разработчики"
+
+#: index.php:159 support.php:121
+msgid "and"
+msgstr "и"
 
 #: lib/RaceSwitcher.php:7 lib/RaceSwitcher.php:41
 msgid "Space Marines"
@@ -166,142 +169,206 @@ msgstr "Темные эльдары"
 msgid "Favorite race"
 msgstr "Любимая раса"
 
-#: player.php:136 view/ajax1x1.php:25 view/allSortTable.php:109
+#: player.php:137 view/ajax1x1.php:25 view/allSortTable.php:112
 msgid "Favorite Race"
 msgstr "Любимая раса"
 
-#: player.php:137
+#: player.php:138
 msgid "Favorite Race 1x1"
 msgstr "Любимая раса 1 на 1"
 
-#: player.php:138 view/allGames.php:92 view/allGamesPlayer.php:129
-#: view/allSortTable.php:108
+#: player.php:139 view/allGames.php:96 view/allGamesPlayer.php:135
+#: view/allSortTable.php:111
 msgid "APM"
 msgstr ""
 
-#: player.php:139
+#: player.php:140
 msgid "Share stats in VK"
 msgstr "Поделиться статистикой в ВК"
 
-#: player.php:152
+#: player.php:153
 msgid "General Stats"
 msgstr "Общая статистика"
 
-#: player.php:157
+#: player.php:158
 msgid "Last Games"
 msgstr "Последние игры"
 
-#: player.php:168 player.php:220
+#: player.php:169 player.php:222
 msgid "Race"
 msgstr "Раса"
 
-#: player.php:169 player.php:221 view/ajax1x1.php:20 view/allSortTable.php:105
-#: view/allSortTable.php:176
+#: player.php:170 player.php:223 view/ajax1x1.php:20 view/allSortTable.php:108
+#: view/allSortTable.php:181
 msgid "Number of Games"
 msgstr "Количество игр"
 
-#: player.php:170 player.php:222 view/ajax1x1.php:21 view/allSortTable.php:106
-#: view/allSortTable.php:177
+#: player.php:171 player.php:224 view/ajax1x1.php:21 view/allSortTable.php:109
+#: view/allSortTable.php:182
 msgid "Victories"
 msgstr "Побед"
 
-#: player.php:171 player.php:223
+#: player.php:172 player.php:225
 msgid "Losses"
 msgstr "Поражений"
 
-#: player.php:172 player.php:224
+#: player.php:173 player.php:226
 msgid "Wins Rate"
 msgstr "Процент побед"
 
-#: player.php:243
+#: player.php:245
 msgid "Total"
 msgstr "Всего"
 
-#: player.php:259
+#: player.php:261
 msgid "Player opponent/ally"
 msgstr "Соперник/союзник игрока"
 
-#: player.php:265
+#: player.php:267
 msgid "Player Race"
 msgstr "Раса игрока"
 
-#: view/ajax1x1.php:16 view/allSortTable.php:117 view/allSortTable.php:173
+#: support.php:88
+msgid ""
+"After reinstalling the game or checking the cache, you must reinstall the "
+"statistics collector, because the file responsible for launching it is "
+"replaced!"
+msgstr ""
+"После переустановки игры или проверки кэша необходимо переустановить сборщик "
+"статистики, потому что файл, ответственный за его запуск, заменен!"
+
+#: support.php:89
+msgid ""
+"You also need to make sure that the statistics are enabled. To do this, open "
+"the stats.ini file, check the \"enableStats\" option, it should be 1 as in "
+"the picture::"
+msgstr ""
+"Вы также должны убедиться, что статистика включена. Для этого откройте файл "
+"stats.ini, проверьте параметр «enableStats», он должен быть равен 1, как на "
+"картинке:"
+
+#: support.php:110
+msgid ""
+"If your stats are still not working, reinstall it with last version of stats "
+"collector!"
+msgstr ""
+"Если ваша статистика по-прежнему не работает, переустановите ее с помощью "
+"последней версии сборщика статистики!"
+
+#: support.php:111
+msgid "You can report the problem found using the following contacts:"
+msgstr "Вы можете сообщить о найденной проблеме, используя следующие контакты:"
+
+#: view/ajax1x1.php:16 view/allSortTable.php:121 view/allSortTable.php:178
 msgid "Number"
 msgstr "Номер"
 
-#: view/ajax1x1.php:17 view/allSortTable.php:118 view/allSortTable.php:174
+#: view/ajax1x1.php:17 view/allSortTable.php:122 view/allSortTable.php:179
 msgid "Avatar"
 msgstr "Аватар"
 
-#: view/ajax1x1.php:18 view/allSortTable.php:104 view/allSortTable.php:175
+#: view/ajax1x1.php:18 view/allSortTable.php:107 view/allSortTable.php:180
 msgid "Player"
 msgstr "Игрок"
 
-#: view/ajax1x1.php:23 view/ajax1x1.php:64 view/allSortTable.php:107
-#: view/allSortTable.php:178
+#: view/ajax1x1.php:23 view/ajax1x1.php:76 view/allSortTable.php:110
+#: view/allSortTable.php:183
 msgid "Win Rate"
 msgstr "Процент побед"
 
-#: view/allGames.php:66 view/allGamesPlayer.php:97
+#: view/allGames.php:65 view/allGamesPlayer.php:103
 msgid "s."
 msgstr "с."
 
-#: view/allGames.php:67 view/allGamesPlayer.php:98
+#: view/allGames.php:66 view/allGamesPlayer.php:104
 msgid "m."
 msgstr "м."
 
-#: view/allGames.php:69 view/allGamesPlayer.php:100
+#: view/allGames.php:68 view/allGamesPlayer.php:106
 msgid "h."
 msgstr "ч."
 
-#: view/allGames.php:89
-msgid "Map"
-msgstr "Карта"
-
-#: view/allGames.php:90 view/allGamesPlayer.php:127
+#: view/allGames.php:94 view/allGamesPlayer.php:133
 msgid "Players"
 msgstr "Игроки"
 
-#: view/allGames.php:91 view/allGamesPlayer.php:128
+#: view/allGames.php:95 view/allGamesPlayer.php:134
 msgid "Races"
 msgstr "Расы"
 
-#: view/allGames.php:93 view/allGamesPlayer.php:130
+#: view/allGames.php:97 view/allGamesPlayer.php:136
 msgid "Result"
 msgstr "Итог"
 
-#: view/allGames.php:112 view/allGamesPlayer.php:143
+#: view/allGames.php:123 view/allGamesPlayer.php:156
 msgid "Winner"
 msgstr "Победитель"
 
-#: view/allGames.php:112 view/allGamesPlayer.php:143
+#: view/allGames.php:123 view/allGamesPlayer.php:156
 msgid "Loser"
 msgstr "Проигравший"
 
-#: view/allGames.php:124 view/allGamesPlayer.php:155
-msgid "Senders Steam IDs"
-msgstr "Steam ID отправителей"
+#: view/allGames.php:136 view/allGamesPlayer.php:169
+msgid "Senders"
+msgstr "Отправители"
 
-#: view/allGames.php:129 view/allGames.php:132 view/allGamesPlayer.php:160
-#: view/allGamesPlayer.php:163
+#: view/allGames.php:157 view/allGames.php:160 view/allGamesPlayer.php:191
+#: view/allGamesPlayer.php:194
 msgid "Download Replay"
 msgstr "Скачать реплей"
 
-#: view/allGames.php:145
+#: view/allGames.php:173
 msgid "games with such parameters not found"
 msgstr "игры с такими параметрами не были найдены"
 
-#: view/allSortTable.php:99
+#: view/allSortTable.php:102
 msgid "Total Win Rate"
 msgstr "Общий процент побед"
 
-#: view/allSortTable.php:110
-msgid "Time"
-msgstr "Время"
+#: view/allSortTable.php:114
+msgid "MMR"
+msgstr ""
 
-#: view/allSortTable.php:170
+#: view/allSortTable.php:175
 msgid "Race Win Rate"
 msgstr "Процент побед расы"
+
+#~ msgid ""
+#~ "You also need to make sure that the statistics are enabled. To do this, "
+#~ "open the stats.ini file, check the \"enableStats\" parameter, it should "
+#~ "be equal 1, like:"
+#~ msgstr ""
+#~ "Вы также должны убедиться, что статистика включена. Для этого откройте "
+#~ "файл stats.ini, проверьте параметр «enableStats», он должен быть равен 1, "
+#~ "например:"
+
+#~ msgid ""
+#~ "In the system of statistics collection, a bug was found due to which the "
+#~ "updates were disabled! If your stats doesn't work, reinstall it with last "
+#~ "version of stats collector!"
+#~ msgstr ""
+#~ "В системе сбора статистики была найдена ошибка, из-за которой были "
+#~ "отключены обновления! Если ваша статистика не записывается, "
+#~ "переустановите сборщик, используя последнюю версию!"
+
+#~ msgid "online"
+#~ msgstr "онлайн"
+
+#~ msgid "Map"
+#~ msgstr "Карта"
+
+#~ msgid "Senders Steam IDs"
+#~ msgstr "Steam ID отправителей"
+
+#~ msgid "Time"
+#~ msgstr "Время"
+
+#~ msgid ""
+#~ "If your stats doesn't work, reinstall it with last version stats of "
+#~ "collector!"
+#~ msgstr ""
+#~ "Если ваша статистика не записывается, переустановите сборщик, используя "
+#~ "последнюю версию!"
 
 #~ msgid "Game Time"
 #~ msgstr "Время игры"

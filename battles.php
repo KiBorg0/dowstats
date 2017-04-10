@@ -5,6 +5,7 @@ require_once("lib/RaceSwitcher.php");
 $host = $_SERVER['HTTP_HOST'];
 
 $lang = isset($_GET['lang'])?$_GET['lang']:'en_US';
+$startFrom = isset($_GET['startfrom']) ? $_GET['startfrom'] : 0;
 putenv('LC_ALL=' . $lang);
 setlocale(LC_ALL, $lang, $lang . '.utf8');
 bind_textdomain_codeset($lang, 'UTF-8');
@@ -49,6 +50,10 @@ if ($mysqli->connect_errno) {
 
         <link href="css/main.css" rel="stylesheet"/>
         <link href="css/battles.css" rel="stylesheet"/>
+        <script type="text/javascript">
+            var lang = '<?php echo $lang?>';
+            var startFrom = '<?php echo $startFrom?>';
+        </script>
         <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
@@ -56,9 +61,6 @@ if ($mysqli->connect_errno) {
         <script type="text/javascript" src="js/battles.js"></script>
         <script type="text/javascript" src="js/scrollup.js"></script>
 
-        <script type="text/javascript">
-            var lang = '<?php echo $lang?>';
-        </script>
         <script type="text/javascript">
             $(document).ready(function () {
             $('#battles').addClass('active');

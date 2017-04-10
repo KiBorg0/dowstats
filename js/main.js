@@ -1,22 +1,13 @@
 (function (window, $) {
 	'use strict';
-
 	// Cache document for fast access.
 	var document = window.document;
-
-
-	/************** LightBox *********************/
-
 	window.onload = function()
 	{
 		SendAllStat();
 	}
-
-	
-
-
-
 })(window, jQuery);
+
 
 function SendRaceStat(raceID) {
 	//отправляю GET запрос и получаю ответ
@@ -82,4 +73,3 @@ function SendAllStat() {
 		}
 	});
 }
-

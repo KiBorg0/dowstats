@@ -2,11 +2,15 @@
 
 $key = isset($_GET["key"])?$_GET["key"]:'';
 $name = isset($_GET["name"])?$_GET["name"]:'';
+$filetype = isset($_GET["filetype"])?$_GET["filetype"]:'';
 if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 	echo "неверный ключ";
 	return;
 }
-$ssstatsdir =  "ssstats/";
+if($filetype == 'map')
+	$ssstatsdir =  "maps/";
+else
+	$ssstatsdir =  "ssstats/";
 if($name == ''){
 	
 	$versionfile = $ssstatsdir . "stats.ini";
@@ -18,8 +22,15 @@ if($name == ''){
 }
 else {
 	$file = $ssstatsdir . $name;
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename=' . $name);
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename=' . basename($file));
+	header('Content-Transfer-Encoding: binary');
+	header('Content-Length: ' . filesize($file));
+    header('Content-Type: application/octet-stream');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
 	readfile($file);
 }
 

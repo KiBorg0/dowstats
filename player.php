@@ -47,7 +47,8 @@ else if(isset($_GET["name"]))
     $row = $res->fetch_assoc();
     $sid = $row["sid"];
 }
-
+// else
+    // тут должен идти код, который будет выводить страницу игрока, если ссылка не верная
 
 
 
@@ -197,6 +198,7 @@ else if(isset($_GET["name"]))
                             <td>".$perc.'%</td></tr>';
                 }
                 echo "<tr>";
+                $Wnr8 = 0;
                 if($all_sum)
                     $Wnr8 =  round (100 * $win_sum/$all_sum);
                 echo "<td>всего</td>

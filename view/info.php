@@ -8,10 +8,11 @@ $mysqligame->real_query("SELECT * FROM url_logs ORDER BY id DESC LIMIT {$startFr
 $res = $mysqligame->store_result();
 
 echo "<tr>
-<td style = 'width:10%; '>id</td>
+<td style = 'width:5%;'>id</td>
 <td style = 'width:40%;'>url</td>
 <td style = 'width:15%;'>информация по реплею</td>
-<td style = 'width:35%;'>информация по действиям запроса</td></tr>";
+<td style = 'width:30%;'>информация по действиям запроса</td>
+<td style = 'width:10%;'>время записи</td></tr>";
 
 while ($row = $res->fetch_assoc()) {
 	
@@ -19,7 +20,8 @@ while ($row = $res->fetch_assoc()) {
 	<td>" . $row['id'] 							  ."</td>
 	<td>" . str_replace("&", "&amp;", $row['url'])."</td>
 	<td>" . $row['replay_var_dump']			      ."</td>
-	<td>" . $row['apm_calc']					  ."</td></tr>";
+	<td>" . $row['apm_calc']					  ."</td>
+	<td>" . $row['cTime']			      ."</td></tr>";
 	
 }
 

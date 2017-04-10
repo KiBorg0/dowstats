@@ -45,53 +45,37 @@ if ($mysqli->connect_errno) {
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-        <title>Circle by templatemo</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <!-- 
-        Circle Template 
-        http://www.templatemo.com/preview/templatemo_410_circle 
-        -->
         <script type="text/javascript">
             var lang = '<?php echo $lang?>';
         </script>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
         <link rel="stylesheet" href="css/main.css">
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/1x1.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
         <script type="text/javascript">
-        	$(document).ready(function () {
+    	$(document).ready(function () {
             $('#1x1_stat').addClass('active');
         });
         </script>
-
-
-
     </head>
 
     <body>
-
-
     <div class="container-fluid">
         <div class="row">
-            
-            <?php include "header.php"; ?>
-
+            <?php 
+            include "header.php";
+            ?>
             <div class="col-md-12">
                 
                 <div id="menu-container">
 
                     <div id="menu-1" class="about content">
                         <div class="row">
-
-                            <div class="col-xs-12 col-xs-12">
-                                
-                                <div class="toggle-content text-center">
-                                <div   role="group" >
-                                    <div class="btn-group" role="group">
+                            <div class="toggle-content text-center">
+                                <div class="btn-group" role="group">
         <button class="btn btn-primary" onclick="SendAllStat();" role="group"><?php echo _('General')?></button>
       	<button class="btn btn-primary" onclick="SendRaceStat(1);" role="group"><?php echo _('SM')?></button>
       	<button class="btn btn-primary" onclick="SendRaceStat(2);" role="group"><?php echo _('Chaos')?></button>
@@ -102,25 +86,12 @@ if ($mysqli->connect_errno) {
      	<button class="btn btn-primary" onclick="SendRaceStat(7);" role="group"><?php echo _('Tau Empire')?></button>
      	<button class="btn btn-primary" onclick="SendRaceStat(8);" role="group"><?php echo _('SoB')?></button>
      	<button class="btn btn-primary" onclick="SendRaceStat(9);" role="group"><?php echo _('DE')?></button>
-                                    </div>
                                 </div>
-
-
-
-                                </div>
-
-
-                            </div> <!-- /.col-md-12 -->
+                            </div>
                         </div> <!-- /.row -->
-
-
                     </div> <!-- /.about -->
-
-
                 </div> <!-- /#menu-container -->
-
             </div> <!-- /.col-md-8 -->
-
         </div> <!-- /.row -->
     </div> <!-- /.container-fluid -->
     <center>

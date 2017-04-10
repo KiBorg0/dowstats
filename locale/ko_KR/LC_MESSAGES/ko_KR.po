@@ -7,330 +7,473 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 05:28+1000\n"
-"PO-Revision-Date: 2017-02-14 05:36+1000\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2017-04-02 10:55+1000\n"
+"PO-Revision-Date: 2017-04-02 10:57+1000\n"
 "Last-Translator: New <loa92@mail.ru>\n"
 "Language-Team: \n"
 "Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.8\n"
-
-msgid "Soulstorm - stats"
-msgstr "소울스톰 - 전적"
-
-msgid "General"
-msgstr "일반"
-
-msgid "SM"
-msgstr "스페이스 마린"
-
-msgid "CSM"
-msgstr "카오스 스페이스 마린"
-
-msgid "Orks"
-msgstr "오크"
-
-msgid "Eldar"
-msgstr "엘다"
-
-msgid "IG"
-msgstr "임페리얼 가드"
-
-msgid "Necrons"
-msgstr "네크론"
-
-msgid "Tau"
-msgstr "타우"
-
-msgid "SoB"
-msgstr "시스터스 오브 배틀"
-
-msgid "DE"
-msgstr "다크 엘다"
-
-msgid "Recent games"
-msgstr "최근 게임"
-
-msgid "Find by player name/clan name"
-msgstr "\"유저명/클랜명 찾기"
-
-msgid "Enter opponent/ally"
-msgstr "\"상대/동맹 기입"
-
-msgid "Any race"
-msgstr "다른 종족"
-
-msgid "Find games"
-msgstr "경기 찾기"
-
-msgid "Scroll up"
-msgstr "위로"
-
-msgid "Up"
-msgstr "위로"
-
-msgid "General stats"
-msgstr "일반 전적"
-
-msgid "Top 1x1"
-msgstr "개인전 순위"
-
-msgid "Battles"
-msgstr "경기"
-
-msgid "Developers"
-msgstr "개발자"
-
-msgid "and"
-msgstr "와"
-
-msgid "Last games"
-msgstr "지난 게임"
-
-msgid "Share stats in VK"
-msgstr "VK에 전적 공유하기"
-
-msgid "total stats"
-msgstr "전체 전적"
-
-msgid "game time"
-msgstr "게임"
-
-msgid "h."
-msgstr "시."
-
-msgid "m."
-msgstr "분."
-
-msgid "s."
-msgstr "초."
-
-msgid "favorite race"
-msgstr "선호하는 종족"
-
-msgid "favorite race 1x1"
-msgstr "선호하는 종족 (개인전)"
-
-msgid "apm"
-msgstr "APM"
-
-msgid "race"
-msgstr "종족"
-
-msgid "count of games"
-msgstr "경기 수"
-
-msgid "wins"
-msgstr "승"
-
-msgid "losses"
-msgstr "패"
-
-msgid "wins ratio"
-msgstr "승률"
-
-msgid "stats"
-msgstr "전적"
-
-msgid "Total"
-msgstr "총"
-
-msgid "Player opponent/ally"
-msgstr "상대/동맹 플레이어"
-
-msgid "Player race"
-msgstr "플레이어 종족"
-
-msgid "Total win ratio"
-msgstr "총 승률"
-
-msgid "Race win ratio"
-msgstr "종족 승률"
-
-msgid "number"
-msgstr "순위"
-
-msgid "avatar"
-msgstr "아바타"
-
-msgid "player"
-msgstr "플레이어"
-
-msgid "win ratio"
-msgstr "승률"
-
-msgid "Game time"
-msgstr "게임 시간"
-
-msgid "Map"
-msgstr "맵"
-
-msgid "Senders steam ids"
-msgstr "송신자의 스팀 아이디"
-
-msgid "download replay"
-msgstr "리플레이 다운로드"
-
-msgid "replay is absent"
-msgstr "리플레이 없음"
-
-msgid "players"
-msgstr "순위"
-
-msgid "races"
-msgstr "종족"
-
-msgid "result"
-msgstr "결과"
-
-msgid "no data"
-msgstr "데이터 없음"
-
-msgid "win"
-msgstr "승"
-
-msgid "lose"
-msgstr "패"
-
-msgid "games with such parameters not found"
-msgstr "검색 결과를 찾을 수 없습니다."
-
-msgid "time"
-msgstr "시간"
-
-msgid "Space Marines"
-msgstr "스페이스 마린"
-
-msgid "Chaos Marines"
-msgstr "카오스 마린"
-
-msgid "Imperial Guard"
-msgstr "임페리얼 가드"
-
-msgid "Sisters of Battle"
-msgstr "시스터스 오브 배틀"
-
-msgid "Dark Eldar"
-msgstr "다크 엘다"
-
-msgid "Favorite race"
-msgstr "선호하는 종족"
-
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: 1x1.php\n"
+"X-Poedit-SearchPath-1: battles.php\n"
+"X-Poedit-SearchPath-2: connect.php\n"
+"X-Poedit-SearchPath-3: connect_info.php\n"
+"X-Poedit-SearchPath-4: header.php\n"
+"X-Poedit-SearchPath-5: index.php\n"
+"X-Poedit-SearchPath-6: logger.php\n"
+"X-Poedit-SearchPath-7: player.php\n"
+"X-Poedit-SearchPath-8: regplayer.php\n"
+"X-Poedit-SearchPath-9: replay_remover.php\n"
+"X-Poedit-SearchPath-10: sendreplay.php\n"
+"X-Poedit-SearchPath-11: support.php\n"
+"X-Poedit-SearchPath-12: truncateall.php\n"
+"X-Poedit-SearchPath-13: update.php\n"
+"X-Poedit-SearchPath-14: view\n"
+"X-Poedit-SearchPath-15: ajax\n"
+"X-Poedit-SearchPath-16: lib\n"
+
+#: 1x1.php:43 battles.php:45 index.php:29 player.php:64 support.php:28
 msgid "Soulstorm Ladder"
 msgstr "소울스톰 - 전적"
 
+#: 1x1.php:93 index.php:82
+msgid "Donate for the project"
+msgstr "프로젝트 기부"
+
+#: 1x1.php:98 index.php:87
+msgid "'ELP US LOOT DIS"
+msgstr ""
+
+#: 1x1.php:114 index.php:103
+msgid "Close"
+msgstr "닫기"
+
+#: 1x1.php:135 index.php:125
+msgid "General"
+msgstr "일반"
+
+#: 1x1.php:136 index.php:126
+msgid "SM"
+msgstr "스페이스 마린"
+
+#: 1x1.php:137 index.php:127
 msgid "Chaos"
 msgstr "카오스 스페이스 마린"
 
+#: 1x1.php:138 index.php:128 lib/RaceSwitcher.php:13 lib/RaceSwitcher.php:47
+msgid "Orks"
+msgstr "오크"
+
+#: 1x1.php:139 index.php:129 lib/RaceSwitcher.php:16 lib/RaceSwitcher.php:50
+msgid "Eldar"
+msgstr "엘다"
+
+#: 1x1.php:140 index.php:130
+msgid "IG"
+msgstr "임페리얼 가드"
+
+#: 1x1.php:141 index.php:131 lib/RaceSwitcher.php:22 lib/RaceSwitcher.php:56
+msgid "Necrons"
+msgstr "네크론"
+
+#: 1x1.php:142 index.php:132 lib/RaceSwitcher.php:25 lib/RaceSwitcher.php:59
 msgid "Tau Empire"
 msgstr "타우"
 
-msgid "Recent Games"
-msgstr "최근 게임"
+#: 1x1.php:143 index.php:133
+msgid "SoB"
+msgstr "시스터스 오브 배틀"
 
+#: 1x1.php:144 index.php:134
+msgid "DE"
+msgstr "다크 엘다"
+
+#: 1x1.php:150 index.php:140
+msgid "Donate"
+msgstr "기부"
+
+#: battles.php:79 view/ajax1x1.php:70 view/allSortTable.php:42
+msgid "Find by player name/clan name"
+msgstr "\"유저명/클랜명 찾기"
+
+#: battles.php:80 player.php:262
+msgid "Enter opponent/ally"
+msgstr "\"상대/동맹 기입"
+
+#: battles.php:87 player.php:269
 msgid "Any Race"
 msgstr "다른 종족"
 
+#: battles.php:106 player.php:288
 msgid "Find Games"
 msgstr "경기 찾기"
 
+#: battles.php:115 connect_info.php:44 player.php:299
 msgid "Scroll Up"
 msgstr "위로"
 
+#: battles.php:115 connect_info.php:44 index.php:149 player.php:299
+msgid "Up"
+msgstr "위로"
+
+#: header.php:75 header.php:86
+msgid "Stats Collector"
+msgstr "통계 수집기"
+
+#: header.php:79
 msgid "General Ladder"
 msgstr "일반 전적"
 
+#: header.php:80
 msgid "1x1 Ladder"
 msgstr "개인전 순위"
 
-msgid "General Stats"
-msgstr "일반 전적"
+#: header.php:81
+msgid "Battles"
+msgstr "경기"
 
-msgid "Last Games"
-msgstr "지난 게임"
+#: header.php:82
+msgid "Support"
+msgstr "지원하다"
 
-msgid "Total Stats"
-msgstr "전체 전적"
+#: header.php:83
+msgid "Download"
+msgstr "다운로드"
 
-msgid "Game Time"
-msgstr "게임"
+#: index.php:149
+msgid "Scroll up"
+msgstr "위로"
 
+#: index.php:163 support.php:121
+msgid "Developers"
+msgstr "개발자"
+
+#: index.php:163 support.php:121
+msgid "and"
+msgstr "와"
+
+#: lib/RaceSwitcher.php:7 lib/RaceSwitcher.php:41
+msgid "Space Marines"
+msgstr "스페이스 마린"
+
+#: lib/RaceSwitcher.php:10 lib/RaceSwitcher.php:44
+msgid "Chaos Marines"
+msgstr "카오스 마린"
+
+#: lib/RaceSwitcher.php:19 lib/RaceSwitcher.php:53
+msgid "Imperial Guard"
+msgstr "임페리얼 가드"
+
+#: lib/RaceSwitcher.php:28 lib/RaceSwitcher.php:62
+msgid "Sisters of Battle"
+msgstr "시스터스 오브 배틀"
+
+#: lib/RaceSwitcher.php:31 lib/RaceSwitcher.php:65
+msgid "Dark Eldar"
+msgstr "다크 엘다"
+
+#: lib/RaceSwitcher.php:38
+msgid "Favorite race"
+msgstr "선호하는 종족"
+
+#: player.php:137 view/ajax1x1.php:25 view/allSortTable.php:112
 msgid "Favorite Race"
 msgstr "선호하는 종족"
 
+#: player.php:138
 msgid "Favorite Race 1x1"
 msgstr "선호하는 종족 (개인전)"
 
+#: player.php:139 view/allGames.php:96 view/allGamesPlayer.php:135
+#: view/allSortTable.php:111
 msgid "APM"
 msgstr ""
 
+#: player.php:140
+msgid "Share stats in VK"
+msgstr "VK에 전적 공유하기"
+
+#: player.php:153
+msgid "General Stats"
+msgstr "일반 전적"
+
+#: player.php:158
+msgid "Last Games"
+msgstr "지난 게임"
+
+#: player.php:169 player.php:222
 msgid "Race"
 msgstr "종족"
 
+#: player.php:170 player.php:223 view/ajax1x1.php:20 view/allSortTable.php:108
+#: view/allSortTable.php:181
 msgid "Number of Games"
 msgstr "경기 수"
 
+#: player.php:171 player.php:224 view/ajax1x1.php:21 view/allSortTable.php:109
+#: view/allSortTable.php:182
 msgid "Victories"
 msgstr "승"
 
+#: player.php:172 player.php:225
 msgid "Losses"
 msgstr "패"
 
+#: player.php:173 player.php:226
 msgid "Wins Rate"
 msgstr "승률"
 
-msgid "Stats"
-msgstr "전적"
+#: player.php:245
+msgid "Total"
+msgstr "총"
 
+#: player.php:261
+msgid "Player opponent/ally"
+msgstr "상대/동맹 플레이어"
+
+#: player.php:267
 msgid "Player Race"
 msgstr "플레이어 종족"
 
-msgid "Total Win Rate"
-msgstr "총 승률"
+#: support.php:88
+msgid ""
+"After reinstalling the game or checking the cache, you must reinstall the "
+"statistics collector, because the file responsible for launching it is "
+"replaced!"
+msgstr ""
 
-msgid "Race Win Rate"
-msgstr "종족 승률"
+#: support.php:89
+msgid ""
+"You also need to make sure that the statistics are enabled. To do this, open "
+"the stats.ini file, check the \"enableStats\" option, it should be 1 as in "
+"the picture::"
+msgstr ""
 
+#: support.php:110
+msgid ""
+"If your stats are still not working, reinstall it with last version of stats "
+"collector!"
+msgstr ""
+
+#: support.php:111
+msgid "You can report the problem found using the following contacts:"
+msgstr ""
+
+#: view/ajax1x1.php:16 view/allSortTable.php:121 view/allSortTable.php:178
 msgid "Number"
 msgstr "순위"
 
+#: view/ajax1x1.php:17 view/allSortTable.php:122 view/allSortTable.php:179
 msgid "Avatar"
 msgstr "아바타"
 
+#: view/ajax1x1.php:18 view/allSortTable.php:107 view/allSortTable.php:180
 msgid "Player"
 msgstr "플레이어"
 
+#: view/ajax1x1.php:23 view/ajax1x1.php:76 view/allSortTable.php:110
+#: view/allSortTable.php:183
 msgid "Win Rate"
 msgstr "승률"
 
-msgid "Senders Steam IDs"
-msgstr "송신자의 스팀 아이디"
+#: view/allGames.php:65 view/allGamesPlayer.php:103
+msgid "s."
+msgstr "초."
 
-msgid "Download Replay"
-msgstr "리플레이 다운로드"
+#: view/allGames.php:66 view/allGamesPlayer.php:104
+msgid "m."
+msgstr "분."
 
-msgid "Replay is Absent"
-msgstr "리플레이 없음"
+#: view/allGames.php:68 view/allGamesPlayer.php:106
+msgid "h."
+msgstr "시."
 
+#: view/allGames.php:94 view/allGamesPlayer.php:133
 msgid "Players"
 msgstr "순위"
 
+#: view/allGames.php:95 view/allGamesPlayer.php:134
 msgid "Races"
 msgstr "종족"
 
+#: view/allGames.php:97 view/allGamesPlayer.php:136
 msgid "Result"
 msgstr "결과"
 
-msgid "No Data"
-msgstr "데이터 없음"
-
+#: view/allGames.php:123 view/allGamesPlayer.php:156
 msgid "Winner"
 msgstr "승"
 
+#: view/allGames.php:123 view/allGamesPlayer.php:156
 msgid "Loser"
 msgstr "패"
 
-msgid "Time"
-msgstr "시간"
+#: view/allGames.php:136 view/allGamesPlayer.php:169
+msgid "Senders"
+msgstr "발신자"
+
+#: view/allGames.php:157 view/allGames.php:160 view/allGamesPlayer.php:191
+#: view/allGamesPlayer.php:194
+msgid "Download Replay"
+msgstr "리플레이 다운로드"
+
+#: view/allGames.php:173
+msgid "games with such parameters not found"
+msgstr "검색 결과를 찾을 수 없습니다."
+
+#: view/allSortTable.php:102
+msgid "Total Win Rate"
+msgstr "총 승률"
+
+#: view/allSortTable.php:114
+msgid "MMR"
+msgstr ""
+
+#: view/allSortTable.php:175
+msgid "Race Win Rate"
+msgstr "종족 승률"
+
+#~ msgid "Soulstorm - stats"
+#~ msgstr "소울스톰 - 전적"
+
+#~ msgid "CSM"
+#~ msgstr "카오스 스페이스 마린"
+
+#~ msgid "Tau"
+#~ msgstr "타우"
+
+#~ msgid "Recent games"
+#~ msgstr "최근 게임"
+
+#~ msgid "Any race"
+#~ msgstr "다른 종족"
+
+#~ msgid "Find games"
+#~ msgstr "경기 찾기"
+
+#~ msgid "General stats"
+#~ msgstr "일반 전적"
+
+#~ msgid "Top 1x1"
+#~ msgstr "개인전 순위"
+
+#~ msgid "Last games"
+#~ msgstr "지난 게임"
+
+#~ msgid "total stats"
+#~ msgstr "전체 전적"
+
+#~ msgid "game time"
+#~ msgstr "게임"
+
+#~ msgid "favorite race"
+#~ msgstr "선호하는 종족"
+
+#~ msgid "favorite race 1x1"
+#~ msgstr "선호하는 종족 (개인전)"
+
+#~ msgid "apm"
+#~ msgstr "APM"
+
+#~ msgid "race"
+#~ msgstr "종족"
+
+#~ msgid "count of games"
+#~ msgstr "경기 수"
+
+#~ msgid "wins"
+#~ msgstr "승"
+
+#~ msgid "losses"
+#~ msgstr "패"
+
+#~ msgid "wins ratio"
+#~ msgstr "승률"
+
+#~ msgid "stats"
+#~ msgstr "전적"
+
+#~ msgid "Player race"
+#~ msgstr "플레이어 종족"
+
+#~ msgid "Total win ratio"
+#~ msgstr "총 승률"
+
+#~ msgid "Race win ratio"
+#~ msgstr "종족 승률"
+
+#~ msgid "number"
+#~ msgstr "순위"
+
+#~ msgid "avatar"
+#~ msgstr "아바타"
+
+#~ msgid "player"
+#~ msgstr "플레이어"
+
+#~ msgid "win ratio"
+#~ msgstr "승률"
+
+#~ msgid "Game time"
+#~ msgstr "게임 시간"
+
+#~ msgid "Map"
+#~ msgstr "맵"
+
+#~ msgid "Senders steam ids"
+#~ msgstr "송신자의 스팀 아이디"
+
+#~ msgid "download replay"
+#~ msgstr "리플레이 다운로드"
+
+#~ msgid "replay is absent"
+#~ msgstr "리플레이 없음"
+
+#~ msgid "players"
+#~ msgstr "순위"
+
+#~ msgid "races"
+#~ msgstr "종족"
+
+#~ msgid "result"
+#~ msgstr "결과"
+
+#~ msgid "no data"
+#~ msgstr "데이터 없음"
+
+#~ msgid "win"
+#~ msgstr "승"
+
+#~ msgid "lose"
+#~ msgstr "패"
+
+#~ msgid "time"
+#~ msgstr "시간"
+
+#~ msgid "Recent Games"
+#~ msgstr "최근 게임"
+
+#~ msgid "Total Stats"
+#~ msgstr "전체 전적"
+
+#~ msgid "Game Time"
+#~ msgstr "게임"
+
+#~ msgid "Stats"
+#~ msgstr "전적"
+
+#~ msgid "Senders Steam IDs"
+#~ msgstr "송신자의 스팀 아이디"
+
+#~ msgid "Replay is Absent"
+#~ msgstr "리플레이 없음"
+
+#~ msgid "No Data"
+#~ msgstr "데이터 없음"
+
+#~ msgid "Time"
+#~ msgstr "시간"

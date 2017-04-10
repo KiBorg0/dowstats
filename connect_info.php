@@ -30,10 +30,16 @@ date_default_timezone_set('Europe/Moscow');
 </style>
 <body>
     <div class="toggle-content text-center">
-        <center>
-            <?php echo '<table class="table table-striped table-hover text-left" id = "info_result">
-            </table>'?>
-        </center>   
+        <!-- <center> -->
+            <table class="table table-striped table-hover text-left" id = "info_result">
+<!--             <tr>
+            <td style = 'width:10%; '>id</td>
+            <td style = 'width:40%;'>url</td>
+            <td style = 'width:15%;'>информация по реплею</td>
+            <td style = 'width:35%;'>информация по действиям запроса</td></tr> -->
+            </table>
+            
+        <!-- </center>    -->
     </div>
     <div id="scrollup"><img alt=<?php echo "'"._('Scroll Up')."'"?> src="images/arrows7.png"><br/><?php echo _('Up')?></div>
 </body>

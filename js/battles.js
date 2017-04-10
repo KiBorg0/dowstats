@@ -1,5 +1,6 @@
 /* С какой статьи надо делать выборку из базы при ajax-запросе */
-var startFrom = 10;
+// var startFrom = 10;
+var startFrom = parseInt(startFrom, 10); 
 var sort = 'cTime';
 $(document).ready(function() {
 	
@@ -14,13 +15,14 @@ $(document).ready(function() {
 
         /* Если высота окна + высота прокрутки больше или равны высоте всего документа и ajax-запрос в настоящий момент не выполняется, то запускаем ajax-запрос */
         if($(window).scrollTop() + $(window).height() >= $(document).height() - 200 && !inProgress) {
+            startFrom += 10;
 			var player = $("#player_name_input").val();
 			var checkboxes = $("#1x1_checkbox").prop("checked") + ";" + $("#2x2_checkbox").prop("checked") + ";" + $("#3x3_checkbox").prop("checked") + ";" + $("#4x4_checkbox").prop("checked");
 			var selected_race = $("#race_option").val();
 	        $.ajax({
                 type:'get',
 	            url: 'view/allGames.php',
-	            data: {"startFrom" : startFrom,
+	            data: {"startfrom" : startFrom,
 					'playername': player,
 					'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
 					'selected_race': selected_race,
@@ -35,7 +37,6 @@ $(document).ready(function() {
                 success:function (data) {
                     $('#fight_result').append(data);
                     inProgress = false;
-                    startFrom += 10;
 					console.log(startFrom);
 				}
             });
@@ -72,7 +73,6 @@ function player_name_input_keypress_battles(e){
 }
 
 function search_player_battles(){
-	startFrom = 10;
 	$('#fight_result').html("searching...");
 	var player = $("#player_name_input").val();
 	//формируем строку, в которой указываем какие чекбоксы типа игры были выбраны
@@ -82,7 +82,8 @@ function search_player_battles(){
 	$.ajax({
 		type:'get',
 		url:'view/allGames.php',
-		data:{'playername': player,
+		data:{"startfrom" : startFrom,
+		'playername': player,
 		'type_checkboxes': checkboxes,//строка с выбором типа игры через ;
 		'selected_race': selected_race,
 		'sort': sort, 'lang':lang},

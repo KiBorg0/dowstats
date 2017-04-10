@@ -42,8 +42,6 @@ $mysqli = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base"
 $r_type = isset($_GET['race'])?$_GET['race']:0;//если идет запрос от сортировки, а не от верхней панели, то тип статистики(общая, СМ, хаос и т.д) берется отсюда
 $sort_type = isset($_GET['sort'])?$_GET['sort']:"mmr";
 
-$searchname = isset($_GET['playername'])?$_GET['playername']:"";
-
 //----------информация для дальнейшей сортировки-------------
 ?>
 <span style = "display:none" id = "request_type_info"><?php echo $r_type; ?></span>
@@ -61,23 +59,30 @@ else
 $res = $mysqli->store_result();
 $res = $res->fetch_assoc();
 $Wnr8 =  ($res["allsum"]!=0)?round (100 * $res["allsumwin"]/$res["allsum"]):0;
-echo _("Win Rate").": ". $Wnr8 . "%";
+
 
 
 ?>
 <br/>
+<div class="row">
 <div class="navbar-form navbar-left" style="width:400px;">
 	<div class="form-group ">
 	    <input id="player_name_input" onkeypress=" player_name_input_keypress1x1(event)" style="width:300px;" class="form-control" placeholder=<?php echo "'"._("Find by player name/clan name")."'"?>>
 	</div>
-	<a class="btn btn-default" id = "search_player" ><span class="glyphicon glyphicon-search"></span></a>
+	<a class="btn btn-default" id = "search_player" ><span style="height:20px; width:18px;" class="glyphicon glyphicon-search"></span></a>
+</div>
 </div>
 <?php
-
+echo _("Win Rate").": ". $Wnr8 . "%";
 
 echo get_table_header_by_sort_type($sort_type);
-$searchname = $searchname!=""?NickDecode::codeNick($searchname):"";
-$searchcondition = $searchname!=""?"WHERE name LIKE '%$searchname%'":"";
+
+
+
+$pname = isset($_GET['playername'])?strtolower($_GET['playername']):"";
+$searchcondition = $pname!=""?"WHERE LOWER(CONVERT(UNHEX(name) USING utf8)) LIKE '%$pname%'":"";
+// $mysqli->real_query("SELECT * FROM players WHERE LOWER(CONVERT(UNHEX(name) USING utf8)) LIKE '%$pname%' ORDER BY name DESC ");
+
 if($r_type == 0)
 	switch ($sort_type) {
 		case "allgames":
@@ -131,7 +136,7 @@ while ($row = $res->fetch_assoc()) {
 		$all += $row['1x1_'.$i];
 		$win += $row['1x1_'.$i.'w'];
 	}
-	if($all!=0)
+	if($all!=0&&$row['mmr']!=1500)
 	{
 		$number++;
 		echo "<tr>"

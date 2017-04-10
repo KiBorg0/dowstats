@@ -19,37 +19,46 @@ if($key !== "80bc7622e3ae9980005f936d5f0ac6cd"){
 $outlog = "";
 
 $mysqligame = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
-for($i=0;$i<sizeof($_GET)/2-1;$i++)
+// echo ((sizeof($_GET)-1)/2).'<br/>';
+for($k=0;$k<((sizeof($_GET)-1)/2);$k++)
 {
-	if(isset($_GET['name'.$i]))
-		$name = $_GET['name'.$i];
+	// echo '$k = '.$k.'<br/>';
+	if(isset($_GET['name'.$k]))
+		$name = $_GET['name'.$k];
 	else if(isset($_GET['name']))
 		$name = $_GET['name'];
 	else break;
-	if(isset($_GET['sid'.$i]))
-		$sid = $_GET['sid'.$i];
+
+	if(isset($_GET['sid'.$k]))
+		$sid = $_GET['sid'.$k];
 	else if(isset($_GET['sid']))
 		$sid = $_GET['sid'];
 	else break;
+	// echo 'test<br/>';
 	$mysqligame->real_query("SELECT * FROM players WHERE sid = '$sid'");
 	$res = $mysqligame->store_result();
 	if($row = $res->fetch_assoc())
 	{
-		$outlog .= " the player ".NickDecode::decodeNick($name)." is already in the database<br/>";
+		$outlog .= " the player ".NickDecode::decodeNick($name)." ".$sid." is already in the database<br/>";
 		$nicknames = unserialize(base64_decode($row['last_nicknames']));
 
 		if($nicknames?(!in_array($name, $nicknames)):true)
 		{
 			$nicknames[]=$name;
 			$nicknames_str = base64_encode(serialize($nicknames));
-			$mysqligame->real_query("UPDATE players SET last_nicknames = '$nicknames_str' WHERE sid = '$sid'");
+			// $mysqligame->real_query("UPDATE players SET last_nicknames = '$nicknames_str' WHERE sid = '$sid'");
 		}
 
 		if($row['name']!=$name)
 		{
-			// $mysqligame2 = new mysqli("localhost", "dowstats_base", "r02yMdd34A", "dowstats_base");
+			if(!in_array($row['name'], $nicknames))
+			{
+				$nicknames[]=$row['name'];
+				$nicknames_str = base64_encode(serialize($nicknames));
+				// $mysqligame->real_query("UPDATE players SET last_nicknames = '$nicknames_str' WHERE sid = '$sid'");
+			}
 
-			$mysqligame->real_query("UPDATE players SET name = '$name' WHERE sid = '$sid'");
+			$mysqligame->real_query("UPDATE players SET name = '$name', last_nicknames = '$nicknames_str' WHERE sid = '$sid'");
 			$outlog .= "player nick changed: from ".NickDecode::decodeNick($row['name'])." to ". NickDecode::decodeNick($name) ."<br/>";
 		}
 		//-----------обновляем аватарку в стиме ----------------
@@ -69,13 +78,14 @@ for($i=0;$i<sizeof($_GET)/2-1;$i++)
 			}
 
 		if($mysqligame->real_query("INSERT INTO players (name,avatar_url, time, sid, ".$query_str."mmr) values ('$name', '$avatar_url', 0,'$sid',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1500)"))
-			$outlog .= "the player with nick: ". NickDecode::decodeNick($name) ." and steamid: " . $sid . " was written to the database";
+			$outlog .= "the player with nick: ". NickDecode::decodeNick($name) ." and steamid: " . $sid . " was written to the database<br/>";
 		else
 			$outlog .= "sql error";
 	}
 }
 echo $outlog;
 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$mysqligame->real_query("INSERT INTO url_logs (url,replay_var_dump,apm_calc) VALUES ('$actual_link','-', '$outlog') ");
+$date = date('Y-m-d H:i:s', time());
+$mysqligame->real_query("INSERT INTO url_logs (url,replay_var_dump,apm_calc,cTime) VALUES ('$actual_link','-', '$outlog', '$date') ");
 
 ?>
